@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
         Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100))
-            if (hit.collider.TryGetComponent<Pickable>(out var interactable))
+            if (hit.collider.TryGetComponent<OpenSpot>(out var interactable))
                 Debug.Log(interactable.transform.position);
     }
 }

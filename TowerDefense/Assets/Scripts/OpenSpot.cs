@@ -1,9 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Random = System.Random;
-
-public class Pickable : MonoBehaviour
+public class OpenSpot : MonoBehaviour
 {
     public void Init(Vector3Int coords)
     {

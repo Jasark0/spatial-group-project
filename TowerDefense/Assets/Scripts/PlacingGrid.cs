@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 class PlacingGrid : MonoBehaviour
 {
-    [SerializeField] GameObject buildingPrefab, enemyPrefab;
+    [SerializeField] GameObject openSpotPrefab, enemyPrefab;
 
     [SerializeField] Tilemap buildingTileMap, enemyTileMap;
 
@@ -16,16 +16,17 @@ class PlacingGrid : MonoBehaviour
         buildingLocations = GetPlacedTileWorldPositions(buildingTileMap);
         enemyLocations = GetPlacedTileWorldPositions(enemyTileMap);
 
-        SpawnBuildings();
-        InvokeRepeating(
-            methodName: "SpawnEnemy",
-            time: Random.Range(1, 4),
-            repeatRate: Random.Range(2, 5));
+        SpawnOpenSpots();
+        // InvokeRepeating(
+        //     nameof(SpawnEnemy),
+        //     time: Random.Range(1, 4),
+        //     repeatRate: Random.Range(2, 5)
+        // );
     }
 
     List<Vector3> GetPlacedTileWorldPositions(Tilemap tilemap)
     {
-        List<Vector3> positions = new List<Vector3>();
+        List<Vector3> positions = new();
 
         // Loop through all potential tile positions within tilemap bounds
         BoundsInt bounds = tilemap.cellBounds;
@@ -41,16 +42,16 @@ class PlacingGrid : MonoBehaviour
         return positions;
     }
 
-    private void SpawnBuildings()
+    private void SpawnOpenSpots()
     {
         foreach (Vector3 pos in buildingLocations)
         {
             Instantiate(
-                buildingPrefab,
+                openSpotPrefab,
                 new Vector3(
                     x: pos.x + .5f,
-                    y: pos.y + .5f,
-                    z: pos.z
+                    y: pos.y,
+                    z: pos.z + .5f
                 ),
                 Quaternion.identity
             );
@@ -65,8 +66,8 @@ class PlacingGrid : MonoBehaviour
             enemyPrefab,
             new Vector3(
                 x: enemyLocations[i].x + .5f,
-                y: enemyLocations[i].y + .5f,
-                z: enemyLocations[i].z
+                y: enemyLocations[i].y + 2f,
+                z: enemyLocations[i].z + .5f
             ),
             Quaternion.identity
         );

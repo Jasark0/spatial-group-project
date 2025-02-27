@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Dart
   - Waypoints
+  - Enemy
+  - Turret
   layers:
   - Default
   - TransparentFX
