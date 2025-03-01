@@ -6,26 +6,31 @@ public class Turret : MonoBehaviour
     public float range = 10f;
     public float fireRate = 1f;
     public GameObject bulletPrefab;
-    public Transform firePoint;
+    public Transform[] firePoints;
     public float health = 100f;
     public float damagePerSecond;
-    Enemy currentTarget = null;
+    Balloon currentTarget = null;
     float timeOfLastAttack;
 
     void Start()
     {
         timeOfLastAttack = Time.time;
     }
+
     void Update()
     {
         if (currentTarget)
+        {
+            RotateTowardsTarget(currentTarget);
             Shoot(currentTarget);
+        }
         else
+        {
             currentTarget = FindClosestEnemy();
-
+        }
     }
 
-    Enemy FindClosestEnemy()
+    Balloon FindClosestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
@@ -42,18 +47,32 @@ public class Turret : MonoBehaviour
             }
         }
 
-        return closest != null && minDistance <= range ? closest.GetComponent<Enemy>() : null;
+        return closest != null && minDistance <= range ? closest.GetComponent<Balloon>() : null;
     }
 
-    void Shoot(Enemy target)
+    void RotateTowardsTarget(Balloon target)
     {
-        if (Time.time - timeOfLastAttack > fireRate && bulletPrefab && firePoint)
+        Vector3 direction = target.transform.position - transform.position;
+        direction.y = 0;
+        if (direction != Vector3.zero)
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-            if (bullet.TryGetComponent<Bullet>(out var bulletScript))
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+    }
+
+    void Shoot(Balloon target)
+    {
+        if (Time.time - timeOfLastAttack > fireRate && bulletPrefab && firePoints.Length > 0)
+        {
+            foreach (Transform firePoint in firePoints)
             {
-                Vector3 direction = target.transform.position - firePoint.position;
-                bulletScript.Init(direction);
+                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+                if (bullet.TryGetComponent<Bullet>(out var bulletScript))
+                {
+                    Vector3 direction = target.transform.position - firePoint.position;
+                    bulletScript.Init(direction);
+                }
             }
             timeOfLastAttack = Time.time;
         }
@@ -68,3 +87,6 @@ public class Turret : MonoBehaviour
         }
     }
 }
+
+
+

@@ -8,6 +8,8 @@ TagManager:
   - Waypoints
   - Enemy
   - Turret
+  - PlacementZone
+  - TurretGhost
   layers:
   - Default
   - TransparentFX

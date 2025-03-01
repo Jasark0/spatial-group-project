@@ -13,17 +13,23 @@ public class Waves : MonoBehaviour
     private float balloonTimer = 0f;
     private float nextBalloon = 1f;
 
-    //Balloon limiter
+    // Balloon limiter
     public int balloonsPerWave = 20;
     private int balloonsCount = 1;
+
     // Waves timer
     public float wavesTimer = 0f;
     public float nextWave = 20f;
 
-    // Update is called once per frame
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     void Update()
     {
-        // Send Balloons
         if (balloonTimer < Time.time && wavesTimer < Time.time)
         {
             balloonsCount++;
@@ -35,11 +41,10 @@ public class Waves : MonoBehaviour
             balloon.GetComponent<Balloon>().speed += (int)System.Math.Round(difficulty);
         }
 
-        // Create waves
-        if ( balloonsCount % balloonsPerWave == 0 && wavesTimer < Time.time)
+        if (balloonsCount % balloonsPerWave == 0 && wavesTimer < Time.time)
         {
             wavesTimer = nextWave + Time.time;
+            gameManager.UpdateMoney(100);
         }
-        
     }
 }

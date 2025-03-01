@@ -11,48 +11,61 @@ public class Balloon : MonoBehaviour
     public int speed = 1;
 
     private Material m_Material;
+    private GameManager gameManager;
+
+    void Start()
+    {
+        wayPoints = GameObject.FindGameObjectsWithTag("Waypoints");
+        wayPoints = wayPoints.OrderBy(wp => int.Parse(wp.name)).ToArray();
+        m_Material = GetComponent<Renderer>().material;
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     void Update()
     {
-        // m_Material = GetComponent<Renderer>().material;
         MoveBalloon();
-        if ( health == 3)
+        if (health == 3)
         {
             m_Material.color = Color.red;
-        } 
-        else if ( health == 2)
+        }
+        else if (health == 2)
         {
             m_Material.color = Color.blue;
-        } 
-        else if ( health == 1)
+        }
+        else if (health == 1)
         {
             m_Material.color = Color.green;
         }
     }
 
-    private void Start()
-    {
-        
-        wayPoints = GameObject.FindGameObjectsWithTag("Waypoints");
-
-        wayPoints = wayPoints.OrderBy(wp => int.Parse(wp.name)).ToArray();
-        m_Material = GetComponent<Renderer>().material;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if ( other.gameObject.tag == "Dart") 
+        if (other.gameObject.tag == "Dart") 
         {
             health--;
-            if ( health == 2)
+            if (health == 2)
             {
                 m_Material.color = Color.blue;
-            } else if (health == 1)
+            }
+            else if (health == 1)
             {
                 m_Material.color = Color.green;
             }
-            else if ( health <= 0)
+            else if (health <= 0)
             {
+                if (m_Material.color == Color.red)
+                {
+                    gameManager.UpdateScore(3);
+                }
+                else if (m_Material.color == Color.blue)
+                {
+                    gameManager.UpdateScore(2);
+                }
+                else if (m_Material.color == Color.green)
+                {
+                    gameManager.UpdateScore(1);
+                }
+                
                 Destroy(this.gameObject);
             }
         }
@@ -66,22 +79,23 @@ public class Balloon : MonoBehaviour
         Vector3 direction = nextWayPoint - transform.position;
 
         // If enemy is more than 0.1 meters from the last waypoint
-        if ( Vector3.Distance(transform.position, lastWayPoint) > 0.1f )
+        if (Vector3.Distance(transform.position, lastWayPoint) > 0.1f)
         {
             // Keep moving towards the next waypoint
             transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
         }
 
         // Increase index so if enemy reaches one waypoint
-        if ( Vector3.Distance(transform.position, nextWayPoint) < 0.5f && nextWayPointIndex < lastWayPointIndex)
+        if (Vector3.Distance(transform.position, nextWayPoint) < 0.5f && nextWayPointIndex < lastWayPointIndex)
         {
             nextWayPointIndex++;
         }
 
         // Balloon at Finish
-        if ( nextWayPointIndex == lastWayPointIndex && Vector3.Distance(transform.position, lastWayPoint) < 0.5f )
+        if (nextWayPointIndex == lastWayPointIndex && Vector3.Distance(transform.position, lastWayPoint) < 0.5f)
         {
             Destroy(this.gameObject);
         }
     }
 }
+
