@@ -183,6 +183,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret_Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 992ac02642019164a9e9c578826060df,
+        type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -230,7 +235,7 @@ MonoBehaviour:
     type: 3}
   firePoints:
   - {fileID: 3797457420449743838}
-  health: 100
+  health: 20
   damagePerSecond: 0
 --- !u!65 &-1622031407059971889
 BoxCollider:

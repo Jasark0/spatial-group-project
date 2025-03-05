@@ -25,16 +25,26 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Enemy"))
     {
-        if (other.CompareTag("Enemy"))
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null)
         {
-            Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
-            Destroy(gameObject);
+            enemy.TakeDamage(damage);
         }
+        Destroy(gameObject);
     }
+    else if (other.CompareTag("Turret"))
+    {
+        Turret turret = other.GetComponent<Turret>();
+        if (turret != null)
+        {
+            turret.TakeDamage(damage);
+        }
+        Destroy(gameObject);
+    }
+}
+
 }
