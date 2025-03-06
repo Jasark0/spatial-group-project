@@ -5,8 +5,7 @@ using TMPro;
 
 public class UpgradeSpeed : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public TextMeshProUGUI buttonText; // Assign in Inspector
+    public TextMeshProUGUI buttonText; 
     private int currentLevel = 1;
 
     void Start()
