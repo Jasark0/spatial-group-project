@@ -10,17 +10,25 @@ public class Balloon : MonoBehaviour
     public int health = 10;
     public int speed = 1;
     private GameManager gameManager;
+    public Animator animator;
+    private bool hasExploded = false;
+    public GameObject explosionPrefab;
+    public float explosionDamage = 5f;
 
     protected virtual void Start()
     {
         wayPoints = GameObject.FindGameObjectsWithTag("Waypoints");
         wayPoints = wayPoints.OrderBy(wp => int.Parse(wp.name)).ToArray();
         gameManager = FindObjectOfType<GameManager>();
+        animator = GetComponent<Animator>();
     }
 
     protected virtual void Update()
     {
-        MoveBalloon();
+        if (!hasExploded)
+        {
+            MoveBalloon();
+        }
     }
 
 private void OnTriggerEnter(Collider other)
@@ -70,10 +78,32 @@ private void MoveBalloon()
     }
 
     // Balloon at Finish
-    if (nextWayPointIndex == lastWayPointIndex && Vector3.Distance(transform.position, lastWayPoint) < 0.5f)
+        if (nextWayPointIndex == lastWayPointIndex && Vector3.Distance(transform.position, lastWayPoint) < 0.5f)
+        {
+            Explode();
+        }
+}
+private void Explode()
+{
+    if (hasExploded) return;
+
+    hasExploded = true;
+    speed = 0;
+
+    if (explosionPrefab != null)
     {
-        speed = 0;
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
     }
+
+    MainTower tower = FindObjectOfType<MainTower>();
+    if (tower != null)
+    {
+        tower.TakeDamage(explosionDamage);
+    }
+
+    Destroy(gameObject);
 }
+
 }
+
 

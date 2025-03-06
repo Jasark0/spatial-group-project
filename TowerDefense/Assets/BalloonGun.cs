@@ -11,14 +11,11 @@ public class BalloonGun : Balloon
     public Transform[] firePoints;
     private float lastFireTime;
     private Turret currentTarget;
-    
-    private Animator animator;
 
     protected override void Start()
     {
         base.Start();
         lastFireTime = Time.time;
-        animator = GetComponent<Animator>();
     }
 
     protected override void Update()

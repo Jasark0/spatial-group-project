@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -9,11 +10,20 @@ public class Turret : MonoBehaviour
     public Transform[] firePoints;
     public float health = 100f;
     public float damagePerSecond;
+
     Balloon currentTarget = null;
     float timeOfLastAttack;
 
+    // Upgrade variables
+    public int fireRateLevel = 1;
+    public int healthLevel = 1;
+    private GameManager gameManager;
+
+    public Vector3 canvasOffset = new Vector3(0, 2, 0);
+
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         timeOfLastAttack = Time.time;
     }
 
@@ -86,7 +96,37 @@ public class Turret : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void OnMouseDown()
+    {
+    Debug.Log("Turret clicked!");
+    FindObjectOfType<UpgradePanelManager>().ShowUpgradePanel(this);
+    }
+
+    public void UpgradeFireRate()
+    {
+        int upgradeCost = 100;
+
+        if (gameManager.CanAfford(upgradeCost))
+        {
+            gameManager.DeductMoney(upgradeCost);
+
+            fireRateLevel++;
+            fireRate *= 0.9f;
+        }
+    }
+
+    public void UpgradeHealth()
+    {
+        int upgradeCost = 100;
+
+        if (gameManager.CanAfford(upgradeCost))
+        {
+            gameManager.DeductMoney(upgradeCost);
+
+            healthLevel++;
+            health += 5f;
+        }
+    }
 }
-
-
 

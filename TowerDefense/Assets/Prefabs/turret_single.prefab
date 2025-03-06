@@ -347,6 +347,12 @@ MonoBehaviour:
   - {fileID: 1590979469596261111}
   health: 15
   damagePerSecond: 0
+  fireRateLevel: 1
+  healthLevel: 1
+  upgradePanel: {fileID: 0}
+  fireRateText: {fileID: 0}
+  healthText: {fileID: 0}
+  canvasOffset: {x: 0, y: 2, z: 0}
 --- !u!65 &1671288903492555271
 BoxCollider:
   m_ObjectHideFlags: 0
