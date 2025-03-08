@@ -6,7 +6,6 @@ public class Waves : MonoBehaviour
 {
     public float difficulty = 0.4f;
     public float difficultyIncreaseSpeed = 0.01f;
-    public Transform startPosition;
     public GameObject balloonGreen;
     public GameObject balloonRed;
 
@@ -24,9 +23,24 @@ public class Waves : MonoBehaviour
 
     private GameManager gameManager;
 
+    // Plane dimensions
+    public Transform planeTransform;
+    private float planeSizeX;
+    private float planeSizeZ;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+
+        if (planeTransform != null)
+        {
+            Renderer planeRenderer = planeTransform.GetComponent<Renderer>();
+            if (planeRenderer != null)
+            {
+                planeSizeX = planeRenderer.bounds.size.x / 2f;
+                planeSizeZ = planeRenderer.bounds.size.z / 2f;
+            }
+        }
     }
 
     void Update()
@@ -40,9 +54,11 @@ public class Waves : MonoBehaviour
             float chance = Random.Range(10f, 20f);
             GameObject balloonToSpawn = (Random.Range(0f, 100f) < chance) ? balloonRed : balloonGreen;
 
-            var balloon = Instantiate(balloonToSpawn, startPosition.position + new Vector3(0, 2, 0), balloonToSpawn.transform.rotation);
-            balloon.GetComponent<Balloon>().health += (int)System.Math.Round(difficulty);
-            balloon.GetComponent<Balloon>().speed += (int)System.Math.Round(difficulty);
+            Vector3 spawnPosition = GetRandomSpawnPosition();
+            var balloon = Instantiate(balloonToSpawn, spawnPosition, balloonToSpawn.transform.rotation);
+
+            balloon.GetComponent<Balloon>().health += (int)Mathf.Round(difficulty);
+            balloon.GetComponent<Balloon>().speed += (int)Mathf.Round(difficulty);
         }
 
         if (balloonsCount % balloonsPerWave == 0 && wavesTimer < Time.time)
@@ -50,5 +66,33 @@ public class Waves : MonoBehaviour
             wavesTimer = nextWave + Time.time;
             gameManager.UpdateMoney(100);
         }
+    }
+
+    private Vector3 GetRandomSpawnPosition()
+    {
+        int edge = Random.Range(0, 4);
+        float x = 0, z = 0;
+
+        switch (edge)
+        {
+            case 0:
+                x = Random.Range(-planeSizeX, planeSizeX);
+                z = planeSizeZ;
+                break;
+            case 1:
+                x = Random.Range(-planeSizeX, planeSizeX);
+                z = -planeSizeZ;
+                break;
+            case 2:
+                x = -planeSizeX;
+                z = Random.Range(-planeSizeZ, planeSizeZ);
+                break;
+            case 3:
+                x = planeSizeX;
+                z = Random.Range(-planeSizeZ, planeSizeZ);
+                break;
+        }
+
+        return new Vector3(x, 2, z);
     }
 }

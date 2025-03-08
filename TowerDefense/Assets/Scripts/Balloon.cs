@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Balloon : MonoBehaviour
 {
-    public GameObject[] wayPoints;
-    private int nextWayPointIndex = 0;
     public int health = 10;
     public int speed = 1;
     private GameManager gameManager;
@@ -14,20 +12,30 @@ public class Balloon : MonoBehaviour
     private bool hasExploded = false;
     public GameObject explosionPrefab;
     public float explosionDamage = 5f;
+    private Transform target;
 
     protected virtual void Start()
     {
-        wayPoints = GameObject.FindGameObjectsWithTag("Waypoints");
-        wayPoints = wayPoints.OrderBy(wp => int.Parse(wp.name)).ToArray();
         gameManager = FindObjectOfType<GameManager>();
         animator = GetComponent<Animator>();
+
+        GameObject tower = GameObject.FindGameObjectWithTag("MainTower");
+        if (tower != null)
+        {
+            target = tower.transform;
+        }
+        else
+        {
+            Debug.LogError("MainTower not found in the scene!");
+            Destroy(gameObject);
+        }
     }
 
     protected virtual void Update()
     {
-        if (!hasExploded)
+        if (!hasExploded && target != null)
         {
-            MoveBalloon();
+            MoveTowardsTarget();
         }
     }
 
@@ -53,36 +61,22 @@ private void OnTriggerEnter(Collider other)
     }
 }
 
-private void MoveBalloon()
-{
-    var lastWayPointIndex = wayPoints.Length - 1;
-    Vector3 lastWayPoint = wayPoints[lastWayPointIndex].transform.position + new Vector3(0, 2, 0);
-    Vector3 nextWayPoint = wayPoints[nextWayPointIndex].transform.position + new Vector3(0, 2, 0);
-    Vector3 direction = nextWayPoint - transform.position;
-
-    // If enemy is more than 0.1 meters from the last waypoint
-    if (Vector3.Distance(transform.position, lastWayPoint) > 0.1f)
+    private void MoveTowardsTarget()
     {
-        // Rotate the balloon to face the direction of movement
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime * 100);
+        Vector3 direction = (target.position - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
 
-        // Keep moving towards the next waypoint
-        transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
-    }
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        }
 
-    // Increase index so if enemy reaches one waypoint
-    if (Vector3.Distance(transform.position, nextWayPoint) < 0.5f && nextWayPointIndex < lastWayPointIndex)
-    {
-        nextWayPointIndex++;
-    }
-
-    // Balloon at Finish
-        if (nextWayPointIndex == lastWayPointIndex && Vector3.Distance(transform.position, lastWayPoint) < 0.5f)
+        if (Vector3.Distance(transform.position, target.position) < 1f)
         {
             Explode();
         }
-}
+    }
 private void Explode()
 {
     if (hasExploded) return;

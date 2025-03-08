@@ -27,15 +27,12 @@ public class UpgradePanelManager : MonoBehaviour
         upgradeHealthButton.onClick.AddListener(UpgradeHealth);
     }
 
-        void Update()
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!IsPointerOverUIElement())
-            {
-                HideUpgradePanel();
-            }
-        }
+    if (Input.GetMouseButtonDown(1))
+    {
+        HideUpgradePanel();
+    }
     }
 
     public void ShowUpgradePanel(Turret turret)
@@ -86,18 +83,5 @@ public class UpgradePanelManager : MonoBehaviour
                 UpdatePanelInfo();
             }
         }
-    }
-
-        private bool IsPointerOverUIElement()
-    {
-        PointerEventData pointerData = new PointerEventData(EventSystem.current)
-        {
-            position = Input.mousePosition
-        };
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerData, results);
-
-        return results.Count > 0;
     }
 }
