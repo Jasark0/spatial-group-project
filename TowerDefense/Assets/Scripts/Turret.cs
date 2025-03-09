@@ -128,5 +128,54 @@ public class Turret : MonoBehaviour
             health += 5f;
         }
     }
+
+ // Upgrade System Method for Turret
+    public class UpgradeLevel
+    {
+        public int cost;
+        public float damageIncrease;
+        public float fireRateIncrease;
+        public float rangeIncrease;
+        public float healthIncrease;
+    }
+    
+    public UpgradeLevel[] upgradeLevels;
+    private int currentUpgradeLevel = 0;
+
+    public void UpgradeTurret()
+    {
+        if (currentUpgradeLevel + 1 < upgradeLevels.Length)
+        {
+            UpgradeLevel nextLevel = upgradeLevels[currentUpgradeLevel + 1];
+            if (gameManager.CanAfford(nextLevel.cost))
+            {
+                gameManager.DeductMoney(nextLevel.cost);
+                ApplyUpgrade(nextLevel);
+                currentUpgradeLevel++;
+            }
+            else
+            {
+                Debug.Log("Not enough money to upgrade!");
+            }
+        }
+        else
+        {
+            Debug.Log("Turret is at max upgrade level!");
+        }
+    }
+
+    void ApplyUpgrade(UpgradeLevel upgrade)
+    {
+        damagePerSecond += upgrade.damageIncrease;
+        fireRate *= (1 + upgrade.fireRateIncrease);
+        range += upgrade.rangeIncrease;
+        health += upgrade.healthIncrease;
+    }
+
+    public int GetCurrentUpgradeLevel()
+    {
+        return currentUpgradeLevel;
+    }
 }
+
 
