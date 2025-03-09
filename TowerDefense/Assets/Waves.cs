@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Waves : MonoBehaviour
 {
@@ -11,13 +12,14 @@ public class Waves : MonoBehaviour
 
     // Timer
     private float balloonTimer = 0f;
-    private float nextBalloon = 2f;
+    private float nextBalloon = 3f;
+    private float minBalloonSpawnTime = 0.8f;
 
-    // Balloon limiter
+    // Wave system
     public int balloonsPerWave = 20;
-    private int balloonsCount = 1;
+    private int balloonsCount = 0;
+    private int currentWave = 1;
 
-    // Waves timer
     public float wavesTimer = 0f;
     public float nextWave = 20f;
 
@@ -27,6 +29,17 @@ public class Waves : MonoBehaviour
     public Transform planeTransform;
     private float planeSizeX;
     private float planeSizeZ;
+
+    // UI
+    public TMP_Text waveText;
+
+    // Red balloon chance
+    private float redBalloonChance = 10f;
+    private float maxRedBalloonChance = 30f;
+
+    // Money increase
+    private int baseMoneyReward = 200;
+    private int moneyIncreaseInterval = 5;
 
     void Start()
     {
@@ -41,6 +54,8 @@ public class Waves : MonoBehaviour
                 planeSizeZ = planeRenderer.bounds.size.z / 2f;
             }
         }
+
+        UpdateWaveUI();
     }
 
     void Update()
@@ -51,7 +66,7 @@ public class Waves : MonoBehaviour
             difficulty += difficultyIncreaseSpeed;
             balloonTimer = Time.time + nextBalloon;
 
-            float chance = Random.Range(10f, 20f);
+            float chance = Mathf.Min(redBalloonChance + (currentWave * 2), maxRedBalloonChance);
             GameObject balloonToSpawn = (Random.Range(0f, 100f) < chance) ? balloonRed : balloonGreen;
 
             Vector3 spawnPosition = GetRandomSpawnPosition();
@@ -61,11 +76,28 @@ public class Waves : MonoBehaviour
             balloon.GetComponent<Balloon>().speed += (int)Mathf.Round(difficulty);
         }
 
-        if (balloonsCount % balloonsPerWave == 0 && wavesTimer < Time.time)
+        if (balloonsCount >= balloonsPerWave)
         {
-            wavesTimer = nextWave + Time.time;
-            gameManager.UpdateMoney(100);
+            StartNextWave();
         }
+    }
+
+    private void StartNextWave()
+    {
+        balloonsCount = 0;
+        currentWave++;
+        wavesTimer = nextWave + Time.time;
+
+        if (currentWave % moneyIncreaseInterval == 0)
+        {
+            baseMoneyReward += 200;
+        }
+
+        gameManager.UpdateMoney(baseMoneyReward);
+        gameManager.UpdateScore(100);
+        nextBalloon = Mathf.Max(3f - (currentWave * 0.2f), minBalloonSpawnTime);
+
+        UpdateWaveUI();
     }
 
     private Vector3 GetRandomSpawnPosition()
@@ -94,5 +126,13 @@ public class Waves : MonoBehaviour
         }
 
         return new Vector3(x, 2, z);
+    }
+
+    private void UpdateWaveUI()
+    {
+        if (waveText != null)
+        {
+            waveText.text = "Wave: " + currentWave;
+        }
     }
 }

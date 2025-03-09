@@ -11,9 +11,6 @@ public class UpgradePanelManager : MonoBehaviour
     public GameObject upgradePanel;
     public TMP_Text fireRateText;
     public TMP_Text healthText;
-    public Button upgradeFireRateButton;
-    public Button upgradeHealthButton;
-
 
     private Turret selectedTurret;
 
@@ -23,8 +20,6 @@ public class UpgradePanelManager : MonoBehaviour
     {
         upgradePanel.SetActive(false);
         gameManager = FindObjectOfType<GameManager>();
-        upgradeFireRateButton.onClick.AddListener(UpgradeFireRate);
-        upgradeHealthButton.onClick.AddListener(UpgradeHealth);
     }
 
     void Update()
@@ -38,7 +33,6 @@ public class UpgradePanelManager : MonoBehaviour
     public void ShowUpgradePanel(Turret turret)
     {
         selectedTurret = turret;
-
         upgradePanel.SetActive(true);
         UpdatePanelInfo();
     }
@@ -57,31 +51,35 @@ public class UpgradePanelManager : MonoBehaviour
         }
     }
 
-    public void UpgradeFireRate()
+public void UpgradeFireRate()
+{
+    if (selectedTurret != null)
     {
-        if (selectedTurret != null)
+        int upgradeCost = 100;
+        if (gameManager.CanAfford(upgradeCost))
         {
-            int upgradeCost = 100;
-            if (gameManager.CanAfford(upgradeCost))
-            {
-                gameManager.DeductMoney(upgradeCost);
-                selectedTurret.UpgradeFireRate();
+            gameManager.DeductMoney(upgradeCost);
+            selectedTurret.UpgradeFireRate();
+            
+            if (upgradePanel.activeSelf) 
                 UpdatePanelInfo();
-            }
         }
     }
+}
 
-    public void UpgradeHealth()
+public void UpgradeHealth()
+{
+    if (selectedTurret != null)
     {
-        if (selectedTurret != null)
+        int upgradeCost = 100;
+        if (gameManager.CanAfford(upgradeCost))
         {
-            int upgradeCost = 100;
-            if (gameManager.CanAfford(upgradeCost))
-            {
-                gameManager.DeductMoney(upgradeCost);
-                selectedTurret.UpgradeHealth();
+            gameManager.DeductMoney(upgradeCost);
+            selectedTurret.UpgradeHealth();
+            
+            if (upgradePanel.activeSelf) 
                 UpdatePanelInfo();
-            }
         }
     }
+}
 }

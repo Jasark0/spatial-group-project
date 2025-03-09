@@ -6,7 +6,7 @@ using UnityEngine;
 public class Balloon : MonoBehaviour
 {
     public int health = 10;
-    public int speed = 1;
+    public float speed = 0.5f;
     private GameManager gameManager;
     public Animator animator;
     private bool hasExploded = false;
@@ -49,11 +49,11 @@ private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.GetComponent<BalloonGun>() != null)
             {
-                gameManager.UpdateScore(5);
+                gameManager.UpdateScore(50);
             }
             else
             {
-                gameManager.UpdateScore(3);
+                gameManager.UpdateScore(30);
             }
 
             Destroy(this.gameObject);

@@ -47,6 +47,7 @@ public class TurretPlacementManager : MonoBehaviour
         turretGhost = Instantiate(selectedTurretPrefab);
         turretGhost.tag = "TurretGhost";
         turretGhost.GetComponent<Collider>().enabled = false;
+        DisableTurretFunctionality(turretGhost);
         isPlacing = true;
     }
 
@@ -67,6 +68,18 @@ public class TurretPlacementManager : MonoBehaviour
                 Debug.Log("Not enough money to place turret");
             }
         }
+    }
+
+    void DisableTurretFunctionality(GameObject turret)
+    {
+    MonoBehaviour[] scripts = turret.GetComponents<MonoBehaviour>();
+    foreach (MonoBehaviour script in scripts)
+    {
+        if (!(script is TurretPlacementManager))
+        {
+            script.enabled = false;
+        }
+    }
     }
     void CancelPlacement()
     {

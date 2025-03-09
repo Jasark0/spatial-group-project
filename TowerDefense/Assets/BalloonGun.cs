@@ -20,7 +20,10 @@ public class BalloonGun : Balloon
 
     protected override void Update()
     {
+        if (!IsShooting()) 
+        {
         base.Update();
+        }
         FindAndAttackTurret();
     }
 
@@ -95,4 +98,9 @@ public class BalloonGun : Balloon
             lastFireTime = Time.time;
         }
     }
+
+    bool IsShooting()
+{
+    return Time.time - lastFireTime < fireRate;
+}
 }

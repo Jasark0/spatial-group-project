@@ -99,34 +99,19 @@ public class Turret : MonoBehaviour
 
     public void OnMouseDown()
     {
-    Debug.Log("Turret clicked!");
     FindObjectOfType<UpgradePanelManager>().ShowUpgradePanel(this);
     }
 
     public void UpgradeFireRate()
     {
-        int upgradeCost = 100;
-
-        if (gameManager.CanAfford(upgradeCost))
-        {
-            gameManager.DeductMoney(upgradeCost);
-
-            fireRateLevel++;
-            fireRate *= 0.9f;
-        }
+        fireRateLevel++;
+        fireRate *= 0.9f;
     }
 
     public void UpgradeHealth()
     {
-        int upgradeCost = 100;
-
-        if (gameManager.CanAfford(upgradeCost))
-        {
-            gameManager.DeductMoney(upgradeCost);
-
-            healthLevel++;
-            health += 5f;
-        }
+        healthLevel++;
+        health += 5f;
     }
 }
 
