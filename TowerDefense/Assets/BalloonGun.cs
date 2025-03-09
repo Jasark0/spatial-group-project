@@ -7,15 +7,20 @@ public class BalloonGun : Balloon
 {
     public float attackRange = 10f;
     public float fireRate = 1f;
+    public float damage = 5f;
+    public int upgradeCost = 100;
     public GameObject bulletPrefab;
     public Transform[] firePoints;
     private float lastFireTime;
     private Turret currentTarget;
+    
+    private GameManager gameManager;
 
     protected override void Start()
     {
         base.Start();
         lastFireTime = Time.time;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     protected override void Update()
@@ -95,4 +100,26 @@ public class BalloonGun : Balloon
             lastFireTime = Time.time;
         }
     }
+
+    //Boost the BallonGun stats
+    public void Upgrade()
+    {
+        if (gameManager.CanAfford(upgradeCost))
+        {
+            gameManager.DeductMoney(upgradeCost);
+
+            // Upgrade Stats
+            attackRange += 1.5f;  // Slightly increase attack range
+            fireRate *= 1.3f;     // Increase fire rate
+            damage += 2f;         // Increase damage slightly
+            upgradeCost += 50;    // Increase upgrade cost
+
+            Debug.Log($"Upgraded! Damage: {damage}, Fire Rate: {fireRate}, Range: {attackRange}, New Cost: {upgradeCost}");
+        }
+        else
+        {
+            Debug.Log("Not enough money to upgrade Balloon Gun!");
+        }
+    }
 }
+
