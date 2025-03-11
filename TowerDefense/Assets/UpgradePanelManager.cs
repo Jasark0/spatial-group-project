@@ -11,7 +11,7 @@ public class UpgradePanelManager : MonoBehaviour
     public GameObject upgradePanel;
     public TMP_Text fireRateText;
     public TMP_Text healthText;
-
+    public TMP_Text turretHealthText;
     private Turret selectedTurret;
 
     private GameManager gameManager;
@@ -24,6 +24,10 @@ public class UpgradePanelManager : MonoBehaviour
 
     void Update()
     {
+    if (upgradePanel.activeSelf && selectedTurret != null)
+    {
+        turretHealthText.text = $"Turret Health: {selectedTurret.health}";
+    }
     if (Input.GetMouseButtonDown(1))
     {
         HideUpgradePanel();
@@ -48,6 +52,7 @@ public class UpgradePanelManager : MonoBehaviour
         {
             fireRateText.text = $"Level {selectedTurret.fireRateLevel} --> {selectedTurret.fireRateLevel + 1}";
             healthText.text = $"Level {selectedTurret.healthLevel} --> {selectedTurret.healthLevel + 1}";
+            turretHealthText.text = $"Turret Health: {selectedTurret.health}";
         }
     }
 

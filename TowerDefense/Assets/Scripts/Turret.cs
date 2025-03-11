@@ -79,7 +79,7 @@ public class Turret : MonoBehaviour
                 if (bullet.TryGetComponent<Bullet>(out var bulletScript))
                 {
                     Vector3 direction = target.transform.position - firePoint.position;
-                    bulletScript.Init(direction);
+                    bulletScript.Init(direction, "Turret");
                 }
             }
             timeOfLastAttack = Time.time;

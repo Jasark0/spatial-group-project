@@ -235,7 +235,7 @@ MonoBehaviour:
     type: 3}
   firePoints:
   - {fileID: 3797457420449743838}
-  health: 20
+  health: 15
   damagePerSecond: 0
   fireRateLevel: 1
   healthLevel: 1

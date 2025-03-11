@@ -338,14 +338,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3216d06f073324b26aaad16a4683827d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 7
+  range: 10
   fireRate: 1
   bulletPrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
     type: 3}
   firePoints:
   - {fileID: 1806669420609148683}
   - {fileID: 1590979469596261111}
-  health: 15
+  health: 10
   damagePerSecond: 0
   fireRateLevel: 1
   healthLevel: 1
