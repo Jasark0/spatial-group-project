@@ -17,13 +17,11 @@ public class Turret : MonoBehaviour
     // Upgrade variables
     public int fireRateLevel = 1;
     public int healthLevel = 1;
-    private GameManager gameManager;
 
     public Vector3 canvasOffset = new Vector3(0, 2, 0);
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
         timeOfLastAttack = Time.time;
     }
 
@@ -113,7 +111,6 @@ public class Turret : MonoBehaviour
         healthLevel++;
         health += 5f;
     }
-
 }
 
 

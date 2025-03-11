@@ -9,6 +9,7 @@ public class Waves : MonoBehaviour
     public float difficultyIncreaseSpeed = 0.01f;
     public GameObject balloonGreen;
     public GameObject balloonRed;
+    public GameObject balloonGreenLarge;
 
     // Timer
     private float balloonTimer = 0f;
@@ -36,6 +37,10 @@ public class Waves : MonoBehaviour
     // Red balloon chance
     private float redBalloonChance = 10f;
     private float maxRedBalloonChance = 30f;
+
+    // Green Large Balloon chance
+    private float greenLargeBalloonChance = 0f;
+    private float maxGreenLargeBalloonChance = 30f;
 
     // Money increase
     private int baseMoneyReward = 200;
@@ -65,9 +70,29 @@ public class Waves : MonoBehaviour
             balloonsCount++;
             difficulty += difficultyIncreaseSpeed;
             balloonTimer = Time.time + nextBalloon;
+            
+            float redChance = Mathf.Min(redBalloonChance + (currentWave * 2), maxRedBalloonChance);
 
-            float chance = Mathf.Min(redBalloonChance + (currentWave * 2), maxRedBalloonChance);
-            GameObject balloonToSpawn = (Random.Range(0f, 100f) < chance) ? balloonRed : balloonGreen;
+            if (currentWave > 5)
+            {
+                greenLargeBalloonChance = Mathf.Min((currentWave - 5) * 5, maxGreenLargeBalloonChance);
+            }
+
+            float randomValue = Random.Range(0f, 100f);
+            GameObject balloonToSpawn;
+
+            if (randomValue < greenLargeBalloonChance)
+            {
+                balloonToSpawn = balloonGreenLarge;
+            }
+            else if (randomValue < redChance)
+            {
+                balloonToSpawn = balloonRed;
+            }
+            else
+            {
+                balloonToSpawn = balloonGreen;
+            }
 
             Vector3 spawnPosition = GetRandomSpawnPosition();
             var balloon = Instantiate(balloonToSpawn, spawnPosition, balloonToSpawn.transform.rotation);
