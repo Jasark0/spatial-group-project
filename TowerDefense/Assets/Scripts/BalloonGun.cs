@@ -11,7 +11,7 @@ public class BalloonGun : Balloon
     public Transform[] firePoints;
     private float lastFireTime;
     private Turret currentTarget;
-
+    public float shotPower = 1000f;
     protected override void Start()
     {
         base.Start();
@@ -20,9 +20,9 @@ public class BalloonGun : Balloon
 
     protected override void Update()
     {
-        if (!IsShooting()) 
+        if (!IsShooting())
         {
-        base.Update();
+            base.Update();
         }
         FindAndAttackTurret();
     }
@@ -92,7 +92,7 @@ public class BalloonGun : Balloon
                 if (bullet.TryGetComponent<Bullet>(out var bulletScript))
                 {
                     Vector3 direction = target.transform.position - firePoint.position;
-                    bulletScript.Init(direction, "Enemy");
+                    bulletScript.Init(direction, shotPower, "Enemy");
                 }
             }
             lastFireTime = Time.time;
@@ -100,7 +100,7 @@ public class BalloonGun : Balloon
     }
 
     bool IsShooting()
-{
-    return Time.time - lastFireTime < fireRate;
-}
+    {
+        return Time.time - lastFireTime < fireRate;
+    }
 }

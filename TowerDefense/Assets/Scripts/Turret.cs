@@ -10,6 +10,7 @@ public class Turret : MonoBehaviour
     public Transform[] firePoints;
     public float health = 100f;
     public float damagePerSecond;
+    public float shotPower = 500f;
 
     Balloon currentTarget = null;
     float timeOfLastAttack;
@@ -79,7 +80,8 @@ public class Turret : MonoBehaviour
                 if (bullet.TryGetComponent<Bullet>(out var bulletScript))
                 {
                     Vector3 direction = target.transform.position - firePoint.position;
-                    bulletScript.Init(direction, "Turret");
+                    direction.y = 0;
+                    bulletScript.Init(direction, shotPower, "Turret");
                 }
             }
             timeOfLastAttack = Time.time;
@@ -97,7 +99,7 @@ public class Turret : MonoBehaviour
 
     public void OnMouseDown()
     {
-    FindObjectOfType<UpgradePanelManager>().ShowUpgradePanel(this);
+        FindObjectOfType<UpgradePanelManager>().ShowUpgradePanel(this);
     }
 
     public void UpgradeFireRate()

@@ -8,9 +8,10 @@ public class Bullet : MonoBehaviour
     public Vector3 moveDirection;
     bool shot = false;
     public string bulletOwner = "";
-    public void Init(Vector3 direction, string owner)
+    public void Init(Vector3 direction, float shotPower, string owner)
     {
         moveDirection = direction.normalized; // Normalize to ensure consistent movement speed
+        GetComponent<Rigidbody>().AddForce(direction * shotPower);
         bulletOwner = owner;
         shot = true;
     }
@@ -31,7 +32,7 @@ public class Bullet : MonoBehaviour
     {
         if (bulletOwner == "Turret" && other.CompareTag("Turret"))
             return;
-        
+
         if (bulletOwner == "Enemy" && other.CompareTag("Enemy"))
             return;
 
