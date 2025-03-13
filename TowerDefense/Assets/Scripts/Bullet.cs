@@ -7,9 +7,11 @@ public class Bullet : MonoBehaviour
     public float maxLifeTime = 0, lifeTime = 0;
     public Vector3 moveDirection;
     bool shot = false;
-    public void Init(Vector3 direction)
+    public string bulletOwner = "";
+    public void Init(Vector3 direction, string owner)
     {
         moveDirection = direction.normalized; // Normalize to ensure consistent movement speed
+        bulletOwner = owner;
         shot = true;
     }
 
@@ -25,26 +27,31 @@ public class Bullet : MonoBehaviour
         }
     }
 
-void OnTriggerEnter(Collider other)
-{
-    if (other.CompareTag("Enemy"))
+    void OnTriggerEnter(Collider other)
     {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            enemy.TakeDamage(damage);
-        }
-        Destroy(gameObject);
-    }
-    else if (other.CompareTag("Turret"))
-    {
-        Turret turret = other.GetComponent<Turret>();
-        if (turret != null)
-        {
-            turret.TakeDamage(damage);
-        }
-        Destroy(gameObject);
-    }
-}
+        if (bulletOwner == "Turret" && other.CompareTag("Turret"))
+            return;
+        
+        if (bulletOwner == "Enemy" && other.CompareTag("Enemy"))
+            return;
 
+        if (other.CompareTag("Enemy") && bulletOwner == "Turret")
+        {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Turret") && bulletOwner == "Enemy")
+        {
+            Turret turret = other.GetComponent<Turret>();
+            if (turret != null)
+            {
+                turret.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
+    }
 }

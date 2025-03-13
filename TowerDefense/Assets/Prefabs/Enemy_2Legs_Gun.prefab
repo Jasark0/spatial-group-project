@@ -321,9 +321,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ea6aa1cdf6a4f4b8e6aa93fe7360b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wayPoints: []
-  health: 10
+  health: 5
   speed: 1
+  animator: {fileID: 0}
+  explosionPrefab: {fileID: 1857438282110991394, guid: fdbd0d181b9a45841bb37d1761f75320,
+    type: 3}
+  explosionDamage: 5
   attackRange: 10
   fireRate: 1.5
   bulletPrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,

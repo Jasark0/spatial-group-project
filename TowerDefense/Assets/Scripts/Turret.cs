@@ -17,13 +17,11 @@ public class Turret : MonoBehaviour
     // Upgrade variables
     public int fireRateLevel = 1;
     public int healthLevel = 1;
-    private GameManager gameManager;
 
     public Vector3 canvasOffset = new Vector3(0, 2, 0);
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
         timeOfLastAttack = Time.time;
     }
 
@@ -81,7 +79,7 @@ public class Turret : MonoBehaviour
                 if (bullet.TryGetComponent<Bullet>(out var bulletScript))
                 {
                     Vector3 direction = target.transform.position - firePoint.position;
-                    bulletScript.Init(direction);
+                    bulletScript.Init(direction, "Turret");
                 }
             }
             timeOfLastAttack = Time.time;
@@ -99,34 +97,20 @@ public class Turret : MonoBehaviour
 
     public void OnMouseDown()
     {
-    Debug.Log("Turret clicked!");
     FindObjectOfType<UpgradePanelManager>().ShowUpgradePanel(this);
     }
 
     public void UpgradeFireRate()
     {
-        int upgradeCost = 100;
-
-        if (gameManager.CanAfford(upgradeCost))
-        {
-            gameManager.DeductMoney(upgradeCost);
-
-            fireRateLevel++;
-            fireRate *= 0.9f;
-        }
+        fireRateLevel++;
+        fireRate *= 0.9f;
     }
 
     public void UpgradeHealth()
     {
-        int upgradeCost = 100;
-
-        if (gameManager.CanAfford(upgradeCost))
-        {
-            gameManager.DeductMoney(upgradeCost);
-
-            healthLevel++;
-            health += 5f;
-        }
+        healthLevel++;
+        health += 5f;
     }
 }
+
 

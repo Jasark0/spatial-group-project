@@ -11,10 +11,7 @@ public class UpgradePanelManager : MonoBehaviour
     public GameObject upgradePanel;
     public TMP_Text fireRateText;
     public TMP_Text healthText;
-    public Button upgradeFireRateButton;
-    public Button upgradeHealthButton;
-
-
+    public TMP_Text turretHealthText;
     private Turret selectedTurret;
 
     private GameManager gameManager;
@@ -23,25 +20,23 @@ public class UpgradePanelManager : MonoBehaviour
     {
         upgradePanel.SetActive(false);
         gameManager = FindObjectOfType<GameManager>();
-        upgradeFireRateButton.onClick.AddListener(UpgradeFireRate);
-        upgradeHealthButton.onClick.AddListener(UpgradeHealth);
     }
 
-        void Update()
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!IsPointerOverUIElement())
-            {
-                HideUpgradePanel();
-            }
-        }
+    if (upgradePanel.activeSelf && selectedTurret != null)
+    {
+        turretHealthText.text = $"Turret Health: {selectedTurret.health}";
+    }
+    if (Input.GetMouseButtonDown(1))
+    {
+        HideUpgradePanel();
+    }
     }
 
     public void ShowUpgradePanel(Turret turret)
     {
         selectedTurret = turret;
-
         upgradePanel.SetActive(true);
         UpdatePanelInfo();
     }
@@ -57,47 +52,39 @@ public class UpgradePanelManager : MonoBehaviour
         {
             fireRateText.text = $"Level {selectedTurret.fireRateLevel} --> {selectedTurret.fireRateLevel + 1}";
             healthText.text = $"Level {selectedTurret.healthLevel} --> {selectedTurret.healthLevel + 1}";
+            turretHealthText.text = $"Turret Health: {selectedTurret.health}";
         }
     }
 
-    public void UpgradeFireRate()
+public void UpgradeFireRate()
+{
+    if (selectedTurret != null)
     {
-        if (selectedTurret != null)
+        int upgradeCost = 100;
+        if (gameManager.CanAfford(upgradeCost))
         {
-            int upgradeCost = 100;
-            if (gameManager.CanAfford(upgradeCost))
-            {
-                gameManager.DeductMoney(upgradeCost);
-                selectedTurret.UpgradeFireRate();
+            gameManager.DeductMoney(upgradeCost);
+            selectedTurret.UpgradeFireRate();
+            
+            if (upgradePanel.activeSelf) 
                 UpdatePanelInfo();
-            }
         }
     }
+}
 
-    public void UpgradeHealth()
+public void UpgradeHealth()
+{
+    if (selectedTurret != null)
     {
-        if (selectedTurret != null)
+        int upgradeCost = 100;
+        if (gameManager.CanAfford(upgradeCost))
         {
-            int upgradeCost = 100;
-            if (gameManager.CanAfford(upgradeCost))
-            {
-                gameManager.DeductMoney(upgradeCost);
-                selectedTurret.UpgradeHealth();
+            gameManager.DeductMoney(upgradeCost);
+            selectedTurret.UpgradeHealth();
+            
+            if (upgradePanel.activeSelf) 
                 UpdatePanelInfo();
-            }
         }
     }
-
-        private bool IsPointerOverUIElement()
-    {
-        PointerEventData pointerData = new PointerEventData(EventSystem.current)
-        {
-            position = Input.mousePosition
-        };
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerData, results);
-
-        return results.Count > 0;
-    }
+}
 }

@@ -235,13 +235,10 @@ MonoBehaviour:
     type: 3}
   firePoints:
   - {fileID: 3797457420449743838}
-  health: 20
+  health: 15
   damagePerSecond: 0
   fireRateLevel: 1
   healthLevel: 1
-  upgradePanel: {fileID: 0}
-  fireRateText: {fileID: 0}
-  healthText: {fileID: 0}
   canvasOffset: {x: 0, y: 2, z: 0}
 --- !u!65 &-1622031407059971889
 BoxCollider:
