@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System; 
+using System;
 
 public class TurretPlacementManager : MonoBehaviour
 {
@@ -21,18 +21,21 @@ public class TurretPlacementManager : MonoBehaviour
     {
         if (isPlacing && turretGhost)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // Use the main camera's forward direction for raycasting
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 turretGhost.transform.position = hit.point;
             }
 
-            if (Input.GetMouseButtonDown(0))
+            // Use Oculus controller trigger for placement
+            if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
             {
                 PlaceTurret();
             }
 
-            if (Input.GetMouseButtonDown(1))
+            // Use Oculus controller grip button to cancel
+            if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
             {
                 CancelPlacement();
             }
@@ -72,14 +75,14 @@ public class TurretPlacementManager : MonoBehaviour
 
     void DisableTurretFunctionality(GameObject turret)
     {
-    MonoBehaviour[] scripts = turret.GetComponents<MonoBehaviour>();
-    foreach (MonoBehaviour script in scripts)
-    {
-        if (!(script is TurretPlacementManager))
+        MonoBehaviour[] scripts = turret.GetComponents<MonoBehaviour>();
+        foreach (MonoBehaviour script in scripts)
         {
-            script.enabled = false;
+            if (!(script is TurretPlacementManager))
+            {
+                script.enabled = false;
+            }
         }
-    }
     }
     void CancelPlacement()
     {
