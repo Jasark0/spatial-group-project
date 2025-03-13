@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float buildHeight = 10f;
     [SerializeField] private DartGun dartGun;
     [SerializeField] private TurretPlacementManager turretManager;
-
+    [SerializeField] private GameManager gameManager;
+    public GameObject missilePrefab;
     private ViewMode currentMode = ViewMode.FirstPerson;
     private float originalGravityModifier;
     private OVRPlayerController ovrPlayerController;
@@ -35,6 +36,13 @@ public class Player : MonoBehaviour
             currentMode = currentMode == ViewMode.FirstPerson ? ViewMode.Build : ViewMode.FirstPerson;
             SetViewMode(currentMode);
         }
+
+        if (gameManager.hasMissileStrike && OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            gameManager.hasMissileStrike = false;
+            Debug.Log("Start missile strike");
+            StartMissileStrike();
+        }
     }
 
     private void SetViewMode(ViewMode mode)
@@ -55,6 +63,17 @@ public class Player : MonoBehaviour
         {
             transform.localScale = originalScale;
             ovrPlayerController.GravityModifier = originalGravityModifier;
+        }
+    }
+
+    public void StartMissileStrike()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            Vector3 randomPosition = new(Random.Range(-20, 20), 100, Random.Range(-20, 20) - 14);
+            GameObject missile = Instantiate(missilePrefab, randomPosition, Quaternion.identity);
+            missile.transform.localScale = new Vector3(2f, 2f, 2f);
+            missile.GetComponent<Bullet>().Init(Vector3.down, 300, "Turret", 10);
         }
     }
 }

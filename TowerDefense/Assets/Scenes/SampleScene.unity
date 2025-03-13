@@ -628,6 +628,9 @@ MonoBehaviour:
   buildHeight: 10
   dartGun: {fileID: 1779490835}
   turretManager: {fileID: 1934578309}
+  gameManager: {fileID: 1479847335}
+  missilePrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
+    type: 3}
 --- !u!1 &68930290
 GameObject:
   m_ObjectHideFlags: 0
@@ -5732,7 +5735,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: -13.9}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -11147,6 +11150,8 @@ MonoBehaviour:
   money: 1000
   scoreText: {fileID: 2023949064}
   moneyText: {fileID: 1707596811}
+  missileStrikeGoal: 1000
+  hasMissileStrike: 1
 --- !u!4 &1479847336
 Transform:
   m_ObjectHideFlags: 0

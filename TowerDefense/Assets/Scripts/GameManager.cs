@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text moneyText;
 
+    public int missileStrikeGoal = 1000;
+    public bool hasMissileStrike = true;
+
     public void UpdateScore(int points)
     {
         score += points;
@@ -18,6 +21,12 @@ public class GameManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = "Score: " + score;
+        }
+
+        if (score >= missileStrikeGoal)
+        {
+            hasMissileStrike = true;
+            missileStrikeGoal *= 2;
         }
     }
 
