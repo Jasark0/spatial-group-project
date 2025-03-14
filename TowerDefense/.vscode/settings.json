@@ -44,12 +44,15 @@
         "build/": true,
         "Build/": true,
         "Library/": true,
-        "library/": true,
+        // "Library/[!PackageCache]**": true,
         "obj/": true,
         "Obj/": true,
         "ProjectSettings/": true,
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "TowerDefense.sln"
+    "dotnet.defaultSolution": "TowerDefense.sln",
+    "cSpell.words": [
+        "interactable"
+    ]
 }
