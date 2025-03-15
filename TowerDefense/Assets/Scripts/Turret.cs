@@ -39,7 +39,7 @@ public class Turret : MonoBehaviour
         }
     }
 
-    Balloon FindClosestEnemy()
+    protected virtual Balloon FindClosestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;

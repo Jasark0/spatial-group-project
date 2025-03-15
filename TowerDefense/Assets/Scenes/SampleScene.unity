@@ -629,7 +629,7 @@ MonoBehaviour:
   dartGun: {fileID: 1779490835}
   turretManager: {fileID: 1934578309}
   gameManager: {fileID: 1479847335}
-  missilePrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
+  missilePrefab: {fileID: 6978630793080837121, guid: d55a87c1a4f074946803a2ee88f715da,
     type: 3}
 --- !u!1 &68930290
 GameObject:
@@ -1309,7 +1309,7 @@ GameObject:
   - component: {fileID: 153441667}
   - component: {fileID: 153441666}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: TurretPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5012,7 +5012,7 @@ Transform:
   m_GameObject: {fileID: 582666536}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 158.41005, y: -0.28111267, z: -42.716576}
+  m_LocalPosition: {x: 186.4, y: 32, z: -101.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9545,7 +9545,7 @@ Transform:
   m_GameObject: {fileID: 1178641089}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -117.10977, y: 29.785934, z: -15.562927}
+  m_LocalPosition: {x: -191.5, y: 29.785934, z: -51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16954,7 +16954,7 @@ PrefabInstance:
     - target: {fileID: 7379613652091618489, guid: 692f74d04471f3d499238511d4fa3b6e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 4760.012
+      value: 4737.64
       objectReference: {fileID: 0}
     - target: {fileID: 7379613652091618489, guid: 692f74d04471f3d499238511d4fa3b6e,
         type: 3}
@@ -16964,7 +16964,7 @@ PrefabInstance:
     - target: {fileID: 7379613652091618489, guid: 692f74d04471f3d499238511d4fa3b6e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: -1.3066
       objectReference: {fileID: 0}
     - target: {fileID: 7379613652091618489, guid: 692f74d04471f3d499238511d4fa3b6e,
         type: 3}
