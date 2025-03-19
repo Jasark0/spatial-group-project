@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public int score = 0;
     public int money = 1000;
-    public TMP_Text scoreText;
-    public TMP_Text moneyText;
+    public TMP_Text[] scoreText;
+    public TMP_Text[] moneyText;
+    // public TMP_Text moneyTextVR;
 
     public int missileStrikeGoal = 1000;
     public bool hasMissileStrike = true;
@@ -18,10 +19,19 @@ public class GameManager : MonoBehaviour
     {
         score += points;
 
-        if (scoreText != null)
+        // if (scoreText != null)
+        // {
+        //     scoreText.text = "Score: " + score;
+        // }
+        if ( scoreText != null)
         {
-            scoreText.text = "Score: " + score;
+            foreach (TMP_Text text in scoreText)
+            {
+                text.text = "Score: " + score;
+            }
         }
+
+    
 
         if (score >= missileStrikeGoal)
         {
@@ -34,10 +44,19 @@ public class GameManager : MonoBehaviour
     {
         money += amount;
 
+        // if (moneyText != null)
+        // {
+        //     moneyText.text = "Money: $" + money.ToString();
+        // }
+
         if (moneyText != null)
         {
-            moneyText.text = "Money: $" + money.ToString();
+            foreach (TMP_Text text in moneyText)
+            {
+                text.text = "Money: $" + money.ToString();
+            }
         }
+
     }
     public bool CanAfford(int cost)
     {

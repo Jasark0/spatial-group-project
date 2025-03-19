@@ -32,7 +32,7 @@ public class Waves : MonoBehaviour
     private float planeSizeZ;
 
     // UI
-    public TMP_Text waveText;
+    public TMP_Text[] waveText;
 
     // Red balloon chance
     private float redBalloonChance = 10f;
@@ -157,7 +157,10 @@ public class Waves : MonoBehaviour
     {
         if (waveText != null)
         {
+            foreach (TMP_Text waveText in waveText)
+            {
             waveText.text = "Wave: " + currentWave;
+            }
         }
     }
 }
