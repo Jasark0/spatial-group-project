@@ -14,11 +14,21 @@ public class Balloon : MonoBehaviour
     public float explosionDamage = 5f;
     private Transform target;
 
+    private GameObject flashObject;
+
     protected virtual void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         animator = GetComponent<Animator>();
-
+        flashObject = this.transform.Find("Flash").gameObject;
+        // if (flashObject != null)
+        // {
+        //     Debug.Log("Flash Found!");
+        // }
+        // else
+        // {
+        //     Debug.LogError("Flash object not found!");
+        // }
         GameObject tower = GameObject.FindGameObjectWithTag("MainTower");
         if (tower != null)
         {
@@ -44,6 +54,7 @@ private void OnTriggerEnter(Collider other)
     if (other.gameObject.CompareTag("Dart"))
     {
         health--;
+        Flash();
 
         if (health <= 0)
         {
@@ -96,6 +107,24 @@ private void Explode()
     }
 
     Destroy(gameObject);
+}
+
+private void Flash()
+{
+
+    if ( flashObject == null)
+    {
+        Debug.LogError("Flash object not found!");
+        return;
+    }
+    flashObject.SetActive(true);
+    Invoke("HideFlash", 0.1f);
+    // flashObject.SetActive(false);
+}
+
+private void HideFlash()
+{
+    flashObject.SetActive(false);
 }
 
 }
