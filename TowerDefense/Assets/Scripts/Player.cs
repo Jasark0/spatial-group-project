@@ -1,3 +1,4 @@
+using Oculus.Interaction.Locomotion;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,15 +16,14 @@ public class Player : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     public GameObject missilePrefab;
     private ViewMode currentMode = ViewMode.FirstPerson;
-    private float originalGravityModifier;
-    private OVRPlayerController ovrPlayerController;
+    private float originalGravityFactor;
+    [SerializeField] private CapsuleLocomotionHandler ovrPlayerController;
     private Vector3 originalScale;
     private void Start()
     {
         originalScale = transform.localScale;
-        ovrPlayerController = GetComponent<OVRPlayerController>();
         Debug.Log("Player started");
-        originalGravityModifier = ovrPlayerController.GravityModifier;
+        originalGravityFactor = ovrPlayerController.GravityFactor;
         SetViewMode(ViewMode.FirstPerson);
     }
 
@@ -57,12 +57,12 @@ public class Player : MonoBehaviour
                 buildHeight,
                 transform.localScale.z
             );
-            ovrPlayerController.GravityModifier = 0;
+            ovrPlayerController.GravityFactor = 0;
         }
         else
         {
             transform.localScale = originalScale;
-            ovrPlayerController.GravityModifier = originalGravityModifier;
+            ovrPlayerController.GravityFactor = originalGravityFactor;
         }
     }
 
