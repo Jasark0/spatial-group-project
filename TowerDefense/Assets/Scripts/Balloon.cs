@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Balloon : MonoBehaviour
 {
-    public int health = 10;
+    public float health = 10;
     public float speed = 0.5f;
     private GameManager gameManager;
     public Animator animator;
@@ -21,14 +21,6 @@ public class Balloon : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         animator = GetComponent<Animator>();
         flashObject = this.transform.Find("Flash").gameObject;
-        // if (flashObject != null)
-        // {
-        //     Debug.Log("Flash Found!");
-        // }
-        // else
-        // {
-        //     Debug.LogError("Flash object not found!");
-        // }
         GameObject tower = GameObject.FindGameObjectWithTag("MainTower");
         if (tower != null)
         {
@@ -49,28 +41,16 @@ public class Balloon : MonoBehaviour
         }
     }
 
-private void OnTriggerEnter(Collider other)
-{
-    if (other.gameObject.CompareTag("Dart"))
+    public void TakeDamage(float amount)
     {
-        health--;
         Flash();
-
-        if (health <= 0)
+        health -= amount;
+        if (health <= 0f)
         {
-            if (other.gameObject.GetComponent<BalloonGun>() != null)
-            {
-                gameManager.UpdateScore(50);
-            }
-            else
-            {
-                gameManager.UpdateScore(30);
-            }
-
-            Destroy(this.gameObject);
+            gameManager.UpdateScore(30);
+            Destroy(gameObject);
         }
     }
-}
 
     private void MoveTowardsTarget()
     {
@@ -88,44 +68,44 @@ private void OnTriggerEnter(Collider other)
             Explode();
         }
     }
-private void Explode()
-{
-    if (hasExploded) return;
-
-    hasExploded = true;
-    speed = 0;
-
-    if (explosionPrefab != null)
+    private void Explode()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        if (hasExploded) return;
+
+        hasExploded = true;
+        speed = 0;
+
+        if (explosionPrefab != null)
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
+
+        MainTower tower = FindObjectOfType<MainTower>();
+        if (tower != null)
+        {
+            tower.TakeDamage(explosionDamage);
+        }
+
+        Destroy(gameObject);
     }
 
-    MainTower tower = FindObjectOfType<MainTower>();
-    if (tower != null)
+    private void Flash()
     {
-        tower.TakeDamage(explosionDamage);
+
+        if (flashObject == null)
+        {
+            Debug.LogError("Flash object not found!");
+            return;
+        }
+        flashObject.SetActive(true);
+        Invoke("HideFlash", 0.1f);
+        // flashObject.SetActive(false);
     }
 
-    Destroy(gameObject);
-}
-
-private void Flash()
-{
-
-    if ( flashObject == null)
+    private void HideFlash()
     {
-        Debug.LogError("Flash object not found!");
-        return;
+        flashObject.SetActive(false);
     }
-    flashObject.SetActive(true);
-    Invoke("HideFlash", 0.1f);
-    // flashObject.SetActive(false);
-}
-
-private void HideFlash()
-{
-    flashObject.SetActive(false);
-}
 
 }
 

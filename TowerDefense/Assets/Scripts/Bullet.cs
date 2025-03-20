@@ -34,15 +34,12 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (bulletOwner == "Turret" && other.CompareTag("Turret"))
-            return;
-
-        if (bulletOwner == "Enemy" && other.CompareTag("Enemy"))
+        if (other.CompareTag(bulletOwner))
             return;
 
         if (other.CompareTag("Enemy") && bulletOwner == "Turret")
         {
-            Enemy enemy = other.GetComponent<Enemy>();
+            Balloon enemy = other.GetComponent<Balloon>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
@@ -58,5 +55,6 @@ public class Bullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        Debug.Log(damage);
     }
 }

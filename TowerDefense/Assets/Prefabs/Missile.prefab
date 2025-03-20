@@ -93,6 +93,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2940975641377099698, guid: e5082c95609c29d42a4da9acad0af5de,
+        type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3572929573750368091, guid: e5082c95609c29d42a4da9acad0af5de,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -111,7 +116,7 @@ PrefabInstance:
     - target: {fileID: 3590411223114164000, guid: e5082c95609c29d42a4da9acad0af5de,
         type: 3}
       propertyPath: damage
-      value: 2
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
         type: 3}

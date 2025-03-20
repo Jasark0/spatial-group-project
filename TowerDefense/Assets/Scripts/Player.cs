@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
         if (gameManager.hasMissileStrike && OVRInput.GetDown(OVRInput.RawButton.A))
         {
-            gameManager.hasMissileStrike = false;
+            // gameManager.hasMissileStrike = false;
             Debug.Log("Start missile strike");
             StartMissileStrike();
         }
@@ -70,10 +70,10 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < 20; i++)
         {
-            Vector3 randomPosition = new(Random.Range(-20, 20), 100, Random.Range(-20, 20) - 14);
+            Vector3 randomPosition = new(Random.Range(-50, 50), 100, Random.Range(-50, 50) - 14);
             GameObject missile = Instantiate(missilePrefab, randomPosition, Quaternion.identity);
             missile.transform.localScale = new Vector3(2f, 2f, 2f);
-            missile.GetComponent<Bullet>().Init(Vector3.down, 300, "Turret", 10);
+            missile.GetComponent<Bullet>().Init(Vector3.down, 300, "Turret");
         }
     }
 }
