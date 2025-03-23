@@ -12,6 +12,7 @@ public class UpgradePanelManager : MonoBehaviour
     public TMP_Text fireRateText;
     public TMP_Text healthText;
     public TMP_Text turretHealthText;
+    public TMP_Text autoRepairText;
     private Turret selectedTurret;
 
     private GameManager gameManager;
@@ -53,6 +54,7 @@ public class UpgradePanelManager : MonoBehaviour
             fireRateText.text = $"Level {selectedTurret.fireRateLevel} --> {selectedTurret.fireRateLevel + 1}";
             healthText.text = $"Level {selectedTurret.healthLevel} --> {selectedTurret.healthLevel + 1}";
             turretHealthText.text = $"Turret Health: {selectedTurret.health}";
+            autoRepairText.text = $"Level {selectedTurret.autoRepairLevel} --> {selectedTurret.autoRepairLevel + 1}";
         }
     }
 
@@ -84,6 +86,22 @@ public void UpgradeHealth()
             
             if (upgradePanel.activeSelf) 
                 UpdatePanelInfo();
+        }
+    }
+}
+
+public void UpgradeAutoRepair()
+{
+ if (selectedTurret != null)
+    {
+        int upgradeCost = 100;
+        if (gameManager.CanAfford(upgradeCost))
+        {
+            gameManager.DeductMoney(upgradeCost);
+            selectedTurret.UpgradeAutoRepair(); 
+            
+            if (upgradePanel.activeSelf) 
+                UpdatePanelInfo(); 
         }
     }
 }

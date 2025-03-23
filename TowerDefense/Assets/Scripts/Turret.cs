@@ -11,13 +11,14 @@ public class Turret : MonoBehaviour
     public float health = 100f;
     public float damagePerSecond;
     public float shotPower = 500f;
-
     Balloon currentTarget = null;
     float timeOfLastAttack;
 
     // Upgrade variables
     public int fireRateLevel = 1;
     public int healthLevel = 1;
+    public int autoRepairLevel = 0; 
+    public float autoRepairRate = 0f;
 
     public Vector3 canvasOffset = new Vector3(0, 2, 0);
 
@@ -88,6 +89,14 @@ public class Turret : MonoBehaviour
         }
     }
 
+    void AutoRepair()
+    {
+        if (autoRepairRate > 0f)
+        {
+            health += autoRepairRate * Time.deltaTime;
+        }
+    }
+
     public void TakeDamage(float amount)
     {
         health -= amount;
@@ -112,6 +121,13 @@ public class Turret : MonoBehaviour
     {
         healthLevel++;
         health += 5f;
+    }
+
+
+    public void UpgradeAutoRepair() 
+    {
+        autoRepairLevel++;
+        autoRepairRate = autoRepairLevel * 1f; 
     }
 }
 
