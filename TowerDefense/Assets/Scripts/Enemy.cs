@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
         health -= amount;
         if (health <= 0f)
         {
+            AudioManager.Instance.PlayExplosion();
             Destroy(gameObject);
         }
     }
