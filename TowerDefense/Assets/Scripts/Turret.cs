@@ -86,6 +86,8 @@ public class Turret : MonoBehaviour
                 }
             }
             timeOfLastAttack = Time.time;
+
+            AudioManager.Instance.PlayTurretFire(); 
         }
     }
 
