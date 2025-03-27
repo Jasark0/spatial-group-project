@@ -20,6 +20,7 @@ public class DartGun : MonoBehaviour
 
     void Shoot()
     {
+        AudioManager.Instance.PlayReload();
         // Instantsiate a new dart at the barrel location in the barrellocation rotation
         var dart = Instantiate(dartPrefab, barrelLocation.position, barrelLocation.transform.rotation);
         // Spin the dart in the correct direction. if this is wrong for you try other values until it's correct

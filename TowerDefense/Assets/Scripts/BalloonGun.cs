@@ -38,6 +38,7 @@ public class BalloonGun : Balloon
         {
             RotateTowardsTarget(currentTarget);
             Shoot(currentTarget);
+            AudioManager.Instance.PlayLaser();
         }
     }
 
