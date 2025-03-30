@@ -309,6 +309,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Flying
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e092779b394123f479854830fd73a8ae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -455,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 6
-  speed: 1
+  speed: 2.5
   animator: {fileID: 0}
   explosionPrefab: {fileID: 1857438282110991394, guid: fdbd0d181b9a45841bb37d1761f75320,
     type: 3}

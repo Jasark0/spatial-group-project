@@ -39,25 +39,27 @@ public class Turret : MonoBehaviour
         }
     }
 
-    protected virtual Balloon FindClosestEnemy()
+protected virtual Balloon FindClosestEnemy()
+{
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    GameObject closest = null;
+    float minDistance = Mathf.Infinity;
+    Vector3 currentPosition = transform.position;
+
+    foreach (GameObject enemy in enemies)
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject closest = null;
-        float minDistance = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
+        if (enemy.transform.position.y >= 10) continue;
 
-        foreach (GameObject enemy in enemies)
+        float distance = Vector3.Distance(currentPosition, enemy.transform.position);
+        if (distance < minDistance)
         {
-            float distance = Vector3.Distance(currentPosition, enemy.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closest = enemy;
-            }
+            minDistance = distance;
+            closest = enemy;
         }
-
-        return closest != null && minDistance <= range ? closest.GetComponent<Balloon>() : null;
     }
+
+    return closest != null && minDistance <= range ? closest.GetComponent<Balloon>() : null;
+}
 
     void RotateTowardsTarget(Balloon target)
     {
@@ -70,7 +72,7 @@ public class Turret : MonoBehaviour
         }
     }
 
-    void Shoot(Balloon target)
+    protected virtual void Shoot(Balloon target)
     {
         if (Time.time - timeOfLastAttack > fireRate && bulletPrefab && firePoints.Length > 0)
         {

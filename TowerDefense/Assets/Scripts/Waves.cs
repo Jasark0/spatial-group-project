@@ -10,6 +10,7 @@ public class Waves : MonoBehaviour
     public GameObject balloonGreen;
     public GameObject balloonRed;
     public GameObject balloonGreenLarge;
+    public GameObject flyingBalloon;
 
     // Timer
     private float balloonTimer = 0f;
@@ -41,6 +42,10 @@ public class Waves : MonoBehaviour
     // Green Large Balloon chance
     private float greenLargeBalloonChance = 0f;
     private float maxGreenLargeBalloonChance = 30f;
+
+    // Flying Balloon chance
+    private float flyingBalloonChance = 0f;
+    private float maxFlyingBalloonChance = 25f;
 
     // Money increase
     private int baseMoneyReward = 200;
@@ -78,10 +83,19 @@ public class Waves : MonoBehaviour
                 greenLargeBalloonChance = Mathf.Min((currentWave - 5) * 5, maxGreenLargeBalloonChance);
             }
 
+            if (currentWave > 10)
+            {
+                flyingBalloonChance = Mathf.Min((currentWave - 10) * 3, maxFlyingBalloonChance);
+            }
+
             float randomValue = Random.Range(0f, 100f);
             GameObject balloonToSpawn;
 
-            if (randomValue < greenLargeBalloonChance)
+            if (randomValue < flyingBalloonChance)
+            {
+                balloonToSpawn = flyingBalloon;
+            }
+            else if (randomValue < greenLargeBalloonChance)
             {
                 balloonToSpawn = balloonGreenLarge;
             }
@@ -94,7 +108,7 @@ public class Waves : MonoBehaviour
                 balloonToSpawn = balloonGreen;
             }
 
-            Vector3 spawnPosition = GetRandomSpawnPosition();
+            Vector3 spawnPosition = GetRandomSpawnPosition(balloonToSpawn);
             var balloon = Instantiate(balloonToSpawn, spawnPosition, balloonToSpawn.transform.rotation);
 
             balloon.GetComponent<Balloon>().health += (int)Mathf.Round(difficulty);
@@ -125,10 +139,10 @@ public class Waves : MonoBehaviour
         UpdateWaveUI();
     }
 
-    private Vector3 GetRandomSpawnPosition()
+    private Vector3 GetRandomSpawnPosition(GameObject balloon)
     {
         int edge = Random.Range(0, 4);
-        float x = 0, z = 0;
+        float x = 0, z = 0, y = 0;
 
         switch (edge)
         {
@@ -150,7 +164,12 @@ public class Waves : MonoBehaviour
                 break;
         }
 
-        return new Vector3(x, 2, z);
+        if (balloon == flyingBalloon)
+        {
+            y = Random.Range(15f, 30f);
+        }
+
+        return new Vector3(x, y, z);
     }
 
     private void UpdateWaveUI()
