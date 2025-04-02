@@ -19,14 +19,16 @@ public class Player : MonoBehaviour
     private ViewMode currentMode = ViewMode.FirstPerson;
     private float originalGravityFactor;
     [SerializeField] private CapsuleLocomotionHandler ovrPlayerController;
+    private CapsuleCollider playerCollider;
     private Vector3 originalScale;
     private float planeSizeX;
     private float planeSizeZ;
 
     private void Start()
     {
-        originalScale = transform.localScale;
         Debug.Log("Player started");
+        originalScale = transform.localScale;
+        playerCollider = ovrPlayerController.GetComponent<CapsuleCollider>();
         originalGravityFactor = ovrPlayerController.GravityFactor;
         SetViewMode(ViewMode.FirstPerson);
 
@@ -67,16 +69,18 @@ public class Player : MonoBehaviour
         if (mode == ViewMode.Build)
         {
             transform.localScale = new Vector3(
-                transform.localScale.x,
                 buildHeight,
-                transform.localScale.z
+                buildHeight,
+                buildHeight
             );
             ovrPlayerController.GravityFactor = 0;
+            playerCollider.enabled = false;
         }
         else
         {
             transform.localScale = originalScale;
             ovrPlayerController.GravityFactor = originalGravityFactor;
+            playerCollider.enabled = true;
         }
     }
 
