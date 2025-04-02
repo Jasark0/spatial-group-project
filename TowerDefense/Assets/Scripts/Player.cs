@@ -14,17 +14,31 @@ public class Player : MonoBehaviour
     [SerializeField] private DartGun dartGun;
     [SerializeField] private TurretPlacementManager turretManager;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Transform planeTransform;
     public GameObject missilePrefab;
     private ViewMode currentMode = ViewMode.FirstPerson;
     private float originalGravityFactor;
     [SerializeField] private CapsuleLocomotionHandler ovrPlayerController;
     private Vector3 originalScale;
+    private float planeSizeX;
+    private float planeSizeZ;
+
     private void Start()
     {
         originalScale = transform.localScale;
         Debug.Log("Player started");
         originalGravityFactor = ovrPlayerController.GravityFactor;
         SetViewMode(ViewMode.FirstPerson);
+
+        if (planeTransform != null)
+        {
+            Renderer planeRenderer = planeTransform.GetComponent<Renderer>();
+            if (planeRenderer != null)
+            {
+                planeSizeX = planeRenderer.bounds.size.x / 2f;
+                planeSizeZ = planeRenderer.bounds.size.z / 2f;
+            }
+        }
     }
 
     private void Update()
@@ -68,9 +82,12 @@ public class Player : MonoBehaviour
 
     public void StartMissileStrike()
     {
+        Vector3 planeCenter = planeTransform.position;
         for (int i = 0; i < 20; i++)
         {
-            Vector3 randomPosition = new(Random.Range(-50, 50), 100, Random.Range(-50, 50) - 14);
+            float x = Random.Range(planeCenter.x - planeSizeX, planeCenter.x + planeSizeX);
+            float z = Random.Range(planeCenter.z - planeSizeZ, planeCenter.z + planeSizeZ);
+            Vector3 randomPosition = new(x, 100, z);
             GameObject missile = Instantiate(missilePrefab, randomPosition, Quaternion.identity);
             missile.transform.localScale = new Vector3(2f, 2f, 2f);
             missile.GetComponent<Bullet>().Init(Vector3.down, 300, "Turret");
