@@ -20,7 +20,7 @@ public class Waves : MonoBehaviour
     // Wave system
     public int balloonsPerWave = 20;
     private int balloonsCount = 0;
-    private int currentWave = 1;
+    protected int currentWave = 1;
 
     public float wavesTimer = 0f;
     public float nextWave = 20f;
@@ -29,8 +29,8 @@ public class Waves : MonoBehaviour
 
     // Plane dimensions
     public Transform planeTransform;
-    private float planeSizeX;
-    private float planeSizeZ;
+    protected float planeSizeX;
+    protected float planeSizeZ;
 
     // UI
     public TMP_Text[] waveText;
@@ -51,7 +51,7 @@ public class Waves : MonoBehaviour
     private int baseMoneyReward = 200;
     private int moneyIncreaseInterval = 5;
 
-    void Start()
+    protected virtual void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
 
@@ -68,14 +68,14 @@ public class Waves : MonoBehaviour
         UpdateWaveUI();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (balloonTimer < Time.time && wavesTimer < Time.time)
         {
             balloonsCount++;
             difficulty += difficultyIncreaseSpeed;
             balloonTimer = Time.time + nextBalloon;
-            
+
             float redChance = Mathf.Min(redBalloonChance + (currentWave * 2), maxRedBalloonChance);
 
             if (currentWave > 5)
@@ -121,7 +121,7 @@ public class Waves : MonoBehaviour
         }
     }
 
-    private void StartNextWave()
+    protected virtual void StartNextWave()
     {
         balloonsCount = 0;
         currentWave++;
@@ -139,28 +139,29 @@ public class Waves : MonoBehaviour
         UpdateWaveUI();
     }
 
-    private Vector3 GetRandomSpawnPosition(GameObject balloon)
+    protected virtual Vector3 GetRandomSpawnPosition(GameObject balloon)
     {
         int edge = Random.Range(0, 4);
         float x = 0, z = 0, y = 0;
+        Vector3 planeCenter = planeTransform.position;
 
         switch (edge)
         {
-            case 0:
-                x = Random.Range(-planeSizeX, planeSizeX);
-                z = planeSizeZ;
+            case 0: // Top edge
+                x = Random.Range(planeCenter.x - planeSizeX, planeCenter.x + planeSizeX);
+                z = planeCenter.z + planeSizeZ;
                 break;
-            case 1:
-                x = Random.Range(-planeSizeX, planeSizeX);
-                z = -planeSizeZ;
+            case 1: // Bottom edge
+                x = Random.Range(planeCenter.x - planeSizeX, planeCenter.x + planeSizeX);
+                z = planeCenter.z - planeSizeZ;
                 break;
-            case 2:
-                x = -planeSizeX;
-                z = Random.Range(-planeSizeZ, planeSizeZ);
+            case 2: // Left edge
+                x = planeCenter.x - planeSizeX;
+                z = Random.Range(planeCenter.z - planeSizeZ, planeCenter.z + planeSizeZ);
                 break;
-            case 3:
-                x = planeSizeX;
-                z = Random.Range(-planeSizeZ, planeSizeZ);
+            case 3: // Right edge
+                x = planeCenter.x + planeSizeX;
+                z = Random.Range(planeCenter.z - planeSizeZ, planeCenter.z + planeSizeZ);
                 break;
         }
 
@@ -178,7 +179,7 @@ public class Waves : MonoBehaviour
         {
             foreach (TMP_Text waveText in waveText)
             {
-            waveText.text = "Wave: " + currentWave;
+                waveText.text = "Wave: " + currentWave;
             }
         }
     }

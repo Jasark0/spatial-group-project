@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private enum ViewMode
+    public enum ViewMode
     {
         FirstPerson,
         Build
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetViewMode(ViewMode mode)
+    public void SetViewMode(ViewMode mode)
     {
         dartGun.gameObject.SetActive(mode == ViewMode.FirstPerson);
         turretManager.gameObject.SetActive(mode == ViewMode.Build);
