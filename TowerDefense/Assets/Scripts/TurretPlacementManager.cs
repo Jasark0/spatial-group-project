@@ -12,6 +12,9 @@ public class TurretPlacementManager : MonoBehaviour
 
     public int[] turretCosts = { 200, 300 };
 
+    private float currentZRotation = 0f;
+    private int selectedTurretIndex = -1;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -39,6 +42,16 @@ public class TurretPlacementManager : MonoBehaviour
             {
                 CancelPlacement();
             }
+
+            if (selectedTurretIndex == 3 && Input.GetKeyDown(KeyCode.R))
+            {
+                currentZRotation += 45f;
+                if (currentZRotation > 360f)
+                    currentZRotation = 45f;
+
+                Vector3 currentEuler = turretGhost.transform.rotation.eulerAngles;
+                turretGhost.transform.rotation = Quaternion.Euler(currentEuler.x, currentEuler.y, currentZRotation);
+            }
         }
     }
 
@@ -52,6 +65,7 @@ public class TurretPlacementManager : MonoBehaviour
         turretGhost.GetComponent<Collider>().enabled = false;
         DisableTurretFunctionality(turretGhost);
         isPlacing = true;
+        currentZRotation = 0f;
     }
 
     void PlaceTurret()
