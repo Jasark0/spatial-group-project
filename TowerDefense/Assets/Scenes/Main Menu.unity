@@ -4195,14 +4195,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: e80e79c9ac56cfe4c971081de1685985, type: 3}
-        m_TargetAssemblyTypeName: OVRControllerDrivenHandPosesSample, Oculus.VR
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1390118253}
+        m_TargetAssemblyTypeName: OVRMainMenu, Assembly-CSharp
+        m_MethodName: LoadSceneByIndex
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9480,9 +9480,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: e80e79c9ac56cfe4c971081de1685985, type: 3}
-        m_TargetAssemblyTypeName: OVRControllerDrivenHandPosesSample, Oculus.VR
-        m_MethodName: 
+      - m_Target: {fileID: 1390118253}
+        m_TargetAssemblyTypeName: OVRMainMenu, Assembly-CSharp
+        m_MethodName: ExitApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10982,7 +10982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialButton: {fileID: 536853586}
   mainGameButton: {fileID: 1657523484}
-  exitButton: {fileID: 0}
+  exitButton: {fileID: 1134865704}
 --- !u!4 &1390118254
 Transform:
   m_ObjectHideFlags: 0
@@ -12939,14 +12939,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: e80e79c9ac56cfe4c971081de1685985, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1390118253}
+        m_TargetAssemblyTypeName: OVRMainMenu, Assembly-CSharp
+        m_MethodName: LoadSceneByIndex
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
