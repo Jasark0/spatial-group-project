@@ -118,6 +118,12 @@ PrefabInstance:
       propertyPath: damage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3590411223114164000, guid: e5082c95609c29d42a4da9acad0af5de,
+        type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 4479985900506859212, guid: 8852727d1b0202347948f21613fbc538,
+        type: 3}
     - target: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
         type: 3}
       propertyPath: m_Name

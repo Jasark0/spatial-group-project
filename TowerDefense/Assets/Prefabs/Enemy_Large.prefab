@@ -409,7 +409,7 @@ MonoBehaviour:
   health: 10
   speed: 0.5
   animator: {fileID: 0}
-  explosionPrefab: {fileID: 1857438282110991394, guid: fdbd0d181b9a45841bb37d1761f75320,
+  explosionPrefab: {fileID: 4479985900506859212, guid: 8852727d1b0202347948f21613fbc538,
     type: 3}
   explosionDamage: 10
 --- !u!135 &-8339612393234251193

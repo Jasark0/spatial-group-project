@@ -33,6 +33,7 @@ TagManager:
   - QDSUIToggleCheckboxRadio
   - QDSUISection
   - FlyingEnemy
+  - Plane
   layers:
   - Default
   - TransparentFX
