@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public Vector3 moveDirection;
     bool shot = false;
     public string bulletOwner = "";
+    public GameObject explosionPrefab;
     public void Init(Vector3 direction, float shotPower, string owner, float damage = -1)
     {
         moveDirection = direction.normalized; // Normalize to ensure consistent movement speed
@@ -55,6 +56,16 @@ public class Bullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
+
+        else if (other.CompareTag("Plane"))
+        {
+            if (explosionPrefab != null)
+            {
+                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            }
+            Destroy(gameObject);
+        }
+
         Debug.Log(damage);
     }
 }
