@@ -48,7 +48,7 @@ public class Balloon : MonoBehaviour
         if (health <= 0f)
         {
             gameManager.UpdateScore(30);
-            Destroy(gameObject);
+            Explode();
         }
     }
 
