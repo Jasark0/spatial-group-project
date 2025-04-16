@@ -18,6 +18,8 @@ public class TurretPlacementManager : MonoBehaviour
     private int selectedTurretIndex = -1;
     public Material rangeMaterial;
 
+    [SerializeField] private LayerMask placementLayerMask;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -29,8 +31,8 @@ public class TurretPlacementManager : MonoBehaviour
         if (isPlacing && turretGhost)
         {
             // Use the main camera's forward direction for raycasting
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); 
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, placementLayerMask))
             {
                 turretGhost.transform.position = hit.point;
                 if (rangeIndicator != null)
