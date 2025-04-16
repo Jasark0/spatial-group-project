@@ -24,6 +24,12 @@ public class Player : MonoBehaviour
     private float planeSizeX;
     private float planeSizeZ;
 
+
+    [Header(" Key Bindings ")]
+    public OVRInput.Button keyBindForPovChange;
+    public OVRInput.Button keyBindForMissileStrike;
+
+
     private void Start()
     {
         Debug.Log("Player started");
@@ -45,15 +51,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        // Toggle view when B or Y button is pressed (secondary thumb stick button)
-        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        // Toggle view when X button on left controller is pressed (secondary thumb stick button)
+        if (OVRInput.GetDown(keyBindForPovChange))
         {
             Debug.Log("Toggle view");
             currentMode = currentMode == ViewMode.FirstPerson ? ViewMode.Build : ViewMode.FirstPerson;
             SetViewMode(currentMode);
         }
 
-        if (gameManager.hasMissileStrike && OVRInput.GetDown(OVRInput.RawButton.A))
+        if (gameManager.hasMissileStrike && OVRInput.GetDown(keyBindForMissileStrike))
         {
             // gameManager.hasMissileStrike = false;
             Debug.Log("Start missile strike");
@@ -63,7 +69,10 @@ public class Player : MonoBehaviour
 
     public void SetViewMode(ViewMode mode)
     {
-        dartGun.gameObject.SetActive(mode == ViewMode.FirstPerson);
+        if ( dartGun != null)
+        {
+            dartGun.gameObject.SetActive(mode == ViewMode.FirstPerson);
+        }
         turretManager.gameObject.SetActive(mode == ViewMode.Build);
 
         if (mode == ViewMode.Build)
