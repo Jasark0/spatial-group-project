@@ -7,11 +7,13 @@ public class MainTower : MonoBehaviour
     public GameObject deathScreen;
     public TMP_Text scoreText;
     public TMP_Text[] healthText;
+    public TextMeshPro towerHealthDisplay;
     private GameManager gameManager;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        UpdateHealth();
     } 
 
     public void TakeDamage(float amount)
@@ -43,6 +45,11 @@ public class MainTower : MonoBehaviour
             {
                 text.text = "Tower Health: " + health;
             }
+        }
+        
+        if (towerHealthDisplay != null)
+        {
+            towerHealthDisplay.text = "HP: " + health.ToString("F0");
         }
     }
 }
