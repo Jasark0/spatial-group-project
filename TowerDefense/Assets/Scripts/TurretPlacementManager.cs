@@ -6,18 +6,22 @@ public class TurretPlacementManager : MonoBehaviour
 {
     public GameObject[] turretPrefabs;
     private GameObject turretGhost;
+    private GameObject rangeIndicator;
     private GameObject selectedTurretPrefab;
     private bool isPlacing = false;
     private GameManager gameManager;
+    private Player player;
 
     public int[] turretCosts = { 200, 300 };
 
     private float currentZRotation = 0f;
     private int selectedTurretIndex = -1;
+    public Material rangeMaterial;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        player = FindObjectOfType<Player>();
     }
 
     void Update()
@@ -29,6 +33,10 @@ public class TurretPlacementManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 turretGhost.transform.position = hit.point;
+                if (rangeIndicator != null)
+                {
+                    rangeIndicator.transform.position = hit.point;
+                }
             }
 
             // Use Oculus controller trigger for placement
@@ -58,14 +66,38 @@ public class TurretPlacementManager : MonoBehaviour
     public void SelectTurret(int turretIndex)
     {
         if (turretGhost) Destroy(turretGhost);
+        if (rangeIndicator) Destroy(rangeIndicator);
+
+        // Switch to build mode when selecting a turret
+        player.SetViewMode(Player.ViewMode.Build);
 
         selectedTurretPrefab = turretPrefabs[turretIndex];
         turretGhost = Instantiate(selectedTurretPrefab);
         turretGhost.tag = "TurretGhost";
         turretGhost.GetComponent<Collider>().enabled = false;
+        
+        // Create range indicator
+        CreateRangeIndicator(turretGhost.GetComponent<Turret>().range);
+        
         DisableTurretFunctionality(turretGhost);
         isPlacing = true;
         currentZRotation = 0f;
+        selectedTurretIndex = turretIndex;
+    }
+
+    private void CreateRangeIndicator(float range)
+    {
+        // Create a sphere to visualize the range
+        rangeIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        rangeIndicator.transform.localScale = new Vector3(range * 2, range * 2, range * 2);
+        
+        // Make it semi-transparent
+        Renderer renderer = rangeIndicator.GetComponent<Renderer>();
+        // rangeMaterial.color = rangeColor;
+        renderer.material = rangeMaterial;
+        
+        // Remove the collider so it doesn't interfere with raycasting
+        Destroy(rangeIndicator.GetComponent<Collider>());
     }
 
     void PlaceTurret()
@@ -78,7 +110,11 @@ public class TurretPlacementManager : MonoBehaviour
                 Instantiate(selectedTurretPrefab, turretGhost.transform.position, turretGhost.transform.rotation);
                 gameManager.DeductMoney(cost);
                 Destroy(turretGhost);
+                Destroy(rangeIndicator);
                 isPlacing = false;
+                
+                // Switch back to first-person view when placement is successful
+                player.SetViewMode(Player.ViewMode.FirstPerson);
             }
             else
             {
@@ -98,13 +134,18 @@ public class TurretPlacementManager : MonoBehaviour
             }
         }
     }
+    
     void CancelPlacement()
     {
         if (turretGhost)
         {
             Destroy(turretGhost);
+            Destroy(rangeIndicator);
             isPlacing = false;
             Debug.Log("Turret placement canceled");
+            
+            // Switch back to first-person view when canceling placement
+            player.SetViewMode(Player.ViewMode.FirstPerson);
         }
     }
 }

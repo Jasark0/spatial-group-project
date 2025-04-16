@@ -39,27 +39,27 @@ public class Turret : MonoBehaviour
         }
     }
 
-protected virtual Balloon FindClosestEnemy()
-{
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    GameObject closest = null;
-    float minDistance = Mathf.Infinity;
-    Vector3 currentPosition = transform.position;
-
-    foreach (GameObject enemy in enemies)
+    protected virtual Balloon FindClosestEnemy()
     {
-        if (enemy.transform.position.y >= 10) continue;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        float minDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
 
-        float distance = Vector3.Distance(currentPosition, enemy.transform.position);
-        if (distance < minDistance)
+        foreach (GameObject enemy in enemies)
         {
-            minDistance = distance;
-            closest = enemy;
-        }
-    }
+            if (enemy.transform.position.y >= 10) continue;
 
-    return closest != null && minDistance <= range ? closest.GetComponent<Balloon>() : null;
-}
+            float distance = Vector3.Distance(currentPosition, enemy.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closest = enemy;
+            }
+        }
+
+        return closest != null && minDistance <= range ? closest.GetComponent<Balloon>() : null;
+    }
 
     void RotateTowardsTarget(Balloon target)
     {
@@ -114,6 +114,13 @@ protected virtual Balloon FindClosestEnemy()
     {
         healthLevel++;
         health += 5f;
+    }
+
+    // Draw the turret range in the Scene view when the turret is selected.
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
 
