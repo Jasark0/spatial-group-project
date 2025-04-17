@@ -14,5 +14,5 @@ where humanity has reached to the pinnacle of technological advancement, and the
 refuge that for civilization, therefore our task is to protect this place at all cost.
 
 ### Installation: 
-Open up Unity (ver. 6.0)
+Open up Unity (ver. 2022.3)
 Download package - Meta XR All-in-One SDK
