@@ -13,6 +13,7 @@ public class Balloon : MonoBehaviour
     public GameObject explosionPrefab;
     public float explosionDamage = 5f;
     private Transform target;
+    public float minYThreshold = -100f; 
 
     private GameObject flashObject;
 
@@ -38,6 +39,11 @@ public class Balloon : MonoBehaviour
         if (!hasExploded && target != null)
         {
             MoveTowardsTarget();
+        }
+
+        if (transform.position.y < minYThreshold)
+        {
+            Destroy(gameObject);
         }
     }
 
