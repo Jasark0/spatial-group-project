@@ -21,6 +21,7 @@ public class TurretUpgradeRadialMenu : MonoBehaviour
 
     [Header("nah")]
     private Turret selectedTurret;
+    private Turret currentlySelecting;
     private GameManager gameManager;
     private const int FIRE_RATE_OPTION = 0;
     private const int HEALTH_OPTION = 1;
@@ -51,7 +52,7 @@ public class TurretUpgradeRadialMenu : MonoBehaviour
             Turret turret = hit.collider.GetComponent<Turret>();
             if (turret != null)
             {
-                
+                currentlySelecting = turret;
                 selectedTurret = turret;
                 // Allow opening the radial menu with controller button
                 // RadialSelection will handle its own button detection
@@ -65,7 +66,8 @@ public class TurretUpgradeRadialMenu : MonoBehaviour
             if (turretNameDisplay)
                 turretNameDisplay.SetActive(false);
                 
-            selectedTurret = null;
+            currentlySelecting = null;
+            ifTurretIsSelected = false;
         }
     }
     
@@ -104,15 +106,21 @@ public class TurretUpgradeRadialMenu : MonoBehaviour
             case FIRE_RATE_OPTION:
                 turretLevelDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = $"Fire Rate lvl: {selectedTurret.fireRateLevel} --> {selectedTurret.fireRateLevel + 1}";
                 turretCostDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = $"Cost: {100}"; // Get this from your game settings
+                turretLevelDisplay.gameObject.SetActive(true);
+                turretCostDisplay.gameObject.SetActive(true);
+
                 break;
                 
             case HEALTH_OPTION:
                 turretLevelDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = $"Health lvl: {selectedTurret.healthLevel} --> {selectedTurret.healthLevel + 1}";
                 turretCostDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = $"Cost: {100}"; // Get this from your game settings
+                turretLevelDisplay.gameObject.SetActive(true);
+                turretCostDisplay.gameObject.SetActive(true);
                 break;
                 
             default:
-                turretLevelDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "Exit";
+                turretLevelDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+                turretCostDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = "";
                 break;
         }
     }

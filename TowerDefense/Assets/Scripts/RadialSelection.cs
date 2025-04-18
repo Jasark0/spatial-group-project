@@ -84,7 +84,7 @@ public class RadialSelection : MonoBehaviour
             angle += 360;
         }
         currentSelectedRadialPart = (int)angle * numberOfRadialPart / 360;
-
+        bool foundSelected = false;
         for ( int i = 0; i < spawnedParts.Count; i++)
         {
             if (i == currentSelectedRadialPart)
@@ -94,11 +94,12 @@ public class RadialSelection : MonoBehaviour
                 
                 if ( turretUpgradeRadialMenu != null)
                 {
+                    // Debug.Log("yo: {" + i + "}");
                     cost.gameObject.SetActive(true);
-                    level.gameObject.SetActive(true);
+                    level.gameObject.SetActive(true); 
                     turretUpgradeRadialMenu.UpdateRadialSelectionText(i);
-
                 }
+                foundSelected = true;
 
             }
             else
@@ -108,8 +109,12 @@ public class RadialSelection : MonoBehaviour
 
                 if ( turretUpgradeRadialMenu != null)
                 {
-                    cost.gameObject.SetActive(false);
-                    level.gameObject.SetActive(false);
+                    if (foundSelected != true)
+                    {
+                        cost.gameObject.SetActive(false);
+                        level.gameObject.SetActive(false);
+                    }
+                        
                 }
             }
         }
@@ -139,8 +144,8 @@ public class RadialSelection : MonoBehaviour
         for (int i = 0; i < numberOfRadialPart; i++)
         {
             float angle = -i * 360 / numberOfRadialPart - angleBetweenPart/2;
-            // Vector3 radialPartEulerAngle = new Vector3(0, 0, angle);
-            Vector3 radialPartEulerAngle = radialPartCanvas.transform.eulerAngles + new Vector3(0, 0, angle);
+            Vector3 radialPartEulerAngle = new Vector3(0, 0, angle);
+            // Vector3 radialPartEulerAngle = radialPartCanvas.transform.eulerAngles + new Vector3(0, 0, angle);
 
             GameObject spawnedRadialPart = Instantiate(radialPartPrefab, radialPartCanvas);
             spawnedRadialPart.transform.position = radialPartCanvas.position;
