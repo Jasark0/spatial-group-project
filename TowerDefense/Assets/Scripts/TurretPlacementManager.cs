@@ -10,7 +10,7 @@ public class TurretPlacementManager : MonoBehaviour
     private GameObject selectedTurretPrefab;
     private bool isPlacing = false;
     private GameManager gameManager;
-    private Player player;
+    [SerializeField] private Player player;
 
     public int[] turretCosts = { 200, 300 };
 

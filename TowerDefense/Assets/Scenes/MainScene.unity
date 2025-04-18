@@ -5774,7 +5774,7 @@ MonoBehaviour:
   rangeMaterial: {fileID: 2100000, guid: 058652dd7be0a244bbc552fca16a9bbf, type: 2}
   placementLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
 --- !u!4 &1934578310
 Transform:
   m_ObjectHideFlags: 0
@@ -8082,32 +8082,32 @@ PrefabInstance:
     - target: {fileID: 5086596683231275662, guid: 67400dd5df4064c768da2587e209dc26,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5086596683231275662, guid: 67400dd5df4064c768da2587e209dc26,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5086596683231275662, guid: 67400dd5df4064c768da2587e209dc26,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 732
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5086596683231275662, guid: 67400dd5df4064c768da2587e209dc26,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 22.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5086596683231275662, guid: 67400dd5df4064c768da2587e209dc26,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 366
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5086596683231275662, guid: 67400dd5df4064c768da2587e209dc26,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -11.175
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5935139429454952335, guid: 67400dd5df4064c768da2587e209dc26,
         type: 3}
