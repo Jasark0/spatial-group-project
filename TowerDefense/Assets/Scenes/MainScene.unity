@@ -605,7 +605,20 @@ MonoBehaviour:
   dartPrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
     type: 3}
   barrelLocation: {fileID: 1078441722}
+  gunMeshFilter: {fileID: 157273250}
+  pistolMesh: {fileID: 396962236555141039, guid: ed18109ab95f0004c895082ab6ec7020,
+    type: 3}
+  smgMesh: {fileID: -3159989728218202559, guid: 223a88d0564287949ba3af7119d8ea51,
+    type: 3}
   shotPower: 1000
+  fireRate: 0.6
+  isUpgraded: 0
+--- !u!33 &157273250 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 7683342361161354791, guid: da304d42de78026438b3d997f6f50685,
+    type: 3}
+  m_PrefabInstance: {fileID: 157273242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &177977415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2931582689630220607, guid: 7f3a4e4d40b08e0419e0d5eb2e562e22,
@@ -5770,6 +5783,7 @@ MonoBehaviour:
   - {fileID: 4186795882177071576, guid: b0875b767da20eb4c8e1591784c24e63, type: 3}
   - {fileID: 3027042334008381127, guid: 4c54331eb5f29a94bb2728fe7e1cdc77, type: 3}
   - {fileID: 4041928209317068615, guid: a21753be4bfb04649a02963985829e38, type: 3}
+  player: {fileID: 0}
   turretCosts: c80000002c010000f4010000fa000000
   rangeMaterial: {fileID: 2100000, guid: 058652dd7be0a244bbc552fca16a9bbf, type: 2}
   placementLayerMask:
@@ -5908,8 +5922,6 @@ MonoBehaviour:
   flyingBalloon: {fileID: 7397520109292170397, guid: 27202c798a987e643afb0e4b907bcc3a,
     type: 3}
   balloonsPerWave: 20
-  wavesTimer: 0
-  nextWave: 1
   planeTransform: {fileID: 674521872}
   waveText:
   - {fileID: 2095753740}

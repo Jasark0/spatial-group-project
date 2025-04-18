@@ -9,19 +9,49 @@ public class GrabbableGun : MonoBehaviour
     public GameObject dartPrefab;
     public Transform barrelLocation;
 
+    public MeshFilter gunMeshFilter;
+    public Mesh pistolMesh;
+    public Mesh smgMesh;
+
     public float shotPower = 1000f;
+    public float fireRate = 0.6f;
+    private float nextFireTime = 0f;
+    public bool isUpgraded = false;
+    private int upgradeCost = 500;
+    private GameManager gameManager;
 
     void Start()
     {
         grabbable = GetComponent<Grabbable>();
+        gameManager = FindObjectOfType<GameManager>();
+
+        if (gunMeshFilter == null)
+        {
+            gunMeshFilter = GetComponent<MeshFilter>();
+        }
+
+        if (gunMeshFilter != null && pistolMesh != null)
+        {
+            gunMeshFilter.mesh = pistolMesh;
+        }
     }
 
     void Update()
     {
-        // Check if player is pulling the trigger
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && grabbable.SelectingPointsCount > 0)
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) &&
+            grabbable.SelectingPointsCount > 0)
         {
-            Shoot();
+            if (Time.time >= nextFireTime)
+            {
+                Shoot();
+                nextFireTime = Time.time + fireRate;
+            }
+        }
+
+        if (!isUpgraded && OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch) &&
+            grabbable.SelectingPointsCount > 0)
+        {
+            TryUpgradeGun();
         }
     }
 
@@ -37,5 +67,27 @@ public class GrabbableGun : MonoBehaviour
         }
         // Desetroy the dart after X seconds.
         Destroy(dart, 3f);
+    }
+
+    void TryUpgradeGun()
+    {
+        if (gameManager != null && gameManager.CanAfford(upgradeCost))
+        {
+            gameManager.DeductMoney(upgradeCost);
+
+            fireRate = 0.2f;
+            isUpgraded = true;
+
+            if (gunMeshFilter != null && smgMesh != null)
+            {
+                gunMeshFilter.mesh = smgMesh;
+            }
+
+            Debug.Log("Gun upgraded to SMG!");
+        }
+        else
+        {
+            Debug.Log("Not enough money to upgrade.");
+        }
     }
 }
