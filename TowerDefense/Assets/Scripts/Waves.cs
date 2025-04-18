@@ -18,12 +18,11 @@ public class Waves : MonoBehaviour
     private float minBalloonSpawnTime = 0.8f;
 
     // Wave system
-    public int balloonsPerWave = 20;
+    public int balloonsPerWave;
     private int balloonsCount = 0;
     protected int currentWave = 1;
-
-    public float wavesTimer = 0f;
-    public float nextWave = 20f;
+    private bool waitingForNextWave = false;
+    private float waveCooldownTimer = 0f;
 
     private GameManager gameManager;
 
@@ -48,7 +47,7 @@ public class Waves : MonoBehaviour
     private float maxFlyingBalloonChance = 25f;
 
     // Money increase
-    private int baseMoneyReward = 200;
+    private int baseMoneyReward = 250;
     private int moneyIncreaseInterval = 5;
 
     protected virtual void Start()
@@ -65,67 +64,91 @@ public class Waves : MonoBehaviour
             }
         }
 
+        balloonsPerWave = 3;
         UpdateWaveUI();
     }
 
     protected virtual void Update()
     {
-        if (balloonTimer < Time.time && wavesTimer < Time.time)
+        if (balloonTimer < Time.time && !waitingForNextWave)
         {
-            balloonsCount++;
-            difficulty += difficultyIncreaseSpeed;
-            balloonTimer = Time.time + nextBalloon;
-
-            float redChance = Mathf.Min(redBalloonChance + (currentWave * 2), maxRedBalloonChance);
-
-            if (currentWave > 5)
+            if (balloonsCount < balloonsPerWave)
             {
-                greenLargeBalloonChance = Mathf.Min((currentWave - 5) * 5, maxGreenLargeBalloonChance);
-            }
-
-            if (currentWave > 10)
-            {
-                flyingBalloonChance = Mathf.Min((currentWave - 10) * 3, maxFlyingBalloonChance);
-            }
-
-            float randomValue = Random.Range(0f, 100f);
-            GameObject balloonToSpawn;
-
-            if (randomValue < flyingBalloonChance)
-            {
-                balloonToSpawn = flyingBalloon;
-            }
-            else if (randomValue < greenLargeBalloonChance)
-            {
-                balloonToSpawn = balloonGreenLarge;
-            }
-            else if (randomValue < redChance)
-            {
-                balloonToSpawn = balloonRed;
+                SpawnBalloon();
             }
             else
             {
-                balloonToSpawn = balloonGreen;
+                GameObject[] activeBalloons = GameObject.FindGameObjectsWithTag("Enemy");
+
+                if (activeBalloons.Length == 0)
+                {
+                    waitingForNextWave = true;
+                    waveCooldownTimer = Time.time + 15f;
+                }
             }
-
-            Vector3 spawnPosition = GetRandomSpawnPosition(balloonToSpawn);
-            var balloon = Instantiate(balloonToSpawn, spawnPosition, balloonToSpawn.transform.rotation);
-
-            balloon.GetComponent<Balloon>().health += (int)Mathf.Round(difficulty);
-            balloon.GetComponent<Balloon>().speed += (int)Mathf.Round(difficulty);
         }
 
-        if (balloonsCount >= balloonsPerWave)
+        if (waitingForNextWave && Time.time >= waveCooldownTimer)
         {
             StartNextWave();
+            waitingForNextWave = false;
         }
+    }
+
+    private void SpawnBalloon()
+    {
+        balloonsCount++;
+        difficulty += difficultyIncreaseSpeed;
+        balloonTimer = Time.time + nextBalloon;
+
+        float redChance = Mathf.Min(redBalloonChance + (currentWave * 2), maxRedBalloonChance);
+
+        if (currentWave > 5)
+        {
+            greenLargeBalloonChance = Mathf.Min((currentWave - 5) * 5, maxGreenLargeBalloonChance);
+        }
+
+        if (currentWave > 10)
+        {
+            flyingBalloonChance = Mathf.Min((currentWave - 10) * 3, maxFlyingBalloonChance);
+        }
+
+        float randomValue = Random.Range(0f, 100f);
+        GameObject balloonToSpawn;
+
+        if (randomValue < flyingBalloonChance)
+        {
+            balloonToSpawn = flyingBalloon;
+        }
+        else if (randomValue < greenLargeBalloonChance)
+        {
+            balloonToSpawn = balloonGreenLarge;
+        }
+        else if (randomValue < redChance)
+        {
+            balloonToSpawn = balloonRed;
+        }
+        else
+        {
+            balloonToSpawn = balloonGreen;
+        }
+
+        Vector3 spawnPosition = GetRandomSpawnPosition(balloonToSpawn);
+        var balloon = Instantiate(balloonToSpawn, spawnPosition, balloonToSpawn.transform.rotation);
+
+        balloon.GetComponent<Balloon>().health += (int)Mathf.Round(difficulty);
+        balloon.GetComponent<Balloon>().speed += (int)Mathf.Round(difficulty);
     }
 
     protected virtual void StartNextWave()
     {
         balloonsCount = 0;
         currentWave++;
-        wavesTimer = nextWave + Time.time;
+
+        if (currentWave <= 10)
+            balloonsPerWave = 3 * currentWave;
+        else
+            balloonsPerWave += 1;
 
         if (currentWave % moneyIncreaseInterval == 0)
         {
@@ -184,3 +207,4 @@ public class Waves : MonoBehaviour
         }
     }
 }
+
