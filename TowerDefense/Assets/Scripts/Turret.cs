@@ -18,6 +18,10 @@ public class Turret : MonoBehaviour
     // Upgrade variables
     public int fireRateLevel = 1;
     public int healthLevel = 1;
+    
+    // Maximum upgrade levels
+    public int maxFireRateLevel = 5;
+    public int maxHealthLevel = 5;
 
     public Vector3 canvasOffset = new Vector3(0, 2, 0);
 
