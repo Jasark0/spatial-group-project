@@ -13,6 +13,8 @@ public class GrabbableGun : MonoBehaviour
     public Mesh pistolMesh;
     public Mesh smgMesh;
 
+    public int SnapPosition {get; set;} = 1;
+
     public float shotPower = 1000f;
     public float fireRate = 0.6f;
     private float nextFireTime = 0f;
@@ -38,21 +40,50 @@ public class GrabbableGun : MonoBehaviour
 
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) &&
-            grabbable.SelectingPointsCount > 0)
+        // Only proceed if the gun is being grabbed
+        if (grabbable.SelectingPointsCount > 0)
         {
-            if (Time.time >= nextFireTime)
+            // Determine which controller is holding the gun
+            OVRInput.Controller holdingController = DetermineHoldingController();
+            
+            // Check for trigger press on the appropriate controller
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, holdingController) && 
+                Time.time >= nextFireTime)
             {
                 Shoot();
                 nextFireTime = Time.time + fireRate;
             }
+            
+            // Check for upgrade button press on the appropriate controller
+            /* if (!isUpgraded && OVRInput.GetDown(OVRInput.Button.One, holdingController))
+            {
+                TryUpgradeGun();
+            } */
         }
+    }
 
-        if (!isUpgraded && OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch) &&
-            grabbable.SelectingPointsCount > 0)
+    private OVRInput.Controller DetermineHoldingController()
+    {
+        // Check which hand is grabbing the gun
+        if (grabbable.GrabPoints.Count > 0)
         {
-            TryUpgradeGun();
+            // Get position of the grab point relative to the player
+            Vector3 grabPos = grabbable.GrabPoints[0].position;
+            Transform cameraTransform = Camera.main.transform;
+            
+            // If grab position is on the right side of the camera, it's likely the right hand
+            if (Vector3.Dot(cameraTransform.right, grabPos - cameraTransform.position) > 0)
+            {
+                return OVRInput.Controller.RTouch;
+            }
+            else
+            {
+                return OVRInput.Controller.LTouch;
+            }
         }
+        
+        // Default to both controllers if we can't determine
+        return OVRInput.Controller.Touch;
     }
 
     void Shoot()

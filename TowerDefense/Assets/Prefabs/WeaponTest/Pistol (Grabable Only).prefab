@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 262891805551185230}
   - component: {fileID: 7089642752191109292}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HandGrabInteractable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2043229143095007904}
   - component: {fileID: 2716796991111315380}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HandGrabPose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,6 +171,93 @@ MonoBehaviour:
   _ghostProvider: {fileID: 0}
   _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 0
+--- !u!1 &1774731466980063762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748459220920410020}
+  - component: {fileID: 4000366863228049919}
+  m_Layer: 0
+  m_Name: SnapInteractor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &748459220920410020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774731466980063762}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6705697933925597570}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4000366863228049919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774731466980063762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2756c251a8363df4f9d4b30ee6414bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeState: {fileID: 0}
+  _interactableFilters: []
+  _candidateTiebreaker: {fileID: 0}
+  _maxIterationsPerFrame: 3
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 7682449028212915208}
+  _rigidbody: {fileID: 8199120982742856664}
+  _distanceThreshold: 0.01
+  _snapPoseTransform: {fileID: 0}
+  _defaultInteractable: {fileID: 0}
+  _timeOutInteractable: {fileID: 0}
+  _timeOut: 0
+--- !u!1 &1859509484130438264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6863508609221096262}
+  m_Layer: 0
+  m_Name: BarrelLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6863508609221096262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859509484130438264}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0.00000023841858, z: 0.7071068, w: 0.00000023841858}
+  m_LocalPosition: {x: -0.00824, y: 0.00008, z: 0.00337}
+  m_LocalScale: {x: 0.0022222532, y: 0.004892393, z: 0.015008449}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6705697933925597570}
+  m_LocalEulerAnglesHint: {x: 0, y: 450, z: -90}
 --- !u!1 &4309009331134661651
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5724271485723426569}
   - component: {fileID: 2777164895695593628}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HandGrabPose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +366,7 @@ GameObject:
   - component: {fileID: 5500085556613803143}
   - component: {fileID: 4617586487614983798}
   - component: {fileID: 7242796167079395454}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GrabInteractable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4014312154521067136}
   - component: {fileID: 8806754749948191801}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HandGrabPose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +576,7 @@ GameObject:
   - component: {fileID: 114392656899343846}
   - component: {fileID: 3305813871484867887}
   - component: {fileID: 5616779552935426643}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: '[BuildingBlock] DistanceHandGrab Right'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7205919273770923379}
   - component: {fileID: 7640975953604017984}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HandGrabInteractable_mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -756,6 +843,37 @@ MonoBehaviour:
   _handAligment: 1
   _handGrabPoses:
   - {fileID: 2716796991111315380}
+--- !u!1 &8608608870393441359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6233866225840012374}
+  m_Layer: 0
+  m_Name: BarrelLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6233866225840012374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8608608870393441359}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0.00000023841858, z: 0.7071068, w: 0.00000023841858}
+  m_LocalPosition: {x: -0.00824, y: 0.00008, z: 0.00337}
+  m_LocalScale: {x: 0.0022222532, y: 0.004892393, z: 0.015008449}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6705697933925597570}
+  m_LocalEulerAnglesHint: {x: 0, y: 450, z: -90}
 --- !u!1 &8660422476578746659
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +889,7 @@ GameObject:
   - component: {fileID: 1452841641643625754}
   - component: {fileID: 8421587005740283455}
   - component: {fileID: 8862611315144370384}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: '[BuildingBlock] DistanceHandGrab Left'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,7 +1091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6878136036007080030}
   - component: {fileID: 7126742604030736293}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HandGrabPose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1085,42 +1203,42 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.989951
+      value: 7.74
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.723
+      value: 0.959
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.65
+      value: -14.009
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
@@ -1130,7 +1248,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
@@ -1140,12 +1258,17 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_Name
-      value: Pistol_1
+      value: Pistol (Grabable Only)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ed18109ab95f0004c895082ab6ec7020,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pistol
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1170,6 +1293,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7205919273770923379}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6863508609221096262}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6233866225840012374}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 748459220920410020}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ed18109ab95f0004c895082ab6ec7020,
         type: 3}
@@ -1183,6 +1318,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7682449028212915208}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ed18109ab95f0004c895082ab6ec7020,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7180381620359553834}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ed18109ab95f0004c895082ab6ec7020,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1378352745756483763}
   m_SourcePrefab: {fileID: 100100000, guid: ed18109ab95f0004c895082ab6ec7020, type: 3}
 --- !u!1 &6216300173321345848 stripped
 GameObject:
@@ -1260,6 +1403,50 @@ MonoBehaviour:
   _rigidbody: {fileID: 0}
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
+--- !u!114 &7180381620359553834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216300173321345848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bc079f056c302428b24012fb6922b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dartPrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
+    type: 3}
+  barrelLocation: {fileID: 6863508609221096262}
+  gunMeshFilter: {fileID: 7683342361161354791}
+  pistolMesh: {fileID: 396962236555141039, guid: ed18109ab95f0004c895082ab6ec7020,
+    type: 3}
+  smgMesh: {fileID: -3159989728218202559, guid: 223a88d0564287949ba3af7119d8ea51,
+    type: 3}
+  shotPower: 1000
+  fireRate: 0.6
+  isUpgraded: 0
+--- !u!114 &1378352745756483763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216300173321345848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bc079f056c302428b24012fb6922b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dartPrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
+    type: 3}
+  barrelLocation: {fileID: 6233866225840012374}
+  gunMeshFilter: {fileID: 0}
+  pistolMesh: {fileID: 0}
+  smgMesh: {fileID: 0}
+  shotPower: 1000
+  fireRate: 0.6
+  isUpgraded: 0
 --- !u!4 &6705697933925597570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
