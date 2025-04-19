@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    public static GameManager instance;
+    public static GameManager Instance => instance;
     public int score = 0;
     public int money = 1000;
     public TMP_Text[] scoreText;
@@ -15,6 +18,17 @@ public class GameManager : MonoBehaviour
     public int missileStrikeGoal = 1000;
     public bool hasMissileStrike = true;
 
+    private void Awake()
+    {
+        if (instance && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
     public void UpdateScore(int points)
     {
         score += points;

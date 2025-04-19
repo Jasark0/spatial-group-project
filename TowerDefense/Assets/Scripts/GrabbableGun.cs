@@ -13,14 +13,15 @@ public class GrabbableGun : MonoBehaviour
     public Mesh pistolMesh;
     public Mesh smgMesh;
 
-    public int SnapPosition {get; set;} = 1;
-
     public float shotPower = 1000f;
     public float fireRate = 0.6f;
     private float nextFireTime = 0f;
     public bool isUpgraded = false;
     private int upgradeCost = 500;
     private GameManager gameManager;
+    
+    // Reference to check if right controller is holding anything
+    private Oculus.Interaction.GrabInteractor rightGrabInteractor;
 
     void Start()
     {
@@ -36,13 +37,18 @@ public class GrabbableGun : MonoBehaviour
         {
             gunMeshFilter.mesh = pistolMesh;
         }
+        
+   
     }
+    
+
 
     void Update()
     {
         // Only proceed if the gun is being grabbed
         if (grabbable.SelectingPointsCount > 0)
         {
+           
             // Determine which controller is holding the gun
             OVRInput.Controller holdingController = DetermineHoldingController();
             
@@ -53,13 +59,10 @@ public class GrabbableGun : MonoBehaviour
                 Shoot();
                 nextFireTime = Time.time + fireRate;
             }
+
             
-            // Check for upgrade button press on the appropriate controller
-            /* if (!isUpgraded && OVRInput.GetDown(OVRInput.Button.One, holdingController))
-            {
-                TryUpgradeGun();
-            } */
-        }
+        } 
+     
     }
 
     private OVRInput.Controller DetermineHoldingController()
@@ -90,8 +93,6 @@ public class GrabbableGun : MonoBehaviour
     {
         // Instantsiate a new dart at the barrel location in the barrellocation rotation
         var dart = Instantiate(dartPrefab, barrelLocation.position, barrelLocation.transform.rotation);
-        // Spin the dart in the correct direction. if this is wrong for you try other values until it's correct
-        // dart.transform.eulerAngles += new Vector3(0, -90, 0);
         if (dart.TryGetComponent<Bullet>(out var bulletScript))
         {
             bulletScript.Init(barrelLocation.forward, shotPower, "Turret");

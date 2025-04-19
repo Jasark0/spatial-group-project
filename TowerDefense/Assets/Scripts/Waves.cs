@@ -66,6 +66,7 @@ public class Waves : MonoBehaviour
 
         balloonsPerWave = 3;
         UpdateWaveUI();
+        PopUpManager.Instance.ShowPopUp(0, 5, "Wave " + currentWave + " Starting!");
     }
 
     protected virtual void Update()
@@ -83,6 +84,7 @@ public class Waves : MonoBehaviour
                 if (activeBalloons.Length == 0)
                 {
                     waitingForNextWave = true;
+                    PopUpManager.Instance.ShowPopUp(0, 5, "Wave " + currentWave + " Complete!");
                     waveCooldownTimer = Time.time + 15f;
                 }
             }
@@ -91,6 +93,7 @@ public class Waves : MonoBehaviour
         if (waitingForNextWave && Time.time >= waveCooldownTimer)
         {
             StartNextWave();
+            PopUpManager.Instance.ShowPopUp(0, 5, "Wave " + currentWave + " Starting!");
             waitingForNextWave = false;
         }
     }
