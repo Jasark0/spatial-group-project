@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1377114416893551251}
   - component: {fileID: 4747165171556496389}
   - component: {fileID: 2064207224073516661}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,10 +183,25 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5713287259667068031, guid: 8a3709532e904cf489c4f827088b093c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: -427526911599037632, guid: 8a3709532e904cf489c4f827088b093c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8a3709532e904cf489c4f827088b093c,
         type: 3}
       propertyPath: m_Name
       value: Turret_Cannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8a3709532e904cf489c4f827088b093c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8a3709532e904cf489c4f827088b093c,
         type: 3}
@@ -316,4 +331,6 @@ MonoBehaviour:
   shotPower: 500
   fireRateLevel: 1
   healthLevel: 1
+  maxFireRateLevel: 5
+  maxHealthLevel: 5
   canvasOffset: {x: 0, y: 2, z: 0}

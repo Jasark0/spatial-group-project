@@ -63,8 +63,8 @@ public class TurretUpgradeRadialMenu : MonoBehaviour
         else
         {
             // Hide the display when not looking at a turret
-            if (turretNameDisplay)
-                turretNameDisplay.SetActive(false);
+            /* if (turretNameDisplay)
+                turretNameDisplay.SetActive(false); */
                 
             currentlySelecting = null;
             ifTurretIsSelected = false;
@@ -136,13 +136,13 @@ public class TurretUpgradeRadialMenu : MonoBehaviour
         {
             if (i == FIRE_RATE_OPTION)
             {
-                radialSelection.spawnedParts[i].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"Fire Rate Upgrade";
+                radialSelection.spawnedParts[i].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"Fire Rate\nUpgrade";
                 // turretCostDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = $"Cost: {100}"; // Get this from your game settings
 
             }
             else if (i == HEALTH_OPTION)
             {
-                radialSelection.spawnedParts[i].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"Health level Upgrade";
+                radialSelection.spawnedParts[i].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"Health level\nUpgrade";
                 // turretCostDisplay.GetComponent<TMPro.TextMeshProUGUI>().text = $"Cost: {100}"; // Get this from your game settings
             }
             else

@@ -1533,6 +1533,61 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2146901065}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &443344159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443344161}
+  - component: {fileID: 443344160}
+  m_Layer: 0
+  m_Name: TurrentUpgradeRadialMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &443344160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443344159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5683910dd997f4a488c6e29f00b5d21b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radialSelection: {fileID: 1811275644}
+  turretNameDisplay: {fileID: 7000168060058889297}
+  turretHealthDisplay: {fileID: 7000168060058889296}
+  turretCostDisplay: {fileID: 7000168060058889295}
+  turretLevelDisplay: {fileID: 7000168060058889294}
+  rayOrigin: {fileID: 7000168060058889293}
+  maxRayDistance: 30
+  turretLayerMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  ifTurretIsSelected: 0
+--- !u!4 &443344161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443344159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.9555483, y: 2.3083491, z: -11.760578}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &451865062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3013,6 +3068,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888165731}
   m_CullTransparentMesh: 1
+--- !u!114 &939468659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4748865467531565541, guid: 0444c54311b2844a5972f8d6f523a772,
+    type: 3}
+  m_PrefabInstance: {fileID: 7000168060058889292}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c5253560c8b42b681f76e79467174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &947404745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5550,6 +5617,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800250856}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1811275644 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5342421231510100069, guid: 0444c54311b2844a5972f8d6f523a772,
+    type: 3}
+  m_PrefabInstance: {fileID: 7000168060058889292}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd9d8da2e0d72e4ba2987c17929196b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1838904436
 GameObject:
   m_ObjectHideFlags: 0
@@ -5783,7 +5862,7 @@ MonoBehaviour:
   - {fileID: 4186795882177071576, guid: b0875b767da20eb4c8e1591784c24e63, type: 3}
   - {fileID: 3027042334008381127, guid: 4c54331eb5f29a94bb2728fe7e1cdc77, type: 3}
   - {fileID: 4041928209317068615, guid: a21753be4bfb04649a02963985829e38, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 939468659}
   turretCosts: c80000002c010000f4010000fa000000
   rangeMaterial: {fileID: 2100000, guid: 058652dd7be0a244bbc552fca16a9bbf, type: 2}
   placementLayerMask:
@@ -9275,6 +9354,11 @@ PrefabInstance:
       objectReference: {fileID: 674521872}
     - target: {fileID: 5342421231510100069, guid: 0444c54311b2844a5972f8d6f523a772,
         type: 3}
+      propertyPath: turretUpgradeRadialMenu
+      value: 
+      objectReference: {fileID: 443344160}
+    - target: {fileID: 5342421231510100069, guid: 0444c54311b2844a5972f8d6f523a772,
+        type: 3}
       propertyPath: OnPartSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1590686160}
@@ -9288,6 +9372,36 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0444c54311b2844a5972f8d6f523a772, type: 3}
+--- !u!4 &7000168060058889293 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6289338193074074526, guid: 0444c54311b2844a5972f8d6f523a772,
+    type: 3}
+  m_PrefabInstance: {fileID: 7000168060058889292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7000168060058889294 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4166792724457785655, guid: 0444c54311b2844a5972f8d6f523a772,
+    type: 3}
+  m_PrefabInstance: {fileID: 7000168060058889292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7000168060058889295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8568846112274175978, guid: 0444c54311b2844a5972f8d6f523a772,
+    type: 3}
+  m_PrefabInstance: {fileID: 7000168060058889292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7000168060058889296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4219834482051371667, guid: 0444c54311b2844a5972f8d6f523a772,
+    type: 3}
+  m_PrefabInstance: {fileID: 7000168060058889292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7000168060058889297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5870921582512941000, guid: 0444c54311b2844a5972f8d6f523a772,
+    type: 3}
+  m_PrefabInstance: {fileID: 7000168060058889292}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7146111581560864463
 Transform:
   m_ObjectHideFlags: 0
@@ -9681,3 +9795,4 @@ SceneRoots:
   - {fileID: 4967056025884282469}
   - {fileID: 1590686159}
   - {fileID: 157273242}
+  - {fileID: 443344161}

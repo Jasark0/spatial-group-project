@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4833013219602277083}
   - component: {fileID: 95165448899077223}
   - component: {fileID: 7618192271635814804}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 8204169310709373115}
   - component: {fileID: 5495328830162883256}
   - component: {fileID: 3757170593190681344}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,10 +288,30 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8366964419376350573, guid: e93a75d194f66f14a8320e85e4639cfa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: -3293336427984311689, guid: e93a75d194f66f14a8320e85e4639cfa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: -2686984176973223742, guid: e93a75d194f66f14a8320e85e4639cfa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e93a75d194f66f14a8320e85e4639cfa,
         type: 3}
       propertyPath: m_Name
       value: turret_single
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e93a75d194f66f14a8320e85e4639cfa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e93a75d194f66f14a8320e85e4639cfa,
         type: 3}
@@ -355,6 +375,8 @@ MonoBehaviour:
   shotPower: 500
   fireRateLevel: 1
   healthLevel: 1
+  maxFireRateLevel: 5
+  maxHealthLevel: 5
   canvasOffset: {x: 0, y: 2, z: 0}
 --- !u!65 &1671288903492555271
 BoxCollider:

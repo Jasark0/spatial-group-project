@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2954185501825372976}
   - component: {fileID: 8273112196068051137}
   - component: {fileID: 8267056289039685136}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,6 +183,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6110775604368617315, guid: 992ac02642019164a9e9c578826060df,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 992ac02642019164a9e9c578826060df,
         type: 3}
       propertyPath: m_Name
@@ -190,8 +195,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 992ac02642019164a9e9c578826060df,
         type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 992ac02642019164a9e9c578826060df,
+        type: 3}
       propertyPath: m_TagString
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920415884539625310, guid: 992ac02642019164a9e9c578826060df,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -245,6 +260,8 @@ MonoBehaviour:
   shotPower: 500
   fireRateLevel: 1
   healthLevel: 1
+  maxFireRateLevel: 5
+  maxHealthLevel: 5
   canvasOffset: {x: 0, y: 2, z: 0}
 --- !u!65 &-1622031407059971889
 BoxCollider:

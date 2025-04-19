@@ -124,7 +124,7 @@ public class RadialSelection : MonoBehaviour
     {
         radialPartCanvas.gameObject.SetActive(true);
         radialPartCanvas.position = handTransform.position;
-        radialPartCanvas.rotation = handTransform.rotation;
+        radialPartCanvas.rotation = Quaternion.Euler(handTransform.rotation.eulerAngles.x, handTransform.rotation.eulerAngles.y, 0); // constrain z value
 
         gameObjectName.gameObject.SetActive(true);
         health.gameObject.SetActive(true);
