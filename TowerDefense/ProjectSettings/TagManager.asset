@@ -36,6 +36,8 @@ TagManager:
   - Plane
   - Holster
   - Pistol
+  - Rifle
+  - SMG
   layers:
   - Default
   - TransparentFX

@@ -6276,8 +6276,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _holsterSnapInteractable: {fileID: 1117520840994152446}
   _pistolOffset: {x: -0.49999997, y: -0.49999997, z: 0.49999997, w: 0.49999997}
-  _rifleOffset: {x: 0, y: 0, z: 0, w: 1}
-  transform: {fileID: 0}
+  _smgOffset: {x: -0.49999997, y: -0.49999997, z: 0.49999997, w: 0.49999997}
+  _smgPositionOffset: {x: 0, y: 0, z: 0}
+  _rifleOffset: {x: 0.49999997, y: 0.49999997, z: -0.49999997, w: -0.49999997}
+  transform: {fileID: 7615570438106997688}
   _holsterCollider: {fileID: 4040023941815099395}
   currentlyHolsteredWeapon: {fileID: 0}
 --- !u!1 &653239484011484359
@@ -18473,7 +18475,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _holsterSnapInteractable: {fileID: 3974924276546664440}
   _pistolOffset: {x: -0.49999997, y: -0.49999997, z: 0.49999997, w: 0.49999997}
-  _rifleOffset: {x: 0, y: 0, z: 0, w: 1}
+  _smgOffset: {x: 0.49999997, y: 0.49999997, z: -0.49999997, w: -0.49999997}
+  _smgPositionOffset: {x: 0, y: 0, z: 0}
+  _rifleOffset: {x: 0.49999997, y: 0.49999997, z: -0.49999997, w: -0.49999997}
   transform: {fileID: 7599075532994799505}
   _holsterCollider: {fileID: 5873864852523886961}
   currentlyHolsteredWeapon: {fileID: 0}
@@ -84873,6 +84877,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3274095754725908304}
   - component: {fileID: 4748865467531565541}
+  - component: {fileID: 5805451728949324169}
+  - component: {fileID: 8226739514623328256}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -84920,6 +84926,45 @@ MonoBehaviour:
   ovrPlayerController: {fileID: 7684638089130675009}
   keyBindForPovChange: 4
   keyBindForMissileStrike: 0
+--- !u!114 &5805451728949324169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8176483921970197734}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6467963ce65afc94883763122ba81f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+--- !u!143 &8226739514623328256
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8176483921970197734}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8179419187865000091
 GameObject:
   m_ObjectHideFlags: 0
