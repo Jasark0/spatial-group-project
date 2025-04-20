@@ -12,7 +12,7 @@ public class TurretPlacementManager : MonoBehaviour
     private GameManager gameManager;
     [SerializeField] private Player player;
 
-    public int[] turretCosts = { 200, 300 };
+    public int[] turretCosts = { 200, 300, 500, 250 };
 
     private float currentZRotation = 0f;
     private int selectedTurretIndex = -1;
@@ -79,7 +79,10 @@ public class TurretPlacementManager : MonoBehaviour
         turretGhost.GetComponent<Collider>().enabled = false;
         
         // Create range indicator
-        CreateRangeIndicator(turretGhost.GetComponent<Turret>().range);
+        if (turretGhost.GetComponent<Turret>() != null)
+        {
+            CreateRangeIndicator(turretGhost.GetComponent<Turret>().range);
+        }
         
         DisableTurretFunctionality(turretGhost);
         isPlacing = true;
@@ -107,6 +110,18 @@ public class TurretPlacementManager : MonoBehaviour
         if (turretGhost)
         {
             int cost = turretCosts[Array.IndexOf(turretPrefabs, selectedTurretPrefab)];
+
+            float checkRadius = 0.5f;
+            Collider[] colliders = Physics.OverlapSphere(turretGhost.transform.position, checkRadius);
+            foreach (var col in colliders)
+            {
+                if (col.gameObject.CompareTag("Turret"))
+                {
+                    Debug.Log("Cannot place turret here — another turret is too close.");
+                    return;
+                }
+            }
+
             if (gameManager.CanAfford(cost))
             {
                 Instantiate(selectedTurretPrefab, turretGhost.transform.position, turretGhost.transform.rotation);
