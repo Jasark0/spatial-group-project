@@ -5,9 +5,24 @@ public class GunShop : MonoBehaviour
     public GameObject smgPrefab;
     public GameObject arPrefab;
 
+    public GameObject pistolPrefab;
+
+    public int pistolCost = 250;
     public int smgCost = 500;
     public int arCost = 1000;
 
+    public void BuyPistol()
+    {
+        if (GameManager.Instance.CanAfford(pistolCost))
+        {
+            GameManager.Instance.DeductMoney(pistolCost);
+            SpawnGun(pistolPrefab);
+        }
+        else
+        {
+            Debug.Log("Not enough money for Pistol");
+        }
+    }
     public void BuySMG()
     {
         if (GameManager.Instance.CanAfford(smgCost))
