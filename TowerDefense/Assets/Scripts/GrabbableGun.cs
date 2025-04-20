@@ -10,15 +10,17 @@ public class GrabbableGun : MonoBehaviour
     public Transform barrelLocation;
 
     public MeshFilter gunMeshFilter;
-    public Mesh pistolMesh;
-    public Mesh smgMesh;
 
     public float shotPower = 1000f;
     public float fireRate = 0.6f;
+    public float arFireRate = 0.3f;
     private float nextFireTime = 0f;
-    public bool isUpgraded = false;
-    private int upgradeCost = 500;
-    private GameManager gameManager;
+
+    [Header("Gun Type")]
+    public bool isPistol;
+    public bool isSMG;
+    public bool isAR;
+    private bool isFiring = false;
     
     // Reference to check if right controller is holding anything
     private Oculus.Interaction.GrabInteractor rightGrabInteractor;
@@ -26,18 +28,11 @@ public class GrabbableGun : MonoBehaviour
     void Start()
     {
         grabbable = GetComponent<Grabbable>();
-        gameManager = FindObjectOfType<GameManager>();
 
         if (gunMeshFilter == null)
         {
             gunMeshFilter = GetComponent<MeshFilter>();
         }
-
-        if (gunMeshFilter != null && pistolMesh != null)
-        {
-            // gunMeshFilter.mesh = pistolMesh;
-        }
-        
    
     }
     
@@ -45,28 +40,43 @@ public class GrabbableGun : MonoBehaviour
 
     void Update()
     {
-        // Only proceed if the gun is being grabbed
         if (grabbable.SelectingPointsCount > 0)
         {
-           
-            // Determine which controller is holding the gun
-            OVRInput.Controller holdingController = DetermineHoldingController();
-            
-            // Check for trigger press on the appropriate controller
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, holdingController) && 
-                Time.time >= nextFireTime)
+            OVRInput.Controller controller = DetermineHoldingController();
+
+            if (Player.instance.IsInBuildMode())
+                return;
+
+            // Pistol (semi-auto)
+            if (isPistol && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller) && Time.time >= nextFireTime)
             {
-                if (Player.instance.IsInBuildMode())
-                {
-                    return;
-                }
                 Shoot();
                 nextFireTime = Time.time + fireRate;
             }
 
-            
-        } 
-     
+            // SMG (burst)
+            else if (isSMG && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller) && Time.time >= nextFireTime)
+            {
+                StartCoroutine(BurstFire(4));
+                nextFireTime = Time.time + fireRate;
+            }
+
+            // AR (full auto)
+            else if (isAR && OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, controller) && Time.time >= nextFireTime)
+            {
+                Shoot();
+                nextFireTime = Time.time + arFireRate;
+            }
+        }
+    }
+
+        IEnumerator BurstFire(int burstCount)
+    {
+        for (int i = 0; i < burstCount; i++)
+        {
+            Shoot();
+            yield return new WaitForSeconds(0.08f);
+        }
     }
 
     private OVRInput.Controller DetermineHoldingController()
@@ -103,27 +113,5 @@ public class GrabbableGun : MonoBehaviour
         }
         // Desetroy the dart after X seconds.
         Destroy(dart, 3f);
-    }
-
-    void TryUpgradeGun()
-    {
-        if (gameManager != null && gameManager.CanAfford(upgradeCost))
-        {
-            gameManager.DeductMoney(upgradeCost);
-
-            fireRate = 0.2f;
-            isUpgraded = true;
-
-            if (gunMeshFilter != null && smgMesh != null)
-            {
-                gunMeshFilter.mesh = smgMesh;
-            }
-
-            Debug.Log("Gun upgraded to SMG!");
-        }
-        else
-        {
-            Debug.Log("Not enough money to upgrade.");
-        }
     }
 }

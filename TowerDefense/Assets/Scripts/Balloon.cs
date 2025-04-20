@@ -17,6 +17,11 @@ public class Balloon : MonoBehaviour
 
     private GameObject flashObject;
 
+    // Reorientation fields
+    private bool needsReorientation = false;
+    private float reorientSpeed = 5f;
+    private Quaternion uprightRotation = Quaternion.Euler(0f, 0f, 0f);
+
     protected virtual void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -44,6 +49,34 @@ public class Balloon : MonoBehaviour
         if (transform.position.y < minYThreshold)
         {
             Destroy(gameObject);
+        }
+
+        // Check if balloon is landed and needs to stand back up
+        if (!needsReorientation)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
+            {
+                if (hit.collider.CompareTag("Plane"))
+                {
+                    float angle = Vector3.Angle(transform.up, Vector3.up);
+                    if (angle > 10f)
+                    {
+                        needsReorientation = true;
+                    }
+                }
+            }
+        }
+
+        if (needsReorientation)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, uprightRotation, Time.deltaTime * reorientSpeed);
+
+            if (Quaternion.Angle(transform.rotation, uprightRotation) < 1f)
+            {
+                transform.rotation = uprightRotation;
+                needsReorientation = false;
+            }
         }
     }
 

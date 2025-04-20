@@ -16,6 +16,8 @@ public class Waves : MonoBehaviour
     private float balloonTimer = 0f;
     private float nextBalloon = 3f;
     private float minBalloonSpawnTime = 0.8f;
+    private float startDelayTimer = 0f;
+    private bool gameStarted = false;
 
     // Wave system
     public int balloonsPerWave;
@@ -53,7 +55,7 @@ public class Waves : MonoBehaviour
     protected virtual void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-
+        startDelayTimer = Time.time + 10f;
         if (planeTransform != null)
         {
             Renderer planeRenderer = planeTransform.GetComponent<Renderer>();
@@ -66,11 +68,23 @@ public class Waves : MonoBehaviour
 
         balloonsPerWave = 3;
         UpdateWaveUI();
-        PopUpManager.Instance.ShowPopUp(0, 5, "Wave " + currentWave + " Starting!");
     }
 
     protected virtual void Update()
     {
+        if (!gameStarted)
+        {
+            if (Time.time >= startDelayTimer)
+            {
+                gameStarted = true;
+                PopUpManager.Instance.ShowPopUp(0, 5, "Wave " + currentWave + " Starting!");
+            }
+            else
+            {
+                return;
+            }
+        }
+
         if (balloonTimer < Time.time && !waitingForNextWave)
         {
             if (balloonsCount < balloonsPerWave)
