@@ -18,7 +18,15 @@ public class TurretPlacementManager : MonoBehaviour
     private int selectedTurretIndex = -1;
     public Material rangeMaterial;
 
+    public Material rangeRestrictMaterial;
+
     [SerializeField] private LayerMask placementLayerMask;
+
+    // Add this field to control how close turrets can be to each other
+    [SerializeField] private float minTurretDistance = 1.5f; 
+    
+    // Track whether current position is valid
+    [SerializeField] private bool isValidPlacement = true;
 
     void Start()
     {
@@ -38,13 +46,27 @@ public class TurretPlacementManager : MonoBehaviour
                 if (rangeIndicator != null)
                 {
                     rangeIndicator.transform.position = hit.point;
+                    
+                    // Check if there are any turrets nearby that would prevent placement
+                    CheckTurretProximity(hit.point);
                 }
             }
 
             // Use Oculus controller trigger for placement
             if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
             {
-                PlaceTurret();
+                // Only allow placement if position is valid
+                if (isValidPlacement)
+                {
+                    PlaceTurret();
+                }
+                else
+                {
+                    // Give feedback that placement is invalid
+                    Debug.Log("Cannot place turret here — another turret is too close.");
+                    // Optionally add haptic feedback here
+                    StartCoroutine(FlashInvalidPlacement());
+                }
             }
 
             // Use Oculus controller grip button to cancel
@@ -98,11 +120,13 @@ public class TurretPlacementManager : MonoBehaviour
         
         // Make it semi-transparent
         Renderer renderer = rangeIndicator.GetComponent<Renderer>();
-        // rangeMaterial.color = rangeColor;
         renderer.material = rangeMaterial;
         
         // Remove the collider so it doesn't interfere with raycasting
         Destroy(rangeIndicator.GetComponent<Collider>());
+        
+        // Start with valid placement state
+        isValidPlacement = true;
     }
 
     void PlaceTurret()
@@ -111,17 +135,9 @@ public class TurretPlacementManager : MonoBehaviour
         {
             int cost = turretCosts[Array.IndexOf(turretPrefabs, selectedTurretPrefab)];
 
-            float checkRadius = 0.5f;
-            Collider[] colliders = Physics.OverlapSphere(turretGhost.transform.position, checkRadius);
-            foreach (var col in colliders)
-            {
-                if (col.gameObject.CompareTag("Turret"))
-                {
-                    Debug.Log("Cannot place turret here — another turret is too close.");
-                    return;
-                }
-            }
-
+            // We already check proximity in the Update method, so no need for this check here
+            // This keeps the code clean and avoids duplication
+            
             if (gameManager.CanAfford(cost))
             {
                 Instantiate(selectedTurretPrefab, turretGhost.transform.position, turretGhost.transform.rotation);
@@ -164,5 +180,59 @@ public class TurretPlacementManager : MonoBehaviour
             // Switch back to first-person view when canceling placement
             player.SetViewMode(Player.ViewMode.FirstPerson);
         }
+    }
+    
+    private void CheckTurretProximity(Vector3 position)
+    {
+        // Find all turrets in the scene (including ghosts)
+        Collider[] colliders = Physics.OverlapSphere(position, minTurretDistance);
+        
+        bool tooClose = false;
+        foreach (var col in colliders)
+        {
+            if (col.gameObject.CompareTag("Turret"))
+            {
+                tooClose = true;
+                break;
+            }
+        }
+        
+        // Update material based on placement validity
+        if (tooClose != !isValidPlacement) // Only update if state changed
+        {
+            isValidPlacement = !tooClose;
+            
+            Renderer renderer = rangeIndicator.GetComponent<Renderer>();
+            if (isValidPlacement)
+            {
+                renderer.material = rangeMaterial;
+            }
+            else
+            {
+                renderer.material = rangeRestrictMaterial;
+            }
+        }
+    }
+    
+    // Visual feedback for invalid placement
+    private System.Collections.IEnumerator FlashInvalidPlacement()
+    {
+        if (rangeIndicator == null) yield break;
+        
+        Renderer renderer = rangeIndicator.GetComponent<Renderer>();
+        Color originalColor = rangeRestrictMaterial.color;
+        
+        // Store original alpha
+        float originalAlpha = originalColor.a;
+        
+        // Flash by increasing alpha
+        Color flashColor = originalColor;
+        flashColor.a = Mathf.Min(0.8f, originalAlpha * 1.5f);
+        rangeRestrictMaterial.color = flashColor;
+        
+        yield return new WaitForSeconds(0.2f);
+        
+        // Return to original alpha
+        rangeRestrictMaterial.color = originalColor;
     }
 }
