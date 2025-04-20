@@ -1820,12 +1820,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 209796146}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &573993313 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1198194257147180899, guid: 0444c54311b2844a5972f8d6f523a772,
-    type: 3}
-  m_PrefabInstance: {fileID: 7000168060058889292}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &578922976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3949,12 +3943,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da304d42de78026438b3d997f6f50685, type: 3}
---- !u!33 &1115673044 stripped
-MeshFilter:
-  m_CorrespondingSourceObject: {fileID: 7683342361161354791, guid: da304d42de78026438b3d997f6f50685,
-    type: 3}
-  m_PrefabInstance: {fileID: 1115673043}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1128455755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a273d17754578fb4f831105881e614e1,
@@ -4310,12 +4298,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6b2747ff5a52264e9076962ab50b374, type: 3}
---- !u!1 &1275279085 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4238684426236578174, guid: 0444c54311b2844a5972f8d6f523a772,
-    type: 3}
-  m_PrefabInstance: {fileID: 7000168060058889292}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1278485449 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6233866225840012374, guid: da304d42de78026438b3d997f6f50685,
@@ -6219,7 +6201,7 @@ MonoBehaviour:
   rangeMaterial: {fileID: 2100000, guid: 058652dd7be0a244bbc552fca16a9bbf, type: 2}
   placementLayerMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 8192
 --- !u!4 &1934578310
 Transform:
   m_ObjectHideFlags: 0
@@ -7482,11 +7464,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AR_1
       objectReference: {fileID: 0}
-    - target: {fileID: 6494812846407011662, guid: 0dac544c981edc547aa5b6d71174e843,
-        type: 3}
-      propertyPath: gunMeshFilter
-      value: 
-      objectReference: {fileID: 1115673044}
     - target: {fileID: 6719417469267924253, guid: 0dac544c981edc547aa5b6d71174e843,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9398,31 +9375,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 348812725567432645, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: holsters.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 348812725567432645, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: holsters.Array.data[0]
-      value: 
-      objectReference: {fileID: 573993313}
-    - target: {fileID: 348812725567432645, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: holsters.Array.data[1]
-      value: 
-      objectReference: {fileID: 1275279085}
-    - target: {fileID: 365945104668157071, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1274497537978833807, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3274095754725908304, guid: 0444c54311b2844a5972f8d6f523a772,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9473,26 +9425,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4653798817587533761, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4748865467531565541, guid: 0444c54311b2844a5972f8d6f523a772,
         type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1479847335}
-    - target: {fileID: 4748865467531565541, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: HandGrabLeft
-      value: 
-      objectReference: {fileID: 7000168060058889294}
-    - target: {fileID: 4748865467531565541, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: HandGrabRight
-      value: 
-      objectReference: {fileID: 7000168060058889293}
     - target: {fileID: 4748865467531565541, guid: 0444c54311b2844a5972f8d6f523a772,
         type: 3}
       propertyPath: turretManager
@@ -9513,28 +9450,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8176483921970197734, guid: 0444c54311b2844a5972f8d6f523a772,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0444c54311b2844a5972f8d6f523a772, type: 3}
---- !u!1 &7000168060058889293 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6856846551937837562, guid: 0444c54311b2844a5972f8d6f523a772,
-    type: 3}
-  m_PrefabInstance: {fileID: 7000168060058889292}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7000168060058889294 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5154935759415570765, guid: 0444c54311b2844a5972f8d6f523a772,
-    type: 3}
-  m_PrefabInstance: {fileID: 7000168060058889292}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7003407018038414384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9543,6 +9463,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 802835828650098776, guid: 507a84cbbc2db874b840f7145b7590c7,
+        type: 3}
+      propertyPath: _hand
+      value: 
+      objectReference: {fileID: 8272635385025766201}
     - target: {fileID: 870650361781578914, guid: 507a84cbbc2db874b840f7145b7590c7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -9965,11 +9890,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SMG_2
       objectReference: {fileID: 0}
-    - target: {fileID: 4978737104443251814, guid: 1ce7db41245525b4a8fc27a7442b7087,
-        type: 3}
-      propertyPath: gunMeshFilter
-      value: 
-      objectReference: {fileID: 1115673044}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

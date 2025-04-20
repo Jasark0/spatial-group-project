@@ -3564,7 +3564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8513203604493422042
 Transform:
   m_ObjectHideFlags: 0
@@ -4526,6 +4526,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerEyeAnchor: {fileID: 2266895461050384447}
+  holsters:
+  - {fileID: 1198194257147180899}
+  - {fileID: 4238684426236578174}
 --- !u!1 &461725630896098721
 GameObject:
   m_ObjectHideFlags: 0
@@ -48398,7 +48401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8329574168487117486
 Transform:
   m_ObjectHideFlags: 0
@@ -84921,6 +84924,8 @@ MonoBehaviour:
   turretManager: {fileID: 0}
   gameManager: {fileID: 0}
   planeTransform: {fileID: 0}
+  HandGrabRight: {fileID: 6856846551937837562}
+  HandGrabLeft: {fileID: 5154935759415570765}
   missilePrefab: {fileID: 6978630793080837121, guid: d55a87c1a4f074946803a2ee88f715da,
     type: 3}
   ovrPlayerController: {fileID: 7684638089130675009}

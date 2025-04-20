@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         }
         
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     public void UpdateScore(int points)
     {

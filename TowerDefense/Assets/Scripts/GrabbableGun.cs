@@ -35,7 +35,7 @@ public class GrabbableGun : MonoBehaviour
 
         if (gunMeshFilter != null && pistolMesh != null)
         {
-            gunMeshFilter.mesh = pistolMesh;
+            // gunMeshFilter.mesh = pistolMesh;
         }
         
    
