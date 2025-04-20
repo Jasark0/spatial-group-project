@@ -22,9 +22,14 @@ public class OVRMainMenu : MonoBehaviour
     [SerializeField]
     private Button exitButton;
 
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject aboutPanel;
+
     // Scene indices
-    private const int TUTORIAL_SCENE_INDEX = 0; // Change to your actual tutorial scene index
+    private const int TUTORIAL_SCENE_INDEX = 2; // Change to your actual tutorial scene index
     private const int MAIN_GAME_SCENE_INDEX = 1; // Change to your actual main game scene index
+    
+    private const int MAIN_MENU_SCENE_INDEX = 0; // Change to your actual main menu scene index
 
     void Start()
     {
@@ -61,6 +66,12 @@ public class OVRMainMenu : MonoBehaviour
         SceneManager.LoadScene(MAIN_GAME_SCENE_INDEX);
     }
 
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene(MAIN_MENU_SCENE_INDEX);
+        // Debug.Log("Main menu scene loaded");
+    }
+
     /// <summary>
     /// Exits the application
     /// </summary>
@@ -85,5 +96,31 @@ public class OVRMainMenu : MonoBehaviour
     public void LoadSceneByName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void LoadAboutPanel()
+    {
+        if (mainMenuPanel != null && aboutPanel != null)
+        {
+            mainMenuPanel.SetActive(false);
+            aboutPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Main menu or about panel is not assigned in the inspector.");
+        }
+    }
+
+    public void LoadMainMenu()
+    {
+        if (mainMenuPanel != null && aboutPanel != null)
+        {
+            aboutPanel.SetActive(false);
+            mainMenuPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Main menu or about panel is not assigned in the inspector.");
+        }
     }
 }

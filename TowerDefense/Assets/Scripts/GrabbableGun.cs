@@ -56,6 +56,10 @@ public class GrabbableGun : MonoBehaviour
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, holdingController) && 
                 Time.time >= nextFireTime)
             {
+                if (Player.instance.IsInBuildMode())
+                {
+                    return;
+                }
                 Shoot();
                 nextFireTime = Time.time + fireRate;
             }

@@ -1,8 +1,26 @@
 using Oculus.Interaction.Locomotion;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit;
+using Oculus.Interaction;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
+    public static Player Instance => instance;
+
+    private void Awake()
+    {
+        if (instance && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        instance = this;
+        // DontDestroyOnLoad(gameObject);
+    }
+
     public enum ViewMode
     {
         FirstPerson,
@@ -15,6 +33,9 @@ public class Player : MonoBehaviour
     [SerializeField] private TurretPlacementManager turretManager;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Transform planeTransform;
+
+    [SerializeField] private GameObject HandGrabRight;
+    [SerializeField] private GameObject HandGrabLeft;
     public GameObject missilePrefab;
     private ViewMode currentMode = ViewMode.FirstPerson;
     private float originalGravityFactor;
@@ -51,12 +72,20 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if ( SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "Main Menu 1")
+        {
+            // Disable player controls in the main menu scene
+            return;
+        }
         // Toggle view when X button on left controller is pressed (secondary thumb stick button)
         if (OVRInput.GetDown(keyBindForPovChange))
         {
-            Debug.Log("Toggle view");
-            currentMode = currentMode == ViewMode.FirstPerson ? ViewMode.Build : ViewMode.FirstPerson;
-            SetViewMode(currentMode);
+            if (!IsHoldingAnything())
+            {
+                Debug.Log("Toggle view");
+                currentMode = currentMode == ViewMode.FirstPerson ? ViewMode.Build : ViewMode.FirstPerson;
+                SetViewMode(currentMode);
+            }
         }
 
         if (gameManager.hasMissileStrike && OVRInput.GetDown(keyBindForMissileStrike))
@@ -69,12 +98,31 @@ public class Player : MonoBehaviour
 
     public void SetViewMode(ViewMode mode)
     {
-        if ( dartGun != null)
+        // Check if player is holding anything before switching to build mode
+        if (mode == ViewMode.Build && IsHoldingAnything())
+        {
+            Debug.Log("Cannot enter build mode while holding an object");
+            return; // Don't change modes if holding something
+        }
+
+        // Continue with the existing view mode change logic
+        if (dartGun != null)
         {
             dartGun.gameObject.SetActive(mode == ViewMode.FirstPerson);
         }
-        turretManager.gameObject.SetActive(mode == ViewMode.Build);
 
+        if (turretManager != null)
+            turretManager.gameObject.SetActive(mode == ViewMode.Build);
+
+        if (HandGrabRight != null)
+            HandGrabRight.SetActive(mode == ViewMode.FirstPerson);
+
+        if (HandGrabLeft != null)
+            HandGrabLeft.SetActive(mode == ViewMode.FirstPerson);
+            
+        // Update the current mode
+        currentMode = mode;
+            
         if (mode == ViewMode.Build)
         {
             transform.localScale = new Vector3(
@@ -84,13 +132,70 @@ public class Player : MonoBehaviour
             );
             ovrPlayerController.GravityFactor = 0;
             playerCollider.enabled = false;
+            
+            // Disable hand interactors in build mode
+            DisableHandGrabInteractors();
         }
         else
         {
             transform.localScale = originalScale;
             ovrPlayerController.GravityFactor = originalGravityFactor;
             playerCollider.enabled = true;
+            
+            // Re-enable hand interactors in first person mode
+            EnableHandGrabInteractors();
         }
+    }
+
+    // Checks if the player is holding anything with either hand
+    private bool IsHoldingAnything()
+    {
+        // Find all HandGrabInteractors in the player hierarchy
+        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors = 
+            GetComponentsInChildren<Oculus.Interaction.HandGrab.HandGrabInteractor>();
+        
+        foreach (var interactor in handGrabInteractors)
+        {
+            // Check if this hand is actively grabbing something
+            if (interactor.State == Oculus.Interaction.InteractorState.Select)
+            {
+                Debug.Log("Hand is holding an object, cannot switch to build mode");
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    // Disable all hand grab interactors
+    private void DisableHandGrabInteractors()
+    {
+        // Find all HandGrabInteractors in the player hierarchy
+        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors = 
+            GetComponentsInChildren<Oculus.Interaction.HandGrab.HandGrabInteractor>();
+        
+        foreach (var interactor in handGrabInteractors)
+        {
+            interactor.enabled = false;
+        }
+    }
+
+    // Enable all hand grab interactors
+    private void EnableHandGrabInteractors()
+    {
+        // Find all HandGrabInteractors in the player hierarchy
+        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors = 
+            GetComponentsInChildren<Oculus.Interaction.HandGrab.HandGrabInteractor>();
+        
+        foreach (var interactor in handGrabInteractors)
+        {
+            interactor.enabled = true;
+        }
+    }
+
+    public bool IsInBuildMode()
+    {
+        return currentMode == ViewMode.Build;
     }
 
     public void StartMissileStrike()

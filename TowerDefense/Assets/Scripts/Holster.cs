@@ -9,6 +9,8 @@ public class Holster : MonoBehaviour
     public GameObject centerEyeAnchor;
     private float rotationSpeed = 50;
 
+    public GameObject[] holsters;
+
     private void Update()
     {
         // Put holdster halfway between the body
@@ -38,6 +40,7 @@ public class Holster : MonoBehaviour
         var step = finalRotationSpeed * Time.deltaTime;
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, centerEyeAnchor.transform.eulerAngles.y, 0), step);
+
     }
 
 

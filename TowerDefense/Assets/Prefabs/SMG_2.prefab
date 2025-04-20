@@ -106,6 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7404961541842705555}
   - component: {fileID: 8159724379346384835}
+  - component: {fileID: 4924927060782081626}
   m_Layer: 0
   m_Name: HandGrabInteractable_mirror
   m_TagString: Untagged
@@ -152,7 +153,7 @@ MonoBehaviour:
   _scoringModifier:
     _positionRotationWeight: 0.8
   _slippiness: 0
-  _supportedGrabTypes: 3
+  _supportedGrabTypes: -1
   _pinchGrabRules:
     _thumbRequirement: 1
     _indexRequirement: 1
@@ -171,6 +172,21 @@ MonoBehaviour:
   _handAligment: 1
   _handGrabPoses:
   - {fileID: 8366710668576902774}
+--- !u!114 &4924927060782081626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736526740179281533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: addfd750cc6bed44e9bc1e7fea772739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactables:
+  - {fileID: 6257387512287692174}
+  - {fileID: 8159724379346384835}
 --- !u!1 &2845524724902468809
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,6 +911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1657727990808551038}
   - component: {fileID: 6257387512287692174}
+  - component: {fileID: 8238737525474449826}
   m_Layer: 0
   m_Name: HandGrabInteractable
   m_TagString: Untagged
@@ -960,3 +977,18 @@ MonoBehaviour:
   _handAligment: 1
   _handGrabPoses:
   - {fileID: 6543400316044634739}
+--- !u!114 &8238737525474449826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644490236664168425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: addfd750cc6bed44e9bc1e7fea772739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactables:
+  - {fileID: 6257387512287692174}
+  - {fileID: 8159724379346384835}

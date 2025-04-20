@@ -82,7 +82,7 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
                 // Re-enable logic here if needed
                 transform.localRotation = Quaternion.identity; // Reset rotation when weapon is removed
                 transform.localPosition = Vector3.zero; // Reset position when weapon is removed
-                _holsterCollider.enabled = true; // Disable the holster collider to prevent further interactions while weapon is snapped
+                _holsterCollider.enabled = true; // enable the holster collider to prevent further interactions while weapon is snapped
                 currentlyHolsteredWeapon = null; // Clear the currently holstered weapon
                 
                 // _holsterSnapInteractable.enabled = true; // Re-enable the holster snap interactable for future interactions
@@ -92,7 +92,7 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     private void AdjustSnappedRotation(Transform holsterTransform, Quaternion offset)
