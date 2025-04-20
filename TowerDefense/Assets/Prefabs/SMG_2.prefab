@@ -465,13 +465,12 @@ MonoBehaviour:
     type: 3}
   barrelLocation: {fileID: 4013867166981038800}
   gunMeshFilter: {fileID: 5214853841907161304}
-  pistolMesh: {fileID: 396962236555141039, guid: ed18109ab95f0004c895082ab6ec7020,
-    type: 3}
-  smgMesh: {fileID: -3159989728218202559, guid: 223a88d0564287949ba3af7119d8ea51,
-    type: 3}
   shotPower: 1000
   fireRate: 0.6
-  isUpgraded: 0
+  arFireRate: 0.3
+  isPistol: 0
+  isSMG: 1
+  isAR: 0
 --- !u!1 &3682733303736672921
 GameObject:
   m_ObjectHideFlags: 0
