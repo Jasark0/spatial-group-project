@@ -9,6 +9,10 @@ public class Player : MonoBehaviour
     public static Player instance;
     public static Player Instance => instance;
 
+    // Define a delegate and event for view mode changes
+    public delegate void ViewModeChangeHandler(ViewMode newMode);
+    public event ViewModeChangeHandler OnViewModeChanged;
+
     private void Awake()
     {
         if (instance && instance != this)
@@ -145,6 +149,9 @@ public class Player : MonoBehaviour
             // Re-enable hand interactors in first person mode
             EnableHandGrabInteractors();
         }
+        
+        // Notify subscribers about the mode change
+        OnViewModeChanged?.Invoke(mode);
     }
 
     // Checks if the player is holding anything with either hand

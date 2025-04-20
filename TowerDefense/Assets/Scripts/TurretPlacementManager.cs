@@ -28,10 +28,39 @@ public class TurretPlacementManager : MonoBehaviour
     // Track whether current position is valid
     [SerializeField] private bool isValidPlacement = true;
 
+    [Header("Rotation Settings")]
+    [SerializeField] [Range(50f, 200f)] private float rotationSensitivity = 120f;
+    [SerializeField] [Range(0.05f, 0.5f)] private float thumbstickDeadzone = 0.1f;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         player = FindObjectOfType<Player>();
+        
+        // Subscribe to view mode change events
+        if (player != null)
+        {
+            player.OnViewModeChanged += HandleViewModeChanged;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe when destroyed to prevent memory leaks
+        if (player != null)
+        {
+            player.OnViewModeChanged -= HandleViewModeChanged;
+        }
+    }
+    
+    // Handler for view mode changes
+    private void HandleViewModeChanged(Player.ViewMode newMode)
+    {
+        // If switching away from build mode while placing, cancel placement
+        if (newMode != Player.ViewMode.Build && isPlacing)
+        {
+            CancelPlacement();
+        }
     }
 
     void Update()
@@ -70,19 +99,36 @@ public class TurretPlacementManager : MonoBehaviour
             }
 
             // Use Oculus controller grip button to cancel
-            if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
+            if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger) )
             {
                 CancelPlacement();
             }
 
-            if (selectedTurretIndex == 3 && Input.GetKeyDown(KeyCode.R))
+            // Replace the keyboard-based rotation logic with joystick controls
+            if (selectedTurretIndex == 3) // Barricade
             {
-                currentZRotation += 45f;
-                if (currentZRotation > 360f)
-                    currentZRotation = 45f;
-
-                Vector3 currentEuler = turretGhost.transform.rotation.eulerAngles;
-                turretGhost.transform.rotation = Quaternion.Euler(currentEuler.x, currentEuler.y, currentZRotation);
+                // Get horizontal thumbstick input from left controller
+                float rotationInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
+                
+                // Apply rotation based on thumbstick input with customizable sensitivity
+                if (Mathf.Abs(rotationInput) > thumbstickDeadzone) // Use customizable deadzone
+                {
+                    // Use the public sensitivity value for rotation speed
+                    float rotationSpeed = rotationSensitivity * Time.deltaTime; 
+                    
+                    // Apply rotation based on thumbstick direction
+                    currentZRotation += rotationInput * rotationSpeed;
+                    
+                    // Keep rotation within 0-360 degrees
+                    if (currentZRotation > 360f)
+                        currentZRotation -= 360f;
+                    else if (currentZRotation < 0f)
+                        currentZRotation += 360f;
+                        
+                    // Apply the rotation to the ghost
+                    Vector3 currentEuler = turretGhost.transform.rotation.eulerAngles;
+                    turretGhost.transform.rotation = Quaternion.Euler(currentEuler.x, currentEuler.y, currentZRotation);
+                }
             }
         }
     }

@@ -430,7 +430,7 @@ MonoBehaviour:
   gunMeshFilter: {fileID: 520422996951101936}
   shotPower: 1000
   fireRate: 0.6
-  arFireRate: 0.6
+  arFireRate: 1.5
   isPistol: 0
   isSMG: 0
   isAR: 1
