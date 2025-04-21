@@ -3,35 +3,22 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class TutorialsWave : Waves
 {
-  public TMP_Text tutorialPromptText;
-  private bool waitingForTurretPlacement = false;
-  private bool waitingForMissileStrike = false;
   private bool hasPlacedTurret = false;
+  private bool shootPopupShown = false;
+  private bool buildPopupShown = false;
   protected override void Start()
   {
     base.Start();
-
-    if (tutorialPromptText != null)
-    {
-      tutorialPromptText.gameObject.SetActive(false);
-    }
-    //wait 5 seconds before loading the main scene
-    Invoke("LoadMainScene", 5f);
-  }
-
-  void LoadMainScene()
-  {
-    SceneManager.LoadScene("MainScene");
   }
 
   protected override void Update()
   {
     if (currentWave == 1)
     {
-      if (tutorialPromptText != null && !tutorialPromptText.gameObject.activeSelf)
+      if (!shootPopupShown)
       {
-        tutorialPromptText.text = "Shoot down the balloons with your dart gun!";
-        tutorialPromptText.gameObject.SetActive(true);
+        PopUpManager.Instance.ShowPopUp(0, 10, "Buy a gun in the shop and shoot down the robots!");
+        shootPopupShown = true;
       }
       base.Update();
     }
@@ -44,30 +31,19 @@ public class TutorialsWave : Waves
         if (turrets.Length > 0)
         {
           hasPlacedTurret = true;
-          waitingForMissileStrike = true;
-          if (tutorialPromptText != null)
-          {
-            tutorialPromptText.text = "Press A to launch a missile strike!";
-          }
+          PopUpManager.Instance.ShowPopUp(0, 10, "Press A to launch a missile strike!");
         }
-        else if (tutorialPromptText != null)
+        else
         {
-          tutorialPromptText.text = "Press B to enter build mode and place a turret!";
-          tutorialPromptText.gameObject.SetActive(true);
+          if (!buildPopupShown)
+          {
+            PopUpManager.Instance.ShowPopUp(0, 10, "Buy a turret in the shop and place a turret!");
+            buildPopupShown = true;
+          }
         }
       }
       else
-      {
-        if (waitingForMissileStrike)
-        {
-          if (!gameManager.hasMissileStrike)
-          {
-            waitingForMissileStrike = false;
-            tutorialPromptText.gameObject.SetActive(false);
-          }
-        }
         base.Update();
-      }
     }
     else
     {
