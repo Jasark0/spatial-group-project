@@ -26,7 +26,7 @@ public class Waves : MonoBehaviour
     private bool waitingForNextWave = false;
     private float waveCooldownTimer = 0f;
 
-    private GameManager gameManager;
+    protected GameManager gameManager;
 
     // Plane dimensions
     public Transform planeTransform;

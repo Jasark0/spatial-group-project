@@ -97,6 +97,14 @@ public class Turret : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
+
+        // Find and trigger the text shake effect
+        TurretHealthDisplay healthDisplay = GetComponentInChildren<TurretHealthDisplay>();
+        if (healthDisplay != null)
+        {
+            healthDisplay.ShakeText();
+        }
+
         if (health <= 0f)
         {
             Destroy(gameObject);

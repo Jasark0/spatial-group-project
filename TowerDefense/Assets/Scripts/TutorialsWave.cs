@@ -7,12 +7,10 @@ public class TutorialsWave : Waves
   private bool waitingForTurretPlacement = false;
   private bool waitingForMissileStrike = false;
   private bool hasPlacedTurret = false;
-  private GameManager gameManager;
   protected override void Start()
   {
     base.Start();
 
-    gameManager = FindObjectOfType<GameManager>();
     if (tutorialPromptText != null)
     {
       tutorialPromptText.gameObject.SetActive(false);
@@ -26,7 +24,7 @@ public class TutorialsWave : Waves
     SceneManager.LoadScene("MainScene");
   }
 
-  void Update()
+  protected override void Update()
   {
     if (currentWave == 1)
     {
