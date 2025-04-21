@@ -3315,6 +3315,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3211771350438131559, guid: 2a9fa9b58eb75f94a8a31b0204da1e10,
+        type: 3}
+      propertyPath: distance
+      value: 8.65
+      objectReference: {fileID: 0}
     - target: {fileID: 3426362254600069636, guid: 2a9fa9b58eb75f94a8a31b0204da1e10,
         type: 3}
       propertyPath: m_Layer

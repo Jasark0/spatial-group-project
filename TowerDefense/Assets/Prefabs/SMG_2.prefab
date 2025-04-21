@@ -471,6 +471,7 @@ MonoBehaviour:
   isPistol: 0
   isSMG: 1
   isAR: 0
+  shootSound: {fileID: 8300000, guid: 31048d7e2c5b8454883b1771c90785f7, type: 3}
 --- !u!1 &3682733303736672921
 GameObject:
   m_ObjectHideFlags: 0

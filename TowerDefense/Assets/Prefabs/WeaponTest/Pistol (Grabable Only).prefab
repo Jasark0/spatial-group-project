@@ -1391,6 +1391,7 @@ MonoBehaviour:
   isPistol: 1
   isSMG: 0
   isAR: 0
+  shootSound: {fileID: 8300000, guid: 0fe68524a58e2fb44b57dd75dd943042, type: 3}
 --- !u!4 &6705697933925597570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed18109ab95f0004c895082ab6ec7020,
