@@ -4,7 +4,6 @@ public class GunShop : MonoBehaviour
 {
     public GameObject smgPrefab;
     public GameObject arPrefab;
-
     public GameObject pistolPrefab;
 
     public int pistolCost = 250;
