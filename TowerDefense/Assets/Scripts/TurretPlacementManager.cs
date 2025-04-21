@@ -32,6 +32,8 @@ public class TurretPlacementManager : MonoBehaviour
     [SerializeField] [Range(50f, 200f)] private float rotationSensitivity = 120f;
     [SerializeField] [Range(0.05f, 0.5f)] private float thumbstickDeadzone = 0.1f;
 
+    [SerializeField] private AudioClip errorclip;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -137,6 +139,11 @@ public class TurretPlacementManager : MonoBehaviour
     {
         if (turretGhost) Destroy(turretGhost);
         if (rangeIndicator) Destroy(rangeIndicator);
+        if (turretCosts[turretIndex] > GameManager.instance.money)
+        {
+            SoundFXManager.Instance.PlaySound(errorclip, transform, 0.5f, 1, 1.0f, 1.0f, false);
+            return;
+        }
 
         // Switch to build mode when selecting a turret
         player.SetViewMode(Player.ViewMode.Build);

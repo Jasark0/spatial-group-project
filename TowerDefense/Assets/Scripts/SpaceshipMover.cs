@@ -6,6 +6,7 @@ public class SpaceshipMover : MonoBehaviour
     private float speed;
     private float lifeTime;
 
+
     public void Init(Vector3 direction, float speed, float duration)
     {
         this.moveDirection = direction;
@@ -18,6 +19,7 @@ public class SpaceshipMover : MonoBehaviour
             Quaternion offset = Quaternion.Euler(-90f, 0f, 0f);
             transform.rotation = lookRotation * offset;
         }
+
 
         SetupTrail();
 

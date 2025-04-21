@@ -12,7 +12,7 @@ public class SoundFXManager : MonoBehaviour
     
     [Header("Music Ducking Settings")]
     [SerializeField] private AudioMixer audioMixer; // Reference to the same mixer used in SoundMixerManager
-    [SerializeField] private float duckingAmount = -8f; // dB to lower music by (negative value)
+    [SerializeField] private float duckingAmount = -15f; // dB to lower music by (negative value)
     [SerializeField] private float duckingFadeTime = 0.2f; // Time to fade music volume
     [SerializeField] private float duckingHoldTime = 1.0f; // Time to hold the lower volume
     
@@ -119,14 +119,18 @@ public class SoundFXManager : MonoBehaviour
         
         while (Time.time < endTime)
         {
+            float testvolume;
+            audioMixer.GetFloat("MusicVolume", out testvolume);
+            Debug.Log("Current Music Volume: " + testvolume);
             float t = (Time.time - startTime) / duckingFadeTime;
-            float newVolume = Mathf.Lerp(duckedVolume, Mathf.Log10(soundMixerManager.currentMusicVolume) * 20f, t);
+            float newVolume = Mathf.Lerp(duckedVolume, currentVolume, t);
+            // Debug.Log(currentVolume);
             audioMixer.SetFloat("MusicVolume", newVolume);
             yield return null;
         }
-        
+ 
         // Ensure we return to the original volume exactly
-        audioMixer.SetFloat("MusicVolume", originalMusicVolume);
+        audioMixer.SetFloat("MusicVolume", soundMixerManager.currentMusicVolume);
         
         currentDuckingCoroutine = null;
     }

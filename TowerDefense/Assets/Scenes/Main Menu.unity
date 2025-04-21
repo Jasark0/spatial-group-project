@@ -8874,6 +8874,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464590301}
   m_CullTransparentMesh: 1
+--- !u!114 &469470540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1256443467209585163, guid: 6ccb9983330a8b34aadae34accb75991,
+    type: 3}
+  m_PrefabInstance: {fileID: 3162411778220794989}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cdda8bf77d38847aa4440637b91b0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &471994451
 GameObject:
   m_ObjectHideFlags: 0
@@ -51902,10 +51914,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8186656542365642304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 158, y: -10}
-  m_SizeDelta: {x: 340, y: 40}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &3088206334598375739
 RectTransform:
@@ -58614,6 +58626,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5898149616793672758, guid: a00f52a62e3cbe84b97ef33b27a0439d,
+        type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 5d43e333f708da54e8c1171d41318ff0,
+        type: 2}
+    - target: {fileID: 5898149616793672758, guid: a00f52a62e3cbe84b97ef33b27a0439d,
+        type: 3}
+      propertyPath: soundMixerManager
+      value: 
+      objectReference: {fileID: 469470540}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59072,10 +59095,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8186656542365642304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 658, y: -10}
-  m_SizeDelta: {x: 660, y: 40}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6262883042242835023
 GameObject:
@@ -59480,6 +59503,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2507127328868535585, guid: 52200ea325e0690428fb660e755cd8a5,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.372
       objectReference: {fileID: 0}
     - target: {fileID: 2507127328868535585, guid: 52200ea325e0690428fb660e755cd8a5,
         type: 3}
@@ -64584,10 +64612,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3959557785340309662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 366, y: -11.175}
-  m_SizeDelta: {x: 732, y: 22.35}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1818360608 &8962409547331377918
 PositionConstraint:

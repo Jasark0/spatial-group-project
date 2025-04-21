@@ -18,7 +18,7 @@ public class SoundMixerManager : MonoBehaviour
         // Debug the current value of MasterVolume parameter
         float currentValue;
         bool success = audioMixer.GetFloat("MasterVolume", out currentValue);
-        currentMasterVolume = level; // Update the current master volume level
+        currentMasterVolume = Mathf.Log10(level) * 20f; // Update the current master volume level
         // Debug.Log($"MasterVolume: Input={level}, SetTo={Mathf.Log10(level) * 20f}dB, Actual={currentValue}dB, Success={success}");
     }
 
@@ -29,7 +29,7 @@ public class SoundMixerManager : MonoBehaviour
         // Debug the current value of SFXVolume parameter
         float currentValue;
         bool success = audioMixer.GetFloat("SFXVolume", out currentValue);
-        currentSFXVolume = level; // Update the current SFX volume level
+        currentSFXVolume = Mathf.Log10(level) * 20f; // Update the current SFX volume level
         // Debug.Log($"SFXVolume: Input={level}, SetTo={Mathf.Log10(level) * 20f}dB, Actual={currentValue}dB, Success={success}");
     }
 
@@ -40,7 +40,7 @@ public class SoundMixerManager : MonoBehaviour
         // Debug the current value of MusicVolume parameter
         float currentValue;
         bool success = audioMixer.GetFloat("MusicVolume", out currentValue);
-        currentMusicVolume = level; // Update the current music volume level
+        currentMusicVolume = Mathf.Log10(level) * 20f; // Update the current music volume level
         // Debug.Log($"MusicVolume: Input={level}, SetTo={Mathf.Log10(level) * 20f}dB, Actual={currentValue}dB, Success={success}");
     }
 }

@@ -25,10 +25,6 @@ public class GrabbableGun : MonoBehaviour
     // Reference to check if right controller is holding anything
     private Oculus.Interaction.GrabInteractor rightGrabInteractor;
 
-    [Header("Audio")]
-    public AudioClip shootSound;
-    private AudioSource audioSource;
-    
     void Start()
     {
         grabbable = GetComponent<Grabbable>();
@@ -37,13 +33,7 @@ public class GrabbableGun : MonoBehaviour
         {
             gunMeshFilter = GetComponent<MeshFilter>();
         }
-        
-        // Set up the audio source
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+   
     }
     
 
@@ -123,11 +113,5 @@ public class GrabbableGun : MonoBehaviour
         }
         // Desetroy the dart after X seconds.
         Destroy(dart, 3f);
-        
-        // Play the shooting sound
-        if (shootSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(shootSound);
-        }
     }
 }

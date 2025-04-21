@@ -13,6 +13,8 @@ public class MainTower : MonoBehaviour
 
     public GameObject waves;
 
+    public AudioClip towerhitSound;
+
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class MainTower : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        SoundFXManager.Instance.PlaySound(towerhitSound, transform, 1.0f, 10, 1.0f, 1.0f);
         health -= amount;
         UpdateHealth();
         if (health <= 0)
