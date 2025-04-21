@@ -87,9 +87,17 @@ public class SoundFXManager : MonoBehaviour
     
     private IEnumerator DuckMusicCoroutine(float clipDuration)
     {
-        // Get current music volume
+        // Get current music volume directly from the mixer
         float currentVolume;
-        audioMixer.GetFloat("MusicVolume", out currentVolume);
+        if (!audioMixer.GetFloat("MusicVolume", out currentVolume))
+        {
+            // If we can't get the volume, abort ducking
+            currentDuckingCoroutine = null;
+            yield break;
+        }
+        
+        // Store this value to restore later
+        float volumeToRestore = currentVolume;
         
         // Calculate target ducked volume (don't go below -80dB)
         float duckedVolume = Mathf.Max(currentVolume + duckingAmount, -80f);
@@ -109,9 +117,19 @@ public class SoundFXManager : MonoBehaviour
         // Ensure we reach the target volume exactly
         audioMixer.SetFloat("MusicVolume", duckedVolume);
         
-        // Hold the ducked volume for either the clip duration or the minimum hold time, whichever is longer
+        // Hold the ducked volume for either the clip duration or the minimum hold time
         float holdDuration = Mathf.Max(clipDuration - duckingFadeTime * 2, duckingHoldTime);
         yield return new WaitForSeconds(holdDuration);
+        
+        // Check if volume was changed during ducking (by a UI slider)
+        float currentSettingVolume;
+        if (audioMixer.GetFloat("MusicVolume", out currentSettingVolume) && 
+            Mathf.Abs(currentSettingVolume - duckedVolume) > 0.1f)
+        {
+            // Volume was changed manually during ducking, don't restore
+            currentDuckingCoroutine = null;
+            yield break;
+        }
         
         // Fade back to original volume
         startTime = Time.time;
@@ -119,18 +137,14 @@ public class SoundFXManager : MonoBehaviour
         
         while (Time.time < endTime)
         {
-            float testvolume;
-            audioMixer.GetFloat("MusicVolume", out testvolume);
-            Debug.Log("Current Music Volume: " + testvolume);
             float t = (Time.time - startTime) / duckingFadeTime;
-            float newVolume = Mathf.Lerp(duckedVolume, currentVolume, t);
-            // Debug.Log(currentVolume);
+            float newVolume = Mathf.Lerp(duckedVolume, volumeToRestore, t);
             audioMixer.SetFloat("MusicVolume", newVolume);
             yield return null;
         }
  
         // Ensure we return to the original volume exactly
-        audioMixer.SetFloat("MusicVolume", soundMixerManager.currentMusicVolume);
+        audioMixer.SetFloat("MusicVolume", volumeToRestore);
         
         currentDuckingCoroutine = null;
     }
