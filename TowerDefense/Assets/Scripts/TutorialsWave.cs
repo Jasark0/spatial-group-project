@@ -17,6 +17,13 @@ public class TutorialsWave : Waves
     {
       tutorialPromptText.gameObject.SetActive(false);
     }
+    //wait 5 seconds before loading the main scene
+    Invoke("LoadMainScene", 5f);
+  }
+
+  void LoadMainScene()
+  {
+    SceneManager.LoadScene("MainScene");
   }
 
   void Update()
@@ -66,7 +73,7 @@ public class TutorialsWave : Waves
     }
     else
     {
-      SceneManager.LoadScene("SampleScene");
+      SceneManager.LoadScene("MainScene");
     }
   }
 

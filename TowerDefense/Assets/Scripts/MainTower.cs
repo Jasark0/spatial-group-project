@@ -8,6 +8,7 @@ public class MainTower : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text[] healthText;
     public TextMeshPro towerHealthDisplay;
+    public TextMeshPro playerScoreDisplay;
     private GameManager gameManager;
 
     public GameObject waves;
@@ -18,6 +19,14 @@ public class MainTower : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         UpdateHealth();
     } 
+
+    void Update()
+    {
+        if (playerScoreDisplay != null)
+        {
+            playerScoreDisplay.text = "Score: " + gameManager.score;
+        }
+    }
 
     public void TakeDamage(float amount)
     {
