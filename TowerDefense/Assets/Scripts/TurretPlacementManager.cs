@@ -141,7 +141,7 @@ public class TurretPlacementManager : MonoBehaviour
         if (rangeIndicator) Destroy(rangeIndicator);
         if (turretCosts[turretIndex] > GameManager.instance.money)
         {
-            SoundFXManager.Instance.PlaySound(errorclip, transform, 0.5f, 1, 1.0f, 1.0f, false);
+            SoundFXManager.Instance.PlaySound(errorclip, Player.instance.transform, 0.5f, 1, 1.0f, 1.0f, false);
             return;
         }
 

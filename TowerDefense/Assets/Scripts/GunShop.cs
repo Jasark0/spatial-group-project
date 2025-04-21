@@ -10,6 +10,8 @@ public class GunShop : MonoBehaviour
     public int smgCost = 500;
     public int arCost = 1000;
 
+    public AudioClip errorclip;
+
     public void BuyPistol()
     {
         if (GameManager.Instance.CanAfford(pistolCost))
@@ -19,6 +21,7 @@ public class GunShop : MonoBehaviour
         }
         else
         {
+            SoundFXManager.Instance.PlaySound(errorclip, Player.instance.transform, 1.0f, 10, 1.0f, 1.0f);
             Debug.Log("Not enough money for Pistol");
         }
     }
@@ -31,6 +34,7 @@ public class GunShop : MonoBehaviour
         }
         else
         {
+            SoundFXManager.Instance.PlaySound(errorclip, Player.instance.transform, 1.0f, 10, 1.0f, 1.0f);
             Debug.Log("Not enough money for SMG");
         }
     }
@@ -44,6 +48,7 @@ public class GunShop : MonoBehaviour
         }
         else
         {
+            SoundFXManager.Instance.PlaySound(errorclip, Player.instance.transform, 1.0f, 10, 1.0f, 1.0f);
             Debug.Log("Not enough money for AR");
         }
     }

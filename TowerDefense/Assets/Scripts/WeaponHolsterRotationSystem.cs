@@ -100,7 +100,7 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
 
     private void AdjustSnappedRotation(Transform holsterTransform, Quaternion offset)
     {
-        SoundFXManager.Instance.PlaySound(holsterSound, transform, 0.3f, 10, 1.0f, 0.8f);
+        // SoundFXManager.Instance.PlaySound(holsterSound, transform, 0.3f, 10, 1.0f, 0.8f);
         // Debug.Log("yo");
         holsterTransform.localRotation = offset;
     }
