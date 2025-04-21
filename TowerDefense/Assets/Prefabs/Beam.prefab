@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 6087393337003367492}
   - component: {fileID: 3590411223114164000}
   m_Layer: 0
-  m_Name: Dart
+  m_Name: Beam
   m_TagString: Dart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -365,7 +365,3 @@ MonoBehaviour:
   maxLifeTime: 10
   lifeTime: 0
   moveDirection: {x: 0, y: 0, z: 0}
-  shot: 0
-  bulletOwner: 
-  explosionPrefab: {fileID: 0}
-  shotSound: {fileID: 8300000, guid: 0fe68524a58e2fb44b57dd75dd943042, type: 3}

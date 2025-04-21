@@ -16,6 +16,8 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
 
     [SerializeField] private GameObject currentlyHolsteredWeapon;
 
+    [SerializeField] private AudioClip holsterSound;
+
     private void Start()
     {
         transform = this.GetComponent<Transform>();
@@ -29,6 +31,7 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
                 Grabbable weapon = interactor.GetComponentInParent<Grabbable>();
                 if (weapon != null)
                 {
+                    SoundFXManager.Instance.PlaySound(holsterSound, transform, 0.5f, 10, 1.0f, 0.8f);
                     if (weapon.CompareTag("Pistol"))
                     {
                         AdjustSnappedRotation(transform, _pistolOffset);

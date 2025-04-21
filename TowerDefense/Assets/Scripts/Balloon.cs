@@ -14,6 +14,7 @@ public class Balloon : MonoBehaviour
     public float explosionDamage = 5f;
     private Transform target;
     public float minYThreshold = -100f; 
+    public AudioClip[] hitSound;
 
     private GameObject flashObject;
 
@@ -83,6 +84,13 @@ public class Balloon : MonoBehaviour
     public void TakeDamage(float amount)
     {
         Flash();
+        if (hitSound != null)
+        {
+            // Play a random hit sound from the array
+            int randomIndex = Random.Range(0, hitSound.Length);
+
+            SoundFXManager.Instance.PlaySound(hitSound[randomIndex], transform, 0.5f, 10, 1.0f, 0.8f);
+        }
         health -= amount;
         if (health <= 0f)
         {

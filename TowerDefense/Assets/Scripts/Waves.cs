@@ -12,6 +12,8 @@ public class Waves : MonoBehaviour
     public GameObject balloonGreenLarge;
     public GameObject flyingBalloon;
 
+    public AudioClip waveStartClip;
+
     // Timer
     private float balloonTimer = 0f;
     private float nextBalloon = 3f;
@@ -77,6 +79,7 @@ public class Waves : MonoBehaviour
             if (Time.time >= startDelayTimer)
             {
                 gameStarted = true;
+                SoundFXManager.Instance.PlaySound(waveStartClip, transform, 0.5f, 10, 1.0f, 0.8f, true);
                 PopUpManager.Instance.ShowPopUp(0, 5, "Wave " + currentWave + " Starting!");
             }
             else
@@ -107,6 +110,8 @@ public class Waves : MonoBehaviour
         if (waitingForNextWave && Time.time >= waveCooldownTimer)
         {
             StartNextWave();
+            
+            SoundFXManager.Instance.PlaySound(waveStartClip, transform, 0.5f, 10, 1.0f, 0.8f, true);
             PopUpManager.Instance.ShowPopUp(0, 5, "Wave " + currentWave + " Starting!");
             waitingForNextWave = false;
         }

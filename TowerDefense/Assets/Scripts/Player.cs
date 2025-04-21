@@ -49,6 +49,9 @@ public class Player : MonoBehaviour
     private float planeSizeX;
     private float planeSizeZ;
 
+    [Header("Grounding Check")]
+    [SerializeField] private float groundCheckDistance = 0.2f;
+    [SerializeField] private LayerMask groundLayer; // Set this in Inspector to include your ground/floor layers
 
     [Header(" Key Bindings ")]
     public OVRInput.Button keyBindForPovChange;
@@ -57,7 +60,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Player started");
+        // Debug.Log("Player started");
         originalScale = transform.localScale;
         playerCollider = ovrPlayerController.GetComponent<CapsuleCollider>();
         originalGravityFactor = ovrPlayerController.GravityFactor;
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        // Debug.Log(IsGrounded() ? "Player is grounded" : "Player is not grounded");
         if ( SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "Main Menu 1")
         {
             // Disable player controls in the main menu scene
@@ -84,11 +88,15 @@ public class Player : MonoBehaviour
         // Toggle view when X button on left controller is pressed (secondary thumb stick button)
         if (OVRInput.GetDown(keyBindForPovChange))
         {
-            if (!IsHoldingAnything())
+            if (!IsHoldingAnything() && IsGrounded())
             {
                 Debug.Log("Toggle view");
                 currentMode = currentMode == ViewMode.FirstPerson ? ViewMode.Build : ViewMode.FirstPerson;
                 SetViewMode(currentMode);
+            }
+            else if (!IsGrounded())
+            {
+                Debug.Log("Cannot switch view while not grounded");
             }
         }
 
@@ -107,6 +115,13 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Cannot enter build mode while holding an object");
             return; // Don't change modes if holding something
+        }
+
+        // Check if player is grounded before switching to build mode
+        if (mode == ViewMode.Build && !IsGrounded())
+        {
+            Debug.Log("Cannot enter build mode while not grounded");
+            return; // Don't change modes if not grounded
         }
 
         // Continue with the existing view mode change logic
@@ -136,6 +151,12 @@ public class Player : MonoBehaviour
             );
             ovrPlayerController.GravityFactor = 0;
             playerCollider.enabled = false;
+            // Get the camera
+            Camera mainCamera = GameObject.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Camera>();
+            
+            // Disable the TransparentFX layer in the culling mask
+            int transparentFXLayer = LayerMask.NameToLayer("Tower");
+            mainCamera.cullingMask &= ~(1 << transparentFXLayer);
             
             // Disable hand interactors in build mode
             DisableHandGrabInteractors();
@@ -145,7 +166,12 @@ public class Player : MonoBehaviour
             transform.localScale = originalScale;
             ovrPlayerController.GravityFactor = originalGravityFactor;
             playerCollider.enabled = true;
+            // Get the camera
+            Camera mainCamera = GameObject.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Camera>();
             
+            // Enable the TransparentFX layer in the culling mask
+            int transparentFXLayer = LayerMask.NameToLayer("Tower");
+            mainCamera.cullingMask |= (1 << transparentFXLayer);
             // Re-enable hand interactors in first person mode
             EnableHandGrabInteractors();
         }
@@ -198,6 +224,29 @@ public class Player : MonoBehaviour
         {
             interactor.enabled = true;
         }
+    }
+
+    // Check if the player is standing on the ground
+    private bool IsGrounded()
+    {
+        if (playerCollider == null) return false;
+        
+        // Use OverlapCapsule to check for collision with ground layer
+        // Get capsule dimensions and position
+        Vector3 point0 = transform.position + playerCollider.center + Vector3.up * (playerCollider.height / 2 - playerCollider.radius);
+        Vector3 point1 = transform.position + playerCollider.center + Vector3.down * (playerCollider.height / 2 - playerCollider.radius);
+        float radius = playerCollider.radius * 0.95f; // Use slightly smaller radius to avoid detecting walls
+        
+        // Check if the bottom of the capsule is overlapping with ground objects
+        Collider[] colliders = Physics.OverlapCapsule(
+            point0, 
+            point1, 
+            radius,
+            groundLayer
+        );
+        
+        // If we found any ground colliders, we're grounded
+        return colliders.Length > 0;
     }
 
     public bool IsInBuildMode()

@@ -9,6 +9,7 @@ public class Turret : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform[] firePoints;
     public float health = 100f;
+
     public float damagePerSecond;
     public float shotPower = 500f;
 

@@ -499,6 +499,13 @@ MonoBehaviour:
   explosionPrefab: {fileID: 4479985900506859212, guid: 8852727d1b0202347948f21613fbc538,
     type: 3}
   explosionDamage: 5
+  minYThreshold: -100
+  hitSound:
+  - {fileID: 8300000, guid: 10241baa95893f84db6cbcf0bc431666, type: 3}
+  - {fileID: 8300000, guid: 6145dc7689612874388c4cf17d0a64bb, type: 3}
+  - {fileID: 8300000, guid: 01e965a295d1f6d4d832cac815513e4c, type: 3}
+  - {fileID: 8300000, guid: 6202f1c170859dd4283e0ab5b6840266, type: 3}
+  - {fileID: 8300000, guid: 087d0f4d6223c6d4eb8056632eb5a757, type: 3}
   attackRange: 10
   fireRate: 1.5
   bulletPrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,

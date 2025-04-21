@@ -6,12 +6,12 @@ public class Bullet : MonoBehaviour
     public float damage = 1f;
     public float maxLifeTime = 0, lifeTime = 0;
     public Vector3 moveDirection;
-    bool shot = false;
+    public bool shot = false;
     public string bulletOwner = "";
     public GameObject explosionPrefab;
 
-    public bool isMissile = false;
-    public float explosionRadius = 3f;
+    public AudioClip shotSound;
+
     public void Init(Vector3 direction, float shotPower, string owner, float damage = -1)
     {
         moveDirection = direction.normalized; // Normalize to ensure consistent movement speed
@@ -24,6 +24,23 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    protected virtual void Update()
+    {
+        if (shot)
+        {
+            if (shotSound != null)
+            {
+                SoundFXManager.Instance.PlaySound(shotSound, transform, 0.5f, 10, 1.0f, 0.8f);
+                shotSound = null; // Ensure sound plays only once
+            }
+            transform.rotation = Quaternion.FromToRotation(Vector3.up, moveDirection); // Align the top (Y-axis) with moveDirection
+            transform.Translate(speed * Time.deltaTime * Vector3.up, Space.Self); // Move in the direction of move direction
+            lifeTime += Time.deltaTime;
+            if (lifeTime >= maxLifeTime)
+                Destroy(gameObject);
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(bulletOwner))
@@ -31,77 +48,32 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Enemy") && bulletOwner == "Turret")
         {
-            if (isMissile)
+            Balloon enemy = other.GetComponent<Balloon>();
+            if (enemy != null)
             {
-                ExplodeAndDamageArea();
-            }
-            else
-            {
-                Balloon enemy = other.GetComponent<Balloon>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(damage);
-                }
+                enemy.TakeDamage(damage);
             }
             Destroy(gameObject);
         }
         else if (other.CompareTag("Turret") && bulletOwner == "Enemy")
         {
-            if (isMissile)
+            Turret turret = other.GetComponent<Turret>();
+            if (turret != null)
             {
-                ExplodeAndDamageArea();
-            }
-            else
-            {
-                Turret turret = other.GetComponent<Turret>();
-                if (turret != null)
-                {
-                    turret.TakeDamage(damage);
-                }
+                turret.TakeDamage(damage);
             }
             Destroy(gameObject);
         }
-    }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Plane"))
+        else if (other.CompareTag("Plane"))
         {
-            if (isMissile)
+            if (explosionPrefab != null)
             {
-                ExplodeAndDamageArea();
+                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
         }
-    }
 
-    private void ExplodeAndDamageArea()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
-
-        foreach (Collider col in hitColliders)
-        {
-            if (bulletOwner == "Turret" && col.CompareTag("Enemy"))
-            {
-                Balloon enemy = col.GetComponent<Balloon>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(damage);
-                }
-            }
-            else if (bulletOwner == "Enemy" && col.CompareTag("Turret"))
-            {
-                Turret turret = col.GetComponent<Turret>();
-                if (turret != null)
-                {
-                    turret.TakeDamage(damage);
-                }
-            }
-        }
-
-        if (explosionPrefab != null)
-        {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        }
+        // Debug.Log(damage);
     }
 }

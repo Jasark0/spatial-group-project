@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 6087393337003367492}
   - component: {fileID: 3590411223114164000}
   m_Layer: 0
-  m_Name: Dart
+  m_Name: TurretDart
   m_TagString: Dart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -368,4 +368,4 @@ MonoBehaviour:
   shot: 0
   bulletOwner: 
   explosionPrefab: {fileID: 0}
-  shotSound: {fileID: 8300000, guid: 0fe68524a58e2fb44b57dd75dd943042, type: 3}
+  shotSound: {fileID: 8300000, guid: 31048d7e2c5b8454883b1771c90785f7, type: 3}
