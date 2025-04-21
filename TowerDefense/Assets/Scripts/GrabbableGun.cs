@@ -9,6 +9,8 @@ public class GrabbableGun : MonoBehaviour
     public GameObject dartPrefab;
     public Transform barrelLocation;
 
+    public bool inHolster = false;
+
     public MeshFilter gunMeshFilter;
 
     public float shotPower = 1000f;
@@ -46,6 +48,11 @@ public class GrabbableGun : MonoBehaviour
 
             if (Player.instance.IsInBuildMode())
                 return;
+
+            if ( inHolster)
+                {
+                    return;
+                }
 
             // Pistol (semi-auto)
             if (isPistol && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller) && Time.time >= nextFireTime)

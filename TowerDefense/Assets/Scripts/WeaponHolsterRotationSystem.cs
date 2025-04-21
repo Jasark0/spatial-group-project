@@ -36,6 +36,7 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
                     {
                         AdjustSnappedRotation(transform, _pistolOffset);
                         currentlyHolsteredWeapon = weapon.gameObject; // Store the currently holstered weapon
+                        weapon.GetComponent<GrabbableGun>().inHolster = true; // Set the inHolster flag to true for the weapon
                         _holsterCollider.enabled = false; // Disable the holster collider to prevent further interactions while weapon is snapped
                         // _holsterSnapInteractable.enabled = false; // Disable the holster snap interactable to prevent further interactions while weapon is snapped
                     }
@@ -44,6 +45,7 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
                         weapon.GetComponent<Grabbable>().TransferOnSecondSelection = true; // Disable transfer on second selection for Rifle
                         AdjustSnappedRotation(transform, _rifleOffset);
                         currentlyHolsteredWeapon = weapon.gameObject; // Store the currently holstered weapon
+                        weapon.GetComponent<GrabbableGun>().inHolster = true; // Set the inHolster flag to true for the weapon
                         _holsterCollider.enabled = false; // Disable the holster collider to prevent further interactions while weapon is snapped
                         // _holsterSnapInteractable.enabled = false; // Disable the holster snap interactable to prevent further interactions while weapon is snapped
                     }
@@ -51,9 +53,10 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
                     {
                         weapon.GetComponent<Grabbable>().TransferOnSecondSelection = true; // Disable transfer on second selection for SMG
                         AdjustSnappedRotation(transform, _smgOffset);
+                        
                         // AdjustSnappedPosition(transform, _smgPositionOffset); // Adjust position for SMG
                         
-                        
+                        weapon.GetComponent<GrabbableGun>().inHolster = true; // Set the inHolster flag to true for the weapon
                         currentlyHolsteredWeapon = weapon.gameObject; // Store the currently holstered weapon
                         _holsterCollider.enabled = false; // Disable the holster collider to prevent further interactions while weapon is snapped
                         // _holsterSnapInteractable.enabled = false; // Disable the holster snap interactable to prevent further interactions while weapon is snapped
@@ -85,6 +88,7 @@ public class WeaponHolsterRotationSystem : MonoBehaviour
                 // Re-enable logic here if needed
                 transform.localRotation = Quaternion.identity; // Reset rotation when weapon is removed
                 transform.localPosition = Vector3.zero; // Reset position when weapon is removed
+                weapon.GetComponent<GrabbableGun>().inHolster = false; // Set the inHolster flag to true for the weapon
                 _holsterCollider.enabled = true; // enable the holster collider to prevent further interactions while weapon is snapped
                 currentlyHolsteredWeapon = null; // Clear the currently holstered weapon
                 
