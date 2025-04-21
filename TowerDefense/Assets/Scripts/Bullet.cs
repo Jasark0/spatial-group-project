@@ -9,6 +9,9 @@ public class Bullet : MonoBehaviour
     bool shot = false;
     public string bulletOwner = "";
     public GameObject explosionPrefab;
+
+    public bool isMissile = false;
+    public float explosionRadius = 3f;
     public void Init(Vector3 direction, float shotPower, string owner, float damage = -1)
     {
         moveDirection = direction.normalized; // Normalize to ensure consistent movement speed
@@ -21,18 +24,6 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (shot)
-        {
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, moveDirection); // Align the top (Y-axis) with moveDirection
-            transform.Translate(speed * Time.deltaTime * Vector3.up, Space.Self); // Move in the direction of move direction
-            lifeTime += Time.deltaTime;
-            if (lifeTime >= maxLifeTime)
-                Destroy(gameObject);
-        }
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(bulletOwner))
@@ -40,32 +31,77 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Enemy") && bulletOwner == "Turret")
         {
-            Balloon enemy = other.GetComponent<Balloon>();
-            if (enemy != null)
+            if (isMissile)
             {
-                enemy.TakeDamage(damage);
+                ExplodeAndDamageArea();
+            }
+            else
+            {
+                Balloon enemy = other.GetComponent<Balloon>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(damage);
+                }
             }
             Destroy(gameObject);
         }
         else if (other.CompareTag("Turret") && bulletOwner == "Enemy")
         {
-            Turret turret = other.GetComponent<Turret>();
-            if (turret != null)
+            if (isMissile)
             {
-                turret.TakeDamage(damage);
+                ExplodeAndDamageArea();
+            }
+            else
+            {
+                Turret turret = other.GetComponent<Turret>();
+                if (turret != null)
+                {
+                    turret.TakeDamage(damage);
+                }
             }
             Destroy(gameObject);
         }
+    }
 
-        else if (other.CompareTag("Plane"))
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Plane"))
         {
-            if (explosionPrefab != null)
+            if (isMissile)
             {
-                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                ExplodeAndDamageArea();
             }
             Destroy(gameObject);
         }
+    }
 
-        // Debug.Log(damage);
+    private void ExplodeAndDamageArea()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+        foreach (Collider col in hitColliders)
+        {
+            if (bulletOwner == "Turret" && col.CompareTag("Enemy"))
+            {
+                Balloon enemy = col.GetComponent<Balloon>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(damage);
+                }
+            }
+            else if (bulletOwner == "Enemy" && col.CompareTag("Turret"))
+            {
+                Turret turret = col.GetComponent<Turret>();
+                if (turret != null)
+                {
+                    turret.TakeDamage(damage);
+                }
+            }
+        }
+
+        if (explosionPrefab != null)
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
