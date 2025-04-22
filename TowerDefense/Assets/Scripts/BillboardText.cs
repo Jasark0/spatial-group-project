@@ -2,6 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+// This script makes a UI text or object face the camera,
+//used for floating health bars,tags, or indicators.
+
 public class BillboardText : MonoBehaviour
 {
     private Transform cameraTransform;

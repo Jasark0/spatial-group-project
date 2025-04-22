@@ -2,6 +2,9 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
+// Manages the UI or visual countdown timer related to barricades,
+// shows players how long until a barricade becomes active or disappears.
+
 public class BarricadeCountdownDisplay : MonoBehaviour
 {
     private TextMeshPro countdownText;
