@@ -4,7 +4,7 @@
 
 ## Table of Contents
 - [Members](#members)
-- [About Game](#about-the-game)
+- [About Game](#about-game)
 - [Installation](#installation)
 - [Gameplay](#gameplay)
 
