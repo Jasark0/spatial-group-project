@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour
         if (score >= missileStrikeGoal)
         {
             hasMissileStrike = true;
-            missileStrikeGoal *= 2;
+            var goalIncrease = Mathf.Min(missileStrikeGoal, 10000);
+            missileStrikeGoal += goalIncrease;
         }
     }
 
