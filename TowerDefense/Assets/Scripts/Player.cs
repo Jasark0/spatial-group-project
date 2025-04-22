@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
 
         if (gameManager.hasMissileStrike && OVRInput.GetDown(keyBindForMissileStrike))
         {
-            // gameManager.hasMissileStrike = false;
+            gameManager.hasMissileStrike = false;
             Debug.Log("Start missile strike");
             StartMissileStrike();
         }

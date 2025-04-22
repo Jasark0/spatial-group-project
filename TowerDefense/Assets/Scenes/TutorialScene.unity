@@ -3652,7 +3652,7 @@ PrefabInstance:
         type: 3}
       propertyPath: waves
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1757153577}
     - target: {fileID: -8310871249939729576, guid: 2a9fa9b58eb75f94a8a31b0204da1e10,
         type: 3}
       propertyPath: health
@@ -3668,6 +3668,11 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 1463704982}
+    - target: {fileID: -8310871249939729576, guid: 2a9fa9b58eb75f94a8a31b0204da1e10,
+        type: 3}
+      propertyPath: towerhitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ceac191b32f98a549995db131e887cc8, type: 3}
     - target: {fileID: -8310871249939729576, guid: 2a9fa9b58eb75f94a8a31b0204da1e10,
         type: 3}
       propertyPath: healthText.Array.size
