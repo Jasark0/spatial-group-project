@@ -1,5 +1,9 @@
-# Toast Crunch Studios
+<p align="center">
+  <img src="./logo.png" alt="Cyber Tower Defense Logo" width="250"/>
+</p>
 
+
+# Toast Crunch Studios: Cyber Tower Defense
 ---
 
 ## Table of Contents
