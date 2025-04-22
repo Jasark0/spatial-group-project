@@ -112,10 +112,10 @@ public class Balloon : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.position) < 7f)
         {
-            Explode();
+            Explode(true);
         }
     }
-    private void Explode()
+    private void Explode(bool takeDamage = false)
     {
         if (hasExploded) return;
 
@@ -128,7 +128,7 @@ public class Balloon : MonoBehaviour
         }
 
         MainTower tower = FindObjectOfType<MainTower>();
-        if (tower != null)
+        if (tower != null && takeDamage == true)
         {
             tower.TakeDamage(explosionDamage);
         }
