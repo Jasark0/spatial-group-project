@@ -85,6 +85,10 @@ public class Player : MonoBehaviour
             // Disable player controls in the main menu scene
             return;
         }
+
+        if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) > 0.1f)
+            return;
+        
         // Toggle view when X button on left controller is pressed (secondary thumb stick button)
         if (OVRInput.GetDown(keyBindForPovChange))
         {
