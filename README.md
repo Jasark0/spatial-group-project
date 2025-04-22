@@ -24,6 +24,9 @@ The genre of this game is naturally tower defense, and the lore involves in an a
 where humanity has reached to the pinnacle of technological advancement, and the central tower is the main
 refuge that for civilization, therefore our task is to protect this place at all cost.
 
-### Installation: 
-Open up Unity (ver. 2022.3)
-Download package - Meta XR All-in-One SDK
+## Installation
+
+1. Open up Unity (ver. 2022.3)...Make sure you have **Unity version 2022.3**.
+2. Clone this repository:
+   ```bash
+   git clone https://github.com/Jasark0/spatial-group-project.git
