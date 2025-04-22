@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// This script defines the behavior of a balloon enemy in the game.
+// Typically, a balloon might move along a path and trigger events when destroyed.
+// It includes features like health management, movement towards a target, explosion effects, and sound effects.
 public class Balloon : MonoBehaviour
 {
     public float health = 10;

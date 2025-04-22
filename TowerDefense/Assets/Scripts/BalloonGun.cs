@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+// This script handles the logic for shooting balloons,
+// including projectile instantiation, aiming, and shooting mechanics.
 public class BalloonGun : Balloon
 {
     public float attackRange = 10f;

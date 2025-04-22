@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Defines the behavior of barricades in the game,
+// such as blocking enemies, taking damage, or being upgraded/destroyed.
+
 public class Barricade : MonoBehaviour
 {
     public float lifetime = 30f;

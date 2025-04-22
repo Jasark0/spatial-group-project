@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// This script activates / deactivates GameObjects
+//  Useful for managing UI or objects
+//  based on the current scene
 public class ActivateBasedOnScene : MonoBehaviour
 {
     [Header("Objects to Activate Based on Scene")]
