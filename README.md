@@ -1,20 +1,21 @@
 # Toast Crunch Studios
 
+---
+
+## Table of Contents
+- [Members](#members)
+- [About Game](#about-the-game)
+- [Installation](#installation)
+- [Gameplay](#gameplay)
+
+---
+
 ## Members
 - **Sebastian De La Espriella**: [@Erregea5](https://github.com/Erregea5)
 - **Richard Hernandez**: [@tixxxa](https://github.com/tixxxa)
 - **Daykel Marzo**: [@yeyolive](https://github.com/yeyolive)
 - **Michael Tran**: [@mtra0099](https://github.com/mtra0099)
 - **Chung-Hwa Yen**: [@Jasark0](https://github.com/Jasark0)
-
----
-
-## Table of Contents
-
-- [Team Members](#members)
-- [About the Game](#about-the-game)
-- [Installation](#installation)
-- [Gameplay](#gameplay)
 
 ---
 
