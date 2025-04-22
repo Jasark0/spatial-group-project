@@ -464,14 +464,14 @@ MonoBehaviour:
   dartPrefab: {fileID: 5671552802480082116, guid: e5082c95609c29d42a4da9acad0af5de,
     type: 3}
   barrelLocation: {fileID: 4013867166981038800}
+  inHolster: 0
   gunMeshFilter: {fileID: 5214853841907161304}
-  shotPower: 1000
+  shotPower: 200
   fireRate: 0.6
   arFireRate: 0.3
   isPistol: 0
   isSMG: 1
   isAR: 0
-  shootSound: {fileID: 8300000, guid: 31048d7e2c5b8454883b1771c90785f7, type: 3}
 --- !u!1 &3682733303736672921
 GameObject:
   m_ObjectHideFlags: 0
