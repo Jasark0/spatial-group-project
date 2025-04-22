@@ -512,7 +512,7 @@ MonoBehaviour:
     type: 3}
   firePoints:
   - {fileID: 2345269413063904714}
-  shotPower: 1000
+  shotPower: 100
 --- !u!54 &-2635939539331442441
 Rigidbody:
   m_ObjectHideFlags: 0

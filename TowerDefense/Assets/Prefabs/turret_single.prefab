@@ -376,7 +376,7 @@ MonoBehaviour:
   - {fileID: 1590979469596261111}
   health: 10
   damagePerSecond: 0
-  shotPower: 500
+  shotPower: 100
   fireRateLevel: 1
   healthLevel: 1
   maxFireRateLevel: 5

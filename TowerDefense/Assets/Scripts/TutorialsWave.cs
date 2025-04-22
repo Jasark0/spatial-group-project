@@ -45,6 +45,11 @@ public class TutorialsWave : Waves
       else
         base.Update();
     }
+    else if (currentWave == 3)
+    {
+      // play one more wave before loading the main scene
+      base.Update();
+    }
     else
     {
       SceneManager.LoadScene("MainScene");
