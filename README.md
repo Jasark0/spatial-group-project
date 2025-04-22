@@ -82,6 +82,6 @@ Click the **Play** button at the top of the Unity Editor to start the game.
 - DEFEND the central tower from increasingly difficult waves of robotic enemies.
 - CONSTRUCT and UPGRADE turrets using in-game tools and VR interactions.
 - USE STRATEGY and quick thinking to manage resources and placement.
-- VICTORY means holding the line; DEFEAT means humanity's last hope is gone."""
+- VICTORY means holding the line; DEFEAT means humanity's last hope is gone.
 
 ---
