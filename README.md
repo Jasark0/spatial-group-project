@@ -11,6 +11,7 @@
 - [About Game](#about-game)
 - [Installation](#installation)
 - [Gameplay](#gameplay)
+- [Features](#features)
 
 ---
 
@@ -89,3 +90,11 @@ Click the **Play** button at the top of the Unity Editor to start the game.
 - VICTORY means holding the line; DEFEAT means humanity's last hope is gone.
 
 ---
+
+## Features
+
+- WAVE-BASED enemy spawning with increasing difficulty.
+- VR TURRET PLACEMENT using Meta XR and Unity's XR Toolkit.
+- IN-GAME UPGRADE SYSTEM for turrets and weapons.
+- TOWER HEALTH AND SCORE DISPLAY in 3D space.
+- REAL-TIME STRATEGY with dynamic placement and enemy targeting.
