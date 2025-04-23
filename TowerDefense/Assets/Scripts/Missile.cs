@@ -56,36 +56,19 @@ public class Missile : Bullet
         // Create explosion effect
         if (explosionEffectPrefab != null)
         {
-            Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            GameObject explosion = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            if (explosion.TryGetComponent<Explosion>(out var explosionScript))
+            {
+                explosionScript.Init(bulletOwner, damage, explosionRadius);
+            }
         }
-
-        // Find all colliders within explosion radius
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
-
-        foreach (Collider col in hitColliders)
+        else if (explosionPrefab != null)
         {
-            // Damage enemies if missile is from a turret
-            if (bulletOwner == "Turret" && col.CompareTag("Enemy"))
+            // Fallback to parent's explosion prefab if specific effect not set
+            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            if (explosion.TryGetComponent<Explosion>(out var explosionScript))
             {
-                Balloon enemy = col.GetComponent<Balloon>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(damage);
-                }
-            }
-            // Damage turrets if missile is from an enemy
-            else if (bulletOwner == "Enemy" && col.CompareTag("Turret"))
-            {
-                Turret turret = col.GetComponent<Turret>();
-                if (turret != null)
-                {
-                    turret.TakeDamage(damage);
-                }
-            }
-            // Could add player damage here if needed
-            else if (bulletOwner == "Enemy" && col.CompareTag("Player"))
-            {
-                // Player damage logic if needed
+                explosionScript.Init(bulletOwner, damage, explosionRadius);
             }
         }
     }

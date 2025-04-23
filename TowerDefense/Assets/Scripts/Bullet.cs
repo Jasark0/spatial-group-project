@@ -97,7 +97,11 @@ public class Bullet : MonoBehaviour
         {
             if (explosionPrefab != null)
             {
-                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                if (explosion.TryGetComponent<Explosion>(out var explosionScript))
+                {
+                    explosionScript.Init(bulletOwner, damage/2);
+                }
             }
             Destroy(gameObject);
         }

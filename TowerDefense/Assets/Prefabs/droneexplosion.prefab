@@ -177,3 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionSound: {fileID: 8300000, guid: e6418b8194b44194daec0d9eb1df1656, type: 3}
+  additionalDelay: 0.2
+  explosionRadius: 3
+  damage: 10
+  explosionOwner: 

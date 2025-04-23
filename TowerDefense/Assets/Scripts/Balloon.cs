@@ -127,7 +127,11 @@ public class Balloon : MonoBehaviour
 
         if (explosionPrefab != null)
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            if (explosion.TryGetComponent<Explosion>(out var explosionScript))
+            {
+                explosionScript.Init("Enemy", explosionDamage/2);
+            }
         }
 
         MainTower tower = FindObjectOfType<MainTower>();
