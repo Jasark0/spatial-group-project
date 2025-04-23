@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="" alt="Cyber Tower Defense Logo" width="250"/>
+  <img src="/TowerDefense/Images/logo.png" alt="Cyber Tower Defense Logo" width="250"/>
 </p>
 
 
