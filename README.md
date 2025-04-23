@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" alt="Cyber Tower Defense Logo" width="250"/>
+  <img src="" alt="Cyber Tower Defense Logo" width="250"/>
 </p>
 
 
@@ -34,7 +34,7 @@ refuge that for civilization, therefore our task is to protect this place at all
 ## Installation
 
 ### Requirements
-- Unity Editor **2022.3.56f1** (LTS)
+- Unity Editor **2022.3.56f1**
 - Git
 - Meta XR All-in-One SDK
 
