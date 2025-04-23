@@ -462,3 +462,5 @@ MonoBehaviour:
   maxFireRateLevel: 5
   maxHealthLevel: 5
   canvasOffset: {x: 0, y: 2, z: 0}
+  launchAngle: 60
+  minTargetDistance: 6

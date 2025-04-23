@@ -14,12 +14,12 @@ public class Turret : MonoBehaviour
     public float shotPower = 500f;
 
     Balloon currentTarget = null;
-    float timeOfLastAttack;
+    protected float timeOfLastAttack;
 
     // Upgrade variables
     public int fireRateLevel = 1;
     public int healthLevel = 1;
-    
+
     // Maximum upgrade levels
     public int maxFireRateLevel = 5;
     public int maxHealthLevel = 5;
@@ -130,7 +130,7 @@ public class Turret : MonoBehaviour
     }
 
     // Draw the turret range in the Scene view when the turret is selected.
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
