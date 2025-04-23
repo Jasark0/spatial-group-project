@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8551086606706190773}
   serializedVersion: 2
   m_LocalRotation: {x: -0.37965676, y: -0.049142703, z: -0.020200683, w: 0.92360044}
-  m_LocalPosition: {x: -0.0021263123, y: 0.476151, z: 0.2688558}
+  m_LocalPosition: {x: -0.0021263123, y: 0.604, z: 0.339}
   m_LocalScale: {x: 0.043999996, y: 0.044, z: 0.043999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8551086606706190773}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -101,7 +101,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -449,14 +449,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 30
-  fireRate: 1
+  fireRate: 3
   bulletPrefab: {fileID: 6978630793080837121, guid: d55a87c1a4f074946803a2ee88f715da,
     type: 3}
   firePoints:
   - {fileID: 2863869075659068081}
   health: 15
   damagePerSecond: 0
-  shotPower: 500
+  shotPower: 100
   fireRateLevel: 1
   healthLevel: 1
   maxFireRateLevel: 5

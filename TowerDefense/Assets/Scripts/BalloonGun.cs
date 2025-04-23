@@ -94,7 +94,7 @@ public class BalloonGun : Balloon
                 if (bullet.TryGetComponent<Bullet>(out var bulletScript))
                 {
                     Vector3 direction = target.transform.position - firePoint.position;
-                    bulletScript.Init(direction, shotPower, "Enemy");
+                    bulletScript.InitWithPower(direction, shotPower, "Enemy");
                 }
             }
             lastFireTime = Time.time;

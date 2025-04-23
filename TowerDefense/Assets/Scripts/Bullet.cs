@@ -9,15 +9,33 @@ public class Bullet : MonoBehaviour
     public bool shot = false;
     public string bulletOwner = "";
     public GameObject explosionPrefab;
-
+    public bool useParabolicPath = false;
+    private Vector3 initialVelocity;
+    Rigidbody rb;
     public AudioClip shotSound;
 
-    public void Init(Vector3 direction, float shotPower, string owner, float damage = -1)
+
+    public void InitWithPower(Vector3 direction, float shotPower, string owner, float damage = -1)
     {
-        moveDirection = direction.normalized; // Normalize to ensure consistent movement speed
-        GetComponent<Rigidbody>().AddForce(direction * shotPower);
+        Init(direction, owner, damage);
+        rb.AddForce(direction * shotPower);
+    }
+
+    public void InitWithVelocity(Vector3 direction, float velocity, string owner, float damage = -1)
+    {
+        Init(direction, owner, damage);
+        useParabolicPath = true;
+        rb.velocity = moveDirection * velocity;
+        rb.useGravity = true;
+    }
+
+    void Init(Vector3 direction, string owner, float damage)
+    {
+        rb = GetComponent<Rigidbody>();
+        moveDirection = direction.normalized;
         bulletOwner = owner;
         shot = true;
+        useParabolicPath = false;
         if (damage != -1)
         {
             this.damage = damage;
@@ -33,8 +51,18 @@ public class Bullet : MonoBehaviour
                 SoundFXManager.Instance.PlaySound(shotSound, transform, 0.5f, 10, 1.0f, 0.8f);
                 shotSound = null; // Ensure sound plays only once
             }
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, moveDirection); // Align the top (Y-axis) with moveDirection
-            transform.Translate(speed * Time.deltaTime * Vector3.up, Space.Self); // Move in the direction of move direction
+
+            if (useParabolicPath)
+            {
+                transform.rotation = Quaternion.FromToRotation(Vector3.up, rb.velocity.normalized);
+            }
+            else
+            {
+                // linear movement
+                transform.rotation = Quaternion.FromToRotation(Vector3.up, moveDirection);
+                transform.Translate(speed * Time.deltaTime * Vector3.up, Space.Self);
+            }
+
             lifeTime += Time.deltaTime;
             if (lifeTime >= maxLifeTime)
                 Destroy(gameObject);

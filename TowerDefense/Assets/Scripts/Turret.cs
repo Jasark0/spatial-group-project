@@ -88,7 +88,7 @@ public class Turret : MonoBehaviour
                 {
                     Vector3 direction = target.transform.position - firePoint.position;
                     direction.y = 0;
-                    bulletScript.Init(direction, shotPower, "Turret");
+                    bulletScript.InitWithPower(direction, shotPower, "Turret");
                 }
             }
             timeOfLastAttack = Time.time;

@@ -23,7 +23,7 @@ public class GrabbableGun : MonoBehaviour
     public bool isSMG;
     public bool isAR;
     private bool isFiring = false;
-    
+
     // Reference to check if right controller is holding anything
     private Oculus.Interaction.GrabInteractor rightGrabInteractor;
 
@@ -35,9 +35,9 @@ public class GrabbableGun : MonoBehaviour
         {
             gunMeshFilter = GetComponent<MeshFilter>();
         }
-   
+
     }
-    
+
 
 
     void Update()
@@ -49,10 +49,10 @@ public class GrabbableGun : MonoBehaviour
             if (Player.instance.IsInBuildMode())
                 return;
 
-            if ( inHolster)
-                {
-                    return;
-                }
+            if (inHolster)
+            {
+                return;
+            }
 
             // Pistol (semi-auto)
             if (isPistol && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller) && Time.time >= nextFireTime)
@@ -77,7 +77,7 @@ public class GrabbableGun : MonoBehaviour
         }
     }
 
-        IEnumerator BurstFire(int burstCount)
+    IEnumerator BurstFire(int burstCount)
     {
         for (int i = 0; i < burstCount; i++)
         {
@@ -94,7 +94,7 @@ public class GrabbableGun : MonoBehaviour
             // Get position of the grab point relative to the player
             Vector3 grabPos = grabbable.GrabPoints[0].position;
             Transform cameraTransform = Camera.main.transform;
-            
+
             // If grab position is on the right side of the camera, it's likely the right hand
             if (Vector3.Dot(cameraTransform.right, grabPos - cameraTransform.position) > 0)
             {
@@ -105,7 +105,7 @@ public class GrabbableGun : MonoBehaviour
                 return OVRInput.Controller.LTouch;
             }
         }
-        
+
         // Default to both controllers if we can't determine
         return OVRInput.Controller.Touch;
     }
@@ -116,7 +116,7 @@ public class GrabbableGun : MonoBehaviour
         var dart = Instantiate(dartPrefab, barrelLocation.position, barrelLocation.transform.rotation);
         if (dart.TryGetComponent<Bullet>(out var bulletScript))
         {
-            bulletScript.Init(barrelLocation.forward, shotPower, "Turret");
+            bulletScript.InitWithPower(barrelLocation.forward, shotPower, "Turret");
         }
         // Desetroy the dart after X seconds.
         Destroy(dart, 3f);

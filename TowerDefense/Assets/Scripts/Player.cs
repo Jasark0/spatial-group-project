@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         instance = this;
         // DontDestroyOnLoad(gameObject);
     }
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         // Debug.Log(IsGrounded() ? "Player is grounded" : "Player is not grounded");
-        if ( SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "Main Menu 1")
+        if (SceneManager.GetActiveScene().name == "Main Menu" || SceneManager.GetActiveScene().name == "Main Menu 1")
         {
             // Disable player controls in the main menu scene
             return;
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
         if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) > 0.1f)
             return;
-        
+
         // Toggle view when X button on left controller is pressed (secondary thumb stick button)
         if (OVRInput.GetDown(keyBindForPovChange))
         {
@@ -142,10 +142,10 @@ public class Player : MonoBehaviour
 
         if (HandGrabLeft != null)
             HandGrabLeft.SetActive(mode == ViewMode.FirstPerson);
-            
+
         // Update the current mode
         currentMode = mode;
-            
+
         if (mode == ViewMode.Build)
         {
             transform.localScale = new Vector3(
@@ -157,11 +157,11 @@ public class Player : MonoBehaviour
             playerCollider.enabled = false;
             // Get the camera
             Camera mainCamera = GameObject.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Camera>();
-            
+
             // Disable the TransparentFX layer in the culling mask
             int transparentFXLayer = LayerMask.NameToLayer("Tower");
             mainCamera.cullingMask &= ~(1 << transparentFXLayer);
-            
+
             // Disable hand interactors in build mode
             DisableHandGrabInteractors();
         }
@@ -172,14 +172,14 @@ public class Player : MonoBehaviour
             playerCollider.enabled = true;
             // Get the camera
             Camera mainCamera = GameObject.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Camera>();
-            
+
             // Enable the TransparentFX layer in the culling mask
             int transparentFXLayer = LayerMask.NameToLayer("Tower");
             mainCamera.cullingMask |= (1 << transparentFXLayer);
             // Re-enable hand interactors in first person mode
             EnableHandGrabInteractors();
         }
-        
+
         // Notify subscribers about the mode change
         OnViewModeChanged?.Invoke(mode);
     }
@@ -188,9 +188,9 @@ public class Player : MonoBehaviour
     private bool IsHoldingAnything()
     {
         // Find all HandGrabInteractors in the player hierarchy
-        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors = 
+        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors =
             GetComponentsInChildren<Oculus.Interaction.HandGrab.HandGrabInteractor>();
-        
+
         foreach (var interactor in handGrabInteractors)
         {
             // Check if this hand is actively grabbing something
@@ -200,7 +200,7 @@ public class Player : MonoBehaviour
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -208,9 +208,9 @@ public class Player : MonoBehaviour
     private void DisableHandGrabInteractors()
     {
         // Find all HandGrabInteractors in the player hierarchy
-        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors = 
+        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors =
             GetComponentsInChildren<Oculus.Interaction.HandGrab.HandGrabInteractor>();
-        
+
         foreach (var interactor in handGrabInteractors)
         {
             interactor.enabled = false;
@@ -221,9 +221,9 @@ public class Player : MonoBehaviour
     private void EnableHandGrabInteractors()
     {
         // Find all HandGrabInteractors in the player hierarchy
-        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors = 
+        Oculus.Interaction.HandGrab.HandGrabInteractor[] handGrabInteractors =
             GetComponentsInChildren<Oculus.Interaction.HandGrab.HandGrabInteractor>();
-        
+
         foreach (var interactor in handGrabInteractors)
         {
             interactor.enabled = true;
@@ -234,21 +234,21 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         if (playerCollider == null) return false;
-        
+
         // Use OverlapCapsule to check for collision with ground layer
         // Get capsule dimensions and position
         Vector3 point0 = transform.position + playerCollider.center + Vector3.up * (playerCollider.height / 2 - playerCollider.radius);
         Vector3 point1 = transform.position + playerCollider.center + Vector3.down * (playerCollider.height / 2 - playerCollider.radius);
         float radius = playerCollider.radius * 0.95f; // Use slightly smaller radius to avoid detecting walls
-        
+
         // Check if the bottom of the capsule is overlapping with ground objects
         Collider[] colliders = Physics.OverlapCapsule(
-            point0, 
-            point1, 
+            point0,
+            point1,
             radius,
             groundLayer
         );
-        
+
         // If we found any ground colliders, we're grounded
         return colliders.Length > 0;
     }
@@ -268,7 +268,7 @@ public class Player : MonoBehaviour
             Vector3 randomPosition = new(x, 100, z);
             GameObject missile = Instantiate(missilePrefab, randomPosition, Quaternion.identity);
             missile.transform.localScale = new Vector3(2f, 2f, 2f);
-            missile.GetComponent<Bullet>().Init(Vector3.down, 300, "Turret");
+            missile.GetComponent<Bullet>().InitWithPower(Vector3.down, 300, "Turret");
         }
     }
 }

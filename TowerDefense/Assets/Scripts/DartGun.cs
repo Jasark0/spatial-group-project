@@ -26,7 +26,7 @@ public class DartGun : MonoBehaviour
         // dart.transform.eulerAngles += new Vector3(0, -90, 0);
         if (dart.TryGetComponent<Bullet>(out var bulletScript))
         {
-            bulletScript.Init(barrelLocation.forward, shotPower, "Turret");
+            bulletScript.InitWithPower(barrelLocation.forward, shotPower, "Turret");
         }
         // Desetroy the dart after X seconds.
         Destroy(dart, 3f);
