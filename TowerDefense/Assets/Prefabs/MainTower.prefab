@@ -353,7 +353,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 6.3106337, w: 0}
+  m_margin: {x: -1.5911379, y: 0, z: -5.3350496, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -622,7 +622,9 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   healthText: []
   towerHealthDisplay: {fileID: 6917890366321106690}
+  playerScoreDisplay: {fileID: 513561010997063346}
   waves: {fileID: 0}
+  towerhitSound: {fileID: 0}
 --- !u!65 &-6302001685785679358
 BoxCollider:
   m_ObjectHideFlags: 0
